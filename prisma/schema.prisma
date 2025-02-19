@@ -14,25 +14,64 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  name      String
-  email     String     @unique
-  password  String
-  questions Question[]
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  password    String
+  phone       String
+  isActive    Boolean      @default(true)
+  times       Time[]
+  services    Service[]
+  appontments Appontment[]
 
   @@map("users")
 }
 
-model Question {
+model Time {
   id        String    @id @default(uuid())
-  title     String
-  slug      String    @unique
-  content   String
+  name      String
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  authorId  String    @map("author_id")
+  isActive  Boolean   @default(true)
 
-  author User @relation(fields: [authorId], references: [id])
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
 
-  @@map("questions")
+  appontmentId String     @map("appontment_id")
+  appontment   Appontment @relation(fields: [appontmentId], references: [id])
+
+  @@map("times")
+}
+
+model Service {
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  isActive  Boolean   @default(true)
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  appontmentId String     @map("appontment_id")
+  appontment   Appontment @relation(fields: [appontmentId], references: [id])
+
+  @@map("services")
+}
+
+model Appontment {
+  id        String    @id @default(uuid())
+  status    String    @default("agendado")
+  slug      String    @unique
+  content   String
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  userId    String    @map("user_id")
+  services  Service[]
+  times     Time[]
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("appontments")
 }
