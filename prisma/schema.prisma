@@ -37,8 +37,7 @@ model Time {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  appontmentId String     @map("appontment_id")
-  appontment   Appontment @relation(fields: [appontmentId], references: [id])
+  appontments Appontment[]
 
   @@map("times")
 }
@@ -53,8 +52,7 @@ model Service {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  appontmentId String     @map("appontment_id")
-  appontment   Appontment @relation(fields: [appontmentId], references: [id])
+  appontments Appontment[]
 
   @@map("services")
 }
@@ -62,16 +60,18 @@ model Service {
 model Appontment {
   id        String    @id @default(uuid())
   status    String    @default("agendado")
-  slug      String    @unique
-  content   String
   isActive  Boolean   @default(true)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
   userId    String    @map("user_id")
-  services  Service[]
-  times     Time[]
 
   user User @relation(fields: [userId], references: [id])
+
+  timeId String? @map("time_id")
+  time   Time?   @relation(fields: [timeId], references: [id])
+
+  serviceId String?  @map("service_id")
+  service   Service? @relation(fields: [serviceId], references: [id])
 
   @@map("appontments")
 }
