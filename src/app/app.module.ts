@@ -6,6 +6,7 @@ import { UserModule } from 'src/user/user.module'
 import { PrismaService } from '../shared/enterprise/database/prisma/prisma.servoce'
 import { ConfigModule } from '@nestjs/config'
 import { envSchema } from 'src/shared/env/env'
+import { AuthModule } from 'src/auth/auth.module'
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { envSchema } from 'src/shared/env/env'
       validate: env => envSchema.parse(env),
       isGlobal: true,
     }),
+    AuthModule,
     UserModule,
     TimeModule,
     ServiceModule,

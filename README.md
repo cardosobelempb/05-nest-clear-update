@@ -17,6 +17,11 @@
 - npm i bcryptjs
 - npm i @types/bcryptjs -D
 
+## JWT
+
+- npm i @nestjs/jwt
+- npm i @nestjs/passport
+
 ## Validation
 
 - npm i zod
