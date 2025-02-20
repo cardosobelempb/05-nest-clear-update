@@ -2,6 +2,8 @@ import { ConflictException } from '@nestjs/common'
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { PrismaService } from 'src/shared/enterprise/database/prisma/prisma.servoce'
 
+import { hash } from 'bcryptjs'
+
 export namespace UserSignUpProps {
   export type Request = {
     name: string
@@ -32,10 +34,12 @@ export class UserSignUpController {
       throw new ConflictException('User with e-amil address already exists.')
     }
 
+    const hashedPassword = await hash(password, 8)
+
     const data = {
       name,
       email,
-      password,
+      password: hashedPassword,
       phone,
     }
     await this.prisma.user.create({

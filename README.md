@@ -13,7 +13,8 @@
 
 ## Dep
 
-## Dep/Dev
+- npm i bcryptjs
+- npm i @types/bcryptjs -D
 
 ## Docker
 
