@@ -16,6 +16,11 @@
 - npm i bcryptjs
 - npm i @types/bcryptjs -D
 
+## Validation
+
+- npm i zod
+- npm i zod-validation-error
+
 ## Docker
 
 - docker-compose up -d
