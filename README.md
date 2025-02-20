@@ -13,6 +13,7 @@
 
 ## Dep
 
+- npm i @nestjs/config
 - npm i bcryptjs
 - npm i @types/bcryptjs -D
 
