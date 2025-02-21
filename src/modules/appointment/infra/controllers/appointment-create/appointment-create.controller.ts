@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common'
+import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { PrismaService } from 'src/shared/enterprise/database/prisma/prisma.servoce'
 import { JwtGuard } from 'src/shared/infra/guards/jwt/jwt.guard'
@@ -15,8 +8,8 @@ import { z } from 'zod'
 
 export namespace AppointmentProps {
   export const request = z.object({
-    time_id: z.string(),
-    service_id: z.string(),
+    timeId: z.string(),
+    serviceId: z.string(),
   })
 
   export type Request = z.infer<typeof request>
@@ -36,11 +29,11 @@ export class AppointmentCreateController {
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
     console.log('User => ', user.sub)
-    const { service_id, time_id } = body
+    const { serviceId, timeId } = body
 
     const data: Prisma.AppontmentUncheckedCreateInput = {
-      serviceId: service_id,
-      timeId: time_id,
+      serviceId,
+      timeId,
       userId: user.sub,
     }
 
