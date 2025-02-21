@@ -1,8 +1,16 @@
-import { Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
+import {
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import { PrismaService } from 'src/shared/enterprise/database/prisma/prisma.servoce'
-import { User, Appontment, Prisma } from '@prisma/client'
+import { JwtGuard } from 'src/shared/infra/guards/jwt/jwt.guard'
 
 @Controller('/times')
+@UseGuards(JwtGuard)
 export class TimeCreateController {
   constructor(private readonly prisma: PrismaService) {}
 
