@@ -1,4 +1,6 @@
 import {
+  Body,
+  ConflictException,
   Controller,
   HttpCode,
   HttpStatus,
@@ -8,6 +10,19 @@ import {
 import { Prisma } from '@prisma/client'
 import { PrismaService } from 'src/shared/enterprise/database/prisma/prisma.servoce'
 import { JwtGuard } from 'src/shared/infra/guards/jwt/jwt.guard'
+import { JwtPayloadInfer } from 'src/shared/infra/guards/jwt/jwt.strategy'
+import { UserInLoggaed } from 'src/shared/infra/guards/jwt/user-in-logged.decorator'
+import { z } from 'zod'
+
+export namespace TimeProps {
+  export const request = z.object({
+    name: z.string(),
+  })
+
+  export type Request = z.infer<typeof request>
+
+  export interface Response {}
+}
 
 @Controller('/times')
 @UseGuards(JwtGuard)
@@ -16,10 +31,25 @@ export class TimeCreateController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async handle() {
+  async handle(
+    @Body() body: TimeProps.Request,
+    @UserInLoggaed() user: JwtPayloadInfer,
+  ) {
+    const { name } = body
+
+    const time = await this.prisma.time.findFirst({
+      where: {
+        name,
+      },
+    })
+
+    if (time) {
+      throw new ConflictException('Time with name already exists.')
+    }
+
     const data: Prisma.TimeUncheckedCreateInput = {
-      name: '07:00',
-      userId: 'd89bc3a9-a559-45f3-bae8-12e556fcf5e5',
+      name,
+      userId: user.sub,
     }
     await this.prisma.time.create({
       data,

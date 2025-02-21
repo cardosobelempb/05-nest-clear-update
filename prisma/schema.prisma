@@ -23,6 +23,7 @@ model User {
   times       Time[]
   services    Service[]
   appontments Appontment[]
+  categories  Category[]
 
   @@map("users")
 }
@@ -30,9 +31,10 @@ model User {
 model Time {
   id        String    @id @default(uuid())
   name      String
+  isValue   Boolean   @default(false)
+  isActive  Boolean   @default(true)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  isActive  Boolean   @default(true)
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
@@ -45,9 +47,10 @@ model Time {
 model Service {
   id        String    @id @default(uuid())
   name      String
+  isValue   Boolean   @default(false)
+  isActive  Boolean   @default(true)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  isActive  Boolean   @default(true)
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
@@ -55,6 +58,20 @@ model Service {
   appontments Appontment[]
 
   @@map("services")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String
+  isValue   Boolean   @default(false)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("categories")
 }
 
 model Appontment {
