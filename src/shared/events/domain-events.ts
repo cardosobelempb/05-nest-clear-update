@@ -7,6 +7,7 @@ type DomainEventCallback = (event: any) => void
 export class DomainEvents {
   private static handlersMap: Record<string, DomainEventCallback[]> = {}
   private static markedAggregates: AggregateRoot<unknown>[] = []
+  static shouldRun: boolean
 
   public static markAggregateForDispatch(aggregate: AggregateRoot<unknown>) {
     const aggregateFound = !!this.findMarkedAggregateByID(aggregate.id)

@@ -16,6 +16,7 @@
 - npm i @nestjs/config
 - npm i bcryptjs
 - npm i @types/bcryptjs -D
+- npm i dotenv -D
 
 ## JWT
 
