@@ -11,7 +11,7 @@ import { JwtGuard } from 'src/shared/infra/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from 'src/shared/infra/pipes/zod-validation.pipe'
 import { z } from 'zod'
 
-export namespace ServiceFindManyProps {
+export namespace UserFindManyProps {
   const params = z
     .string()
     .optional()
@@ -26,25 +26,25 @@ export namespace ServiceFindManyProps {
   export interface Response {}
 }
 
-@Controller('/services')
+@Controller('/users')
 @UseGuards(JwtGuard)
-export class ServiceFindManyController {
+export class UserFindManyController {
   constructor(private readonly prisma: PrismaService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async handle(
-    @Query('page', ServiceFindManyProps.request)
-    page: ServiceFindManyProps.Request,
+    @Query('page', UserFindManyProps.request)
+    page: UserFindManyProps.Request,
   ) {
     const perPage = 1
-    const services = await this.prisma.service.findMany({
+    const users = await this.prisma.user.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
       orderBy: {
         createdAt: 'desc',
       },
     })
-    return { services }
+    return { users }
   }
 }
