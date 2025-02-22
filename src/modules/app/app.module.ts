@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { AppointmentModule } from 'src/modules/appointment/appointment.module'
-import { AuthModule } from 'src/modules/auth/auth.module'
-import { ServiceModule } from 'src/modules/service/service.module'
-import { TimeModule } from 'src/modules/time/time.module'
-import { UserModule } from 'src/modules/user/user.module'
-import { envSchema } from 'src/shared/env/env'
+import { AppointmentModule } from '@/modules/appointment/appointment.module'
+import { AuthModule } from '@/modules/auth/auth.module'
+import { ServiceModule } from '@/modules/service/service.module'
+import { TimeModule } from '@/modules/time/time.module'
+import { UserModule } from '@/modules/user/user.module'
+import { envSchema } from '@/shared/env/env'
 import { PrismaService } from '../../shared/enterprise/database/prisma/prisma.servoce'
 
 @Module({

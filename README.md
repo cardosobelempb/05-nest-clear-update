@@ -51,3 +51,11 @@
 
 - openssl rsa -pubout -in private_key.pem -out public_key.pub
 - certutil -encode public_key.pub public_key.txt
+
+## Vitest
+
+- npm i vitest -D
+- npm i unplugin-swc -D
+- npm i @swc/core -D
+- npm i @vitest/coverage-v8 -D
+- npm i vite-tsconfig-paths -D

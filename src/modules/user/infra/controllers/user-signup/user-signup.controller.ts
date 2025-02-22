@@ -1,10 +1,10 @@
 import { ConflictException, UsePipes } from '@nestjs/common'
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
-import { PrismaService } from 'src/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
 
 import { hash } from 'bcryptjs'
 import { z } from 'zod'
-import { ZodValidationPipe } from 'src/shared/infra/pipes/zod-validation.pipe'
+import { ZodValidationPipe } from '@/shared/infra/pipes/zod-validation.pipe'
 
 export namespace UserSignUpProps {
   export const request = z.object({
