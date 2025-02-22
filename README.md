@@ -60,3 +60,5 @@
 - npm i @swc/core -D
 - npm i @vitest/coverage-v8 -D
 - npm i vite-tsconfig-paths -D
+- npm i supertest -D
+- npm i @types/supertest -D
