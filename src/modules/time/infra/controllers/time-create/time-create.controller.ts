@@ -1,3 +1,7 @@
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
+import { JwtPayloadInfer } from '@/shared/infra/guards/jwt/jwt.strategy'
+import { UserInLoggaed } from '@/shared/infra/guards/jwt/user-in-logged.decorator'
 import {
   Body,
   ConflictException,
@@ -8,10 +12,6 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
-import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
-import { JwtPayloadInfer } from '@/shared/infra/guards/jwt/jwt.strategy'
-import { UserInLoggaed } from '@/shared/infra/guards/jwt/user-in-logged.decorator'
 import { z } from 'zod'
 
 export namespace TimeProps {
@@ -36,7 +36,6 @@ export class TimeCreateController {
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
     const { name } = body
-    console.log('User => ', user.sub)
 
     const time = await this.prisma.time.findFirst({
       where: {

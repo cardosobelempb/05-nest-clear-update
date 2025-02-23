@@ -6,7 +6,7 @@ import { Test } from '@nestjs/testing'
 import { hash } from 'bcryptjs'
 import request from 'supertest'
 
-describe('TimeCreateController (E2E)', () => {
+describe('TimeFindManyController (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
   let jwt: JwtService
@@ -24,7 +24,7 @@ describe('TimeCreateController (E2E)', () => {
     await app.init()
   })
 
-  test('[POST] /times', async () => {
+  test('[GET] /times', async () => {
     const user = await prisma.user.create({
       data: {
         name: 'John Doe',
@@ -38,18 +38,19 @@ describe('TimeCreateController (E2E)', () => {
       sub: user.id,
     })
 
+    const times = await prisma.time.createMany({
+      data: [
+        { name: 'Time-01', userId: user.id },
+        { name: 'Time-02', userId: user.id }
+      ],
+    })
+
     const response = await request(app.getHttpServer())
-      .post('/times')
+      .get('/times')
       .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-      name: 'Time 01',
-    })
+      .send()
 
-    const timesOndatabase = await prisma.time.findFirst({
-      where: { name: 'Time 01' },
-    })
-
-    expect(response.statusCode).toBe(201)
-    expect(timesOndatabase).toBeTruthy()
+    expect(response.statusCode).toBe(200)
+    expect(times.count).toEqual(2)
   })
 })

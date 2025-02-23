@@ -24,7 +24,7 @@ describe('AuthController (E2E)', () => {
 
   test('[POST] /auth/token', async () => {
 
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         name: 'John Doe',
         phone: "83999887766",
@@ -36,10 +36,6 @@ describe('AuthController (E2E)', () => {
     const response = await request(app.getHttpServer()).post('/auth/token').send({
       email: 'johndoe@example.com',
       password: '123456',
-    })
-
-    const userOndatabase = await prisma.user.findUnique({
-      where: {email: 'johndoe@example.com'}
     })
 
     expect(response.statusCode).toBe(201)
