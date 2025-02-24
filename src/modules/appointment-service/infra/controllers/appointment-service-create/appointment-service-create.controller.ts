@@ -8,15 +8,18 @@ import {
   UseGuards,
 } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
 import { JwtPayloadInfer } from '@/shared/infra/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infra/guards/jwt/user-in-logged.decorator'
 import { z } from 'zod'
+import { ResourceNotFoundErro } from '@/shared/application/service-erros/resource-not-found.error'
 
-export namespace ServiceProps {
+export namespace AppontmentServiceProps {
   export const request = z.object({
     name: z.string(),
+    price: z.number(),
+    appointmentTimeId: z.string(),
   })
 
   export type Request = z.infer<typeof request>
@@ -26,33 +29,44 @@ export namespace ServiceProps {
 
 @Controller('/services')
 @UseGuards(JwtGuard)
-export class ServiceCreateController {
+export class AppointmentServiceCreateController {
   constructor(private readonly prisma: PrismaService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async handle(
-    @Body() body: ServiceProps.Request,
+    @Body() body: AppontmentServiceProps.Request,
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
-    const { name } = body
-    console.log('User => ', user.sub)
+    const { name, price, appointmentTimeId } = body
 
-    const service = await this.prisma.service.findFirst({
+    const appointmentService = await this.prisma.appointmentService.findFirst({
       where: {
         name,
       },
     })
 
-    if (service) {
+    if (appointmentService) {
       throw new ConflictException('Service with name already exists.')
     }
 
-    const data: Prisma.ServiceUncheckedCreateInput = {
-      name,
-      userId: user.sub,
+    const appointmentTime = await this.prisma.appointmentTime.findUnique({
+      where: {
+        id: appointmentTimeId,
+      },
+    })
+
+    if (!appointmentTime) {
+      throw new ResourceNotFoundErro()
     }
-    await this.prisma.service.create({
+
+    const data: Prisma.AppointmentServiceUncheckedCreateInput = {
+      name,
+      price,
+      userId: user.sub,
+      appointmentTimeId: appointmentTime.id,
+    }
+    await this.prisma.appointmentService.create({
       data,
     })
   }

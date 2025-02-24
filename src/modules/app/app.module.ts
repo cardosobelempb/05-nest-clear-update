@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { AppointmentServiceModule } from '@/modules/appointment-service/appointment-service.module'
+import { AppointmentTimeModule } from '@/modules/appointment-time/appointment-time.module'
 import { AppointmentModule } from '@/modules/appointment/appointment.module'
 import { AuthModule } from '@/modules/auth/auth.module'
-import { ServiceModule } from '@/modules/service/service.module'
-import { TimeModule } from '@/modules/time/time.module'
 import { UserModule } from '@/modules/user/user.module'
 import { envSchema } from '@/shared/env/env'
-import { PrismaService } from '../../shared/enterprise/database/prisma/prisma.servoce'
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
+import { AppointmentCategoryModule } from '@/modules/appointment-category/appointment-category.module'
 
 @Module({
   imports: [
@@ -17,8 +18,9 @@ import { PrismaService } from '../../shared/enterprise/database/prisma/prisma.se
     AuthModule,
     UserModule,
     AppointmentModule,
-    TimeModule,
-    ServiceModule,
+    AppointmentTimeModule,
+    AppointmentServiceModule,
+    AppointmentCategoryModule,
   ],
   controllers: [],
   providers: [PrismaService],

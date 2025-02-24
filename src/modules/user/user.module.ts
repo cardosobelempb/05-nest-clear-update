@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { UserSignUpController } from './infra/controllers/user-signup/user-signup.controller'
 import { UserFindManyController } from './infra/controllers/user-find-many/user-find-many.controller'
 

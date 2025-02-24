@@ -1,12 +1,12 @@
 import { AppModule } from '@/modules/app/app.module'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import { hash } from 'bcryptjs'
 import request from 'supertest'
 
-describe('TimeCreateController (E2E)', () => {
+describe('AppointmentCategoryCreateController (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
   let jwt: JwtService
@@ -24,7 +24,7 @@ describe('TimeCreateController (E2E)', () => {
     await app.init()
   })
 
-  test('[POST] /times', async () => {
+  test('[POST] /categories', async () => {
     const user = await prisma.user.create({
       data: {
         name: 'John Doe',
@@ -39,17 +39,17 @@ describe('TimeCreateController (E2E)', () => {
     })
 
     const response = await request(app.getHttpServer())
-      .post('/times')
+      .post('/categories')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-      name: 'Time 01',
-    })
+        name: 'Category 01',
+      })
 
-    const timesOndatabase = await prisma.time.findFirst({
-      where: { name: 'Time 01' },
+    const categoryOndatabase = await prisma.appointmentCategory.findFirst({
+      where: { name: 'Category 01' },
     })
 
     expect(response.statusCode).toBe(201)
-    expect(timesOndatabase).toBeTruthy()
+    expect(categoryOndatabase).toBeTruthy()
   })
 })

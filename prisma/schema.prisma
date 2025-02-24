@@ -23,30 +23,50 @@ model User {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  times       Time[]
-  services    Service[]
-  appontments Appontment[]
-  categories  Category[]
+  appointmentTimes     AppointmentTime[]
+  appointmentServices  AppointmentService[]
+  appointmentCategorys AppointmentCategory[]
+  appontments          Appontment[]
 
   @@map("users")
 }
 
-model Time {
+model AppointmentTime {
   id        String    @id @default(uuid())
   name      String
   isActive  Boolean   @default(true)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  appontments         Appontment[]
+  appointmentServices AppointmentService[]
+
+  @@map("appointment_times")
+}
+
+model AppointmentService {
+  id        String    @id @default(uuid())
+  name      String
+  price     Decimal
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  appointmentTimeId String          @map("appointment_time_id")
+  appointmentTime   AppointmentTime @relation(fields: [appointmentTimeId], references: [id])
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
   appontments Appontment[]
 
-  @@map("times")
+  @@map("appointment_services")
 }
 
-model Service {
+model AppointmentCategory {
   id        String    @id @default(uuid())
   name      String
   isActive  Boolean   @default(true)
@@ -56,22 +76,7 @@ model Service {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  appontments Appontment[]
-
-  @@map("services")
-}
-
-model Category {
-  id        String    @id @default(uuid())
-  name      String
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
-
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
-
-  @@map("categories")
+  @@map("appointment_categories")
 }
 
 model Appontment {
@@ -84,11 +89,11 @@ model Appontment {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  timeId String? @map("time_id")
-  time   Time?   @relation(fields: [timeId], references: [id])
+  appointmentTimeId String?          @map("appontment_time_id")
+  appointmentTime   AppointmentTime? @relation(fields: [appointmentTimeId], references: [id])
 
-  serviceId String?  @map("service_id")
-  service   Service? @relation(fields: [serviceId], references: [id])
+  appointmentServiceId String?             @map("appointment_service_id")
+  appointmentService   AppointmentService? @relation(fields: [appointmentServiceId], references: [id])
 
   @@map("appontments")
 }

@@ -6,12 +6,12 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infra/pipes/zod-validation.pipe'
 import { z } from 'zod'
 
-export namespace ServiceFindManyProps {
+export namespace AppointmentServiceFindManyProps {
   const params = z
     .string()
     .optional()
@@ -28,17 +28,17 @@ export namespace ServiceFindManyProps {
 
 @Controller('/services')
 @UseGuards(JwtGuard)
-export class ServiceFindManyController {
+export class AppointmentServiceFindManyController {
   constructor(private readonly prisma: PrismaService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async handle(
-    @Query('page', ServiceFindManyProps.request)
-    page: ServiceFindManyProps.Request,
+    @Query('page', AppointmentServiceFindManyProps.request)
+    page: AppointmentServiceFindManyProps.Request,
   ) {
-    const perPage = 1
-    const services = await this.prisma.service.findMany({
+    const perPage = 20
+    const services = await this.prisma.appointmentService.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
       orderBy: {

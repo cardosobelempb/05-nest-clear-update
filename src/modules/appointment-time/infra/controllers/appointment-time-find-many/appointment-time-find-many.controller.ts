@@ -8,12 +8,10 @@ import {
 } from '@nestjs/common'
 import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
-import { JwtPayloadInfer } from '@/shared/infra/guards/jwt/jwt.strategy'
-import { UserInLoggaed } from '@/shared/infra/guards/jwt/user-in-logged.decorator'
 import { ZodValidationPipe } from '@/shared/infra/pipes/zod-validation.pipe'
 import { z } from 'zod'
 
-export namespace AppointmentFindManyProps {
+export namespace AppointmentTimeFindManyProps {
   const params = z
     .string()
     .optional()
@@ -28,26 +26,25 @@ export namespace AppointmentFindManyProps {
   export interface Response {}
 }
 
-@Controller('/appointments')
+@Controller('/times')
 @UseGuards(JwtGuard)
-export class AppointmentFindManyController {
+export class AppointmentTimeFindManyController {
   constructor(private readonly prisma: PrismaService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async handle(
-    @Query('page', AppointmentFindManyProps.request)
-    page: AppointmentFindManyProps.Request,
-    @UserInLoggaed() user: JwtPayloadInfer,
+    @Query('page', AppointmentTimeFindManyProps.request)
+    page: AppointmentTimeFindManyProps.Request,
   ) {
-    const perPage = 20
-    const appontments = await this.prisma.appontment.findMany({
+    const perPage = 1
+    const times = await this.prisma.appointmentTime.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
       orderBy: {
         createdAt: 'desc',
       },
     })
-    return { appontments }
+    return { times }
   }
 }

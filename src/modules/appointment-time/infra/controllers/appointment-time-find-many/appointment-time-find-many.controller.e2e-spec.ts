@@ -1,12 +1,12 @@
 import { AppModule } from '@/modules/app/app.module'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import { hash } from 'bcryptjs'
 import request from 'supertest'
 
-describe('TimeFindManyController (E2E)', () => {
+describe('AppointmentTimeFindManyController (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
   let jwt: JwtService
@@ -38,10 +38,10 @@ describe('TimeFindManyController (E2E)', () => {
       sub: user.id,
     })
 
-    const times = await prisma.time.createMany({
+    const times = await prisma.appointmentTime.createMany({
       data: [
         { name: 'Time-01', userId: user.id },
-        { name: 'Time-02', userId: user.id }
+        { name: 'Time-02', userId: user.id },
       ],
     })
 

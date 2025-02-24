@@ -4,7 +4,7 @@ import {
   UsePipes,
 } from '@nestjs/common'
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 
 import { compare } from 'bcryptjs'
 import { z } from 'zod'

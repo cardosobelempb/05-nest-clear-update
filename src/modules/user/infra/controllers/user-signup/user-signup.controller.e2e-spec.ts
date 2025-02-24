@@ -1,5 +1,5 @@
 import { AppModule } from '@/modules/app/app.module'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
@@ -23,13 +23,13 @@ describe('UserSignUpController (E2E)', () => {
   test('[POST] /signup', async () => {
     const response = await request(app.getHttpServer()).post('/signup').send({
       name: 'John Doe',
-      phone: "83999887766",
+      phone: '83999887766',
       email: 'johndoe@example.com',
       password: '123456',
     })
 
     const userOndatabase = await prisma.user.findUnique({
-      where: {email: 'johndoe@example.com'}
+      where: { email: 'johndoe@example.com' },
     })
 
     expect(response.statusCode).toBe(201)

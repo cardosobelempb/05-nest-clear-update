@@ -1,4 +1,4 @@
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
 import { JwtPayloadInfer } from '@/shared/infra/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infra/guards/jwt/user-in-logged.decorator'
@@ -14,7 +14,7 @@ import {
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
-export namespace TimeProps {
+export namespace AppointmentCategoryProps {
   export const request = z.object({
     name: z.string(),
   })
@@ -24,34 +24,34 @@ export namespace TimeProps {
   export interface Response {}
 }
 
-@Controller('/times')
+@Controller('/categories')
 @UseGuards(JwtGuard)
-export class TimeCreateController {
+export class AppointmentCategoryCreateController {
   constructor(private readonly prisma: PrismaService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async handle(
-    @Body() body: TimeProps.Request,
+    @Body() body: AppointmentCategoryProps.Request,
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
     const { name } = body
 
-    const time = await this.prisma.time.findFirst({
+    const category = await this.prisma.appointmentCategory.findFirst({
       where: {
         name,
       },
     })
 
-    if (time) {
-      throw new ConflictException('Time with name already exists.')
+    if (category) {
+      throw new ConflictException('Category with name already exists.')
     }
 
-    const data: Prisma.TimeUncheckedCreateInput = {
+    const data: Prisma.AppointmentCategoryUncheckedCreateInput = {
       name,
       userId: user.sub,
     }
-    await this.prisma.time.create({
+    await this.prisma.appointmentCategory.create({
       data,
     })
   }

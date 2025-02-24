@@ -6,12 +6,12 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.servoce'
+import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
 import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infra/pipes/zod-validation.pipe'
 import { z } from 'zod'
 
-export namespace TimeFindManyProps {
+export namespace AppointmentCategoryFindManyProps {
   const params = z
     .string()
     .optional()
@@ -26,25 +26,25 @@ export namespace TimeFindManyProps {
   export interface Response {}
 }
 
-@Controller('/times')
+@Controller('/categories')
 @UseGuards(JwtGuard)
-export class TimeFindManyController {
+export class AppointmentCategoryFindManyController {
   constructor(private readonly prisma: PrismaService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
   async handle(
-    @Query('page', TimeFindManyProps.request)
-    page: TimeFindManyProps.Request,
+    @Query('page', AppointmentCategoryFindManyProps.request)
+    page: AppointmentCategoryFindManyProps.Request,
   ) {
     const perPage = 1
-    const times = await this.prisma.time.findMany({
+    const categorys = await this.prisma.appointmentCategory.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
       orderBy: {
         createdAt: 'desc',
       },
     })
-    return { times }
+    return { categorys }
   }
 }
