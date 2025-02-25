@@ -4,6 +4,7 @@ import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 
 import { envSchema } from '../env/env'
+import { DomainEvents } from '../events/domain-events'
 
 config({ path: '.env', override: true })
 config({ path: '.env.test', override: true })
@@ -36,7 +37,7 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL
 
-  // DomainEvents.shouldRun = false
+  DomainEvents.shouldRun = false
 
   // await redis.flushdb()
 
