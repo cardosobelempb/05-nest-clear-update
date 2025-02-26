@@ -2,13 +2,15 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
-import { EnvType } from '@/shared/env/env'
+import { EnvType } from '@/shared/infrastructure/env/env'
 import { AuthController } from './infrastructure/controllers/auth/auth/auth.controller'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
-import { JwtStrategy } from '@/shared/infra/guards/jwt/jwt.strategy'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { JwtStrategy } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
+import { DatabaseModule } from './database.module'
 
 @Module({
   imports: [
+    DatabaseModule,
     PassportModule,
     JwtModule.registerAsync({
       global: true,
@@ -24,7 +26,7 @@ import { JwtStrategy } from '@/shared/infra/guards/jwt/jwt.strategy'
       },
     }),
   ],
-  controllers: [AuthController],
-  providers: [PrismaService, JwtStrategy],
+  controllers: [],
+  providers: [JwtStrategy],
 })
-export class AuthModule {}
+export class AuthenticationModule {}

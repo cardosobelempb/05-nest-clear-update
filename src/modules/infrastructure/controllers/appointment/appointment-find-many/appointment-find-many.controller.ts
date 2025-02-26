@@ -6,11 +6,11 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
-import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
-import { JwtPayloadInfer } from '@/shared/infra/guards/jwt/jwt.strategy'
-import { UserInLoggaed } from '@/shared/infra/guards/jwt/user-in-logged.decorator'
-import { ZodValidationPipe } from '@/shared/infra/pipes/zod-validation.pipe'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
+import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
+import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
+import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
 import { z } from 'zod'
 
 export namespace AppointmentFindManyProps {

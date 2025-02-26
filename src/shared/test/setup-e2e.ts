@@ -3,8 +3,8 @@ import { config } from 'dotenv'
 import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 
-import { envSchema } from '../env/env'
-import { DomainEvents } from '../events/domain-events'
+import { envSchema } from '../infrastructure/env/env'
+import { DomainEvents } from '../infrastructure/events/domain-events'
 
 config({ path: '.env', override: true })
 config({ path: '.env.test', override: true })

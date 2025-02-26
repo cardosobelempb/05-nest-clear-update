@@ -1,7 +1,8 @@
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
-import { JwtGuard } from '@/shared/infra/guards/jwt/jwt.guard'
-import { JwtPayloadInfer } from '@/shared/infra/guards/jwt/jwt.strategy'
-import { UserInLoggaed } from '@/shared/infra/guards/jwt/user-in-logged.decorator'
+import { AppointmentTimeCreatedUseCase } from '@/modules/application/use-cases/appointment-time/created/appointment-time-created.usercase'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
+import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
+import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
 import {
   Body,
   ConflictException,
@@ -27,7 +28,9 @@ export namespace AppointmentTimeProps {
 @Controller('/times')
 @UseGuards(JwtGuard)
 export class AppointmentTimeCreateController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly appointmetTimeCreatedUseCase: AppointmentTimeCreatedUseCase,
+  ) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
@@ -37,22 +40,20 @@ export class AppointmentTimeCreateController {
   ) {
     const { name } = body
 
-    const appointmentTime = await this.prisma.appointmentTime.findFirst({
-      where: {
-        name,
-      },
-    })
+    // const appointmentTime = await this.prisma.appointmentTime.findFirst({
+    //   where: {
+    //     name,
+    //   },
+    // })
 
-    if (appointmentTime) {
-      throw new ConflictException('Time with name already exists.')
-    }
+    // if (appointmentTime) {
+    //   throw new ConflictException('Time with name already exists.')
+    // }
 
-    const data: Prisma.AppointmentTimeUncheckedCreateInput = {
-      name,
-      userId: user.sub,
-    }
-    await this.prisma.appointmentTime.create({
-      data,
-    })
+    // const data: Prisma.AppointmentTimeUncheckedCreateInput = {
+    //   name,
+    //   userId: user.sub,
+    // }
+    // await this.appointmetTimeCreatedUseCase.execute(name)
   }
 }

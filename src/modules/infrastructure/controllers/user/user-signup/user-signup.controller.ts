@@ -1,4 +1,4 @@
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import {
   Body,
   ConflictException,
@@ -9,7 +9,7 @@ import {
   UsePipes,
 } from '@nestjs/common'
 
-import { ZodValidationPipe } from '@/shared/infra/pipes/zod-validation.pipe'
+import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
 import { hash } from 'bcryptjs'
 import { z } from 'zod'
 

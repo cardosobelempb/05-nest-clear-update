@@ -11,7 +11,7 @@ export namespace AppointmentServiceProps {
     userId: UniqueEntityUUID
     appointmentTimeId: UniqueEntityUUID
     createdAt: Date
-    updatedAt?: Date
+    updatedAt?: Date | null
   }
   export interface Id {
     timeId: string

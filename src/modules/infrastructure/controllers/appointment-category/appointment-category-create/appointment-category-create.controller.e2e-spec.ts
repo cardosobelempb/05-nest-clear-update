@@ -1,5 +1,5 @@
 import { AppModule } from '@/modules/app.module'
-import { PrismaService } from '@/shared/enterprise/database/prisma/prisma.service'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { waitFor } from '@/shared/utils/wait-for'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'

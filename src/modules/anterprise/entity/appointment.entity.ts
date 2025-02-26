@@ -2,31 +2,41 @@ import { Entity } from '@/shared/enterprise/entities/entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Optional } from '@prisma/client/runtime/library'
 
-export namespace AppointmentCategoryProps {
+export namespace AppointmentProps {
   export interface Props {
-    name: string
+    status: string
     isActive: boolean
     userId: UniqueEntityUUID
+    appointmentTimeId: UniqueEntityUUID
+    appointmentServiceId: UniqueEntityUUID
     createdAt: Date
     updatedAt?: Date | null
   }
   export interface Id {
-    categoryId: string
+    Id: string
   }
 }
 
-export class AppointmentCategoryEntity extends Entity<AppointmentCategoryProps.Props> {
-  get name() {
-    return this.props.name
+export class AppointmentEntity extends Entity<AppointmentProps.Props> {
+  get status() {
+    return this.props.status
   }
 
-  set name(name: string) {
-    this.props.name = name
+  set status(status: string) {
+    this.props.status = status
     this.touch()
   }
 
   get userId() {
     return this.props.userId
+  }
+
+  get appointmentTimeId() {
+    return this.props.appointmentTimeId
+  }
+
+  get appointmentServiceId() {
+    return this.props.appointmentServiceId
   }
 
   get createdAt() {
@@ -42,10 +52,10 @@ export class AppointmentCategoryEntity extends Entity<AppointmentCategoryProps.P
   }
 
   static create(
-    props: Optional<AppointmentCategoryProps.Props, 'createdAt'>,
+    props: Optional<AppointmentProps.Props, 'createdAt'>,
     id?: UniqueEntityUUID,
   ) {
-    const time = new AppointmentCategoryEntity(
+    const appointment = new AppointmentEntity(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
@@ -53,6 +63,6 @@ export class AppointmentCategoryEntity extends Entity<AppointmentCategoryProps.P
       id,
     )
 
-    return time
+    return appointment
   }
 }

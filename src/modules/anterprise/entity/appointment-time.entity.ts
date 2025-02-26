@@ -8,7 +8,7 @@ export namespace AppointmentTimeProps {
     isActive: boolean
     userId: UniqueEntityUUID
     createdAt: Date
-    updatedAt?: Date
+    updatedAt?: Date | null
   }
   export interface Id {
     timeId: string
@@ -23,6 +23,10 @@ export class AppointmentTimeEntity extends Entity<AppointmentTimeProps.Props> {
   set name(name: string) {
     this.props.name = name
     this.touch()
+  }
+
+  get isActive() {
+    return this.props.isActive
   }
 
   get userId() {
@@ -45,7 +49,7 @@ export class AppointmentTimeEntity extends Entity<AppointmentTimeProps.Props> {
     props: Optional<AppointmentTimeProps.Props, 'createdAt'>,
     id?: UniqueEntityUUID,
   ) {
-    const time = new AppointmentTimeEntity(
+    const appointmentTime = new AppointmentTimeEntity(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
@@ -53,6 +57,6 @@ export class AppointmentTimeEntity extends Entity<AppointmentTimeProps.Props> {
       id,
     )
 
-    return time
+    return appointmentTime
   }
 }
