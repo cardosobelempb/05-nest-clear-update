@@ -13,6 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Roles {
+  ADMIN
+  CLIENT
+  SUPPLIER
+}
+
 model User {
   id        String    @id @default(uuid())
   name      String
@@ -20,53 +26,54 @@ model User {
   password  String
   phone     String
   isActive  Boolean   @default(true)
+  role      Roles     @default(CLIENT)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  appointmentTimes     AppointmentTime[]
-  appointmentServices  AppointmentService[]
-  appointmentCategorys AppointmentCategory[]
-  appontments          Appontment[]
+  availablesTimes AvailableTime[]
+  services        Service[]
+  categories      Category[]
+  appontments     Appontment[]
 
   @@map("users")
 }
 
-model AppointmentTime {
+model AvailableTime {
   id        String    @id @default(uuid())
   name      String
   isActive  Boolean   @default(true)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-
-  userId String @map("user_id")
-  user   User   @relation(fields: [userId], references: [id])
-
-  appontments         Appontment[]
-  appointmentServices AppointmentService[]
-
-  @@map("appointment_times")
-}
-
-model AppointmentService {
-  id        String    @id @default(uuid())
-  name      String
-  price     Decimal
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
-
-  appointmentTimeId String          @map("appointment_time_id")
-  appointmentTime   AppointmentTime @relation(fields: [appointmentTimeId], references: [id])
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
   appontments Appontment[]
+  services    Service[]
 
-  @@map("appointment_services")
+  @@map("available_times")
 }
 
-model AppointmentCategory {
+model Service {
+  id        String    @id @default(uuid())
+  name      String
+  price     Decimal
+  duration  String
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  availableTimeId String?
+  availableTime   AvailableTime? @relation(fields: [availableTimeId], references: [id])
+  appontments     Appontment[]
+
+  @@map("services")
+}
+
+model Category {
   id        String    @id @default(uuid())
   name      String
   isActive  Boolean   @default(true)
@@ -76,24 +83,31 @@ model AppointmentCategory {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  @@map("appointment_categories")
+  @@map("categories")
+}
+
+enum AppontmentStatus {
+  ATTENDED
+  SCHEDULED
+  CANCELLED
+  INATTENDANCE
 }
 
 model Appontment {
-  id        String    @id @default(uuid())
-  status    String    @default("agendado")
-  isActive  Boolean   @default(true)
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
+  id        String           @id @default(uuid())
+  status    AppontmentStatus @default(SCHEDULED)
+  isActive  Boolean          @default(true)
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime?        @updatedAt @map("updated_at")
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  appointmentTimeId String?          @map("appontment_time_id")
-  appointmentTime   AppointmentTime? @relation(fields: [appointmentTimeId], references: [id])
+  availableTimeId String?        @map("available_time_id")
+  availableTime   AvailableTime? @relation(fields: [availableTimeId], references: [id])
 
-  appointmentServiceId String?             @map("appointment_service_id")
-  appointmentService   AppointmentService? @relation(fields: [appointmentServiceId], references: [id])
+  serviceId String?  @map("service_id")
+  service   Service? @relation(fields: [serviceId], references: [id])
 
   @@map("appontments")
 }
