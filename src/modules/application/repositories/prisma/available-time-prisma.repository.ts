@@ -44,6 +44,11 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
 
   async create(entity: AvailableTimeEntity): Promise<void> {
     const data = AvailableTimePrismaMapper.toPrisma(entity)
+    await this.prisma.user.findUnique({
+      where: {
+        id: data.userId,
+      },
+    })
     await this.prisma.availableTime.create({ data })
   }
 
