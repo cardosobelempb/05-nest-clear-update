@@ -1,12 +1,11 @@
+import { EnvType } from '@/shared/infrastructure/env/env'
+import { JwtStrategy } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
-import { EnvType } from '@/shared/infrastructure/env/env'
-import { AuthController } from './infrastructure/controllers/auth/auth/auth.controller'
-import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
-import { JwtStrategy } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { DatabaseModule } from './database.module'
+import { AuthenticationSigninController } from './infrastructure/controllers/authentication/authentication-signin/authentication-signin.controller'
 
 @Module({
   imports: [
@@ -26,7 +25,7 @@ import { DatabaseModule } from './database.module'
       },
     }),
   ],
-  controllers: [],
+  controllers: [AuthenticationSigninController],
   providers: [JwtStrategy],
 })
 export class AuthenticationModule {}

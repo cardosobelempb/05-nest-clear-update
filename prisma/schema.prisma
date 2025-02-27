@@ -103,7 +103,7 @@ model Appontment {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  availableTimeId String?        @map("available_time_id")
+  availableTimeId String         @map("available_time_id")
   availableTime   AvailableTime? @relation(fields: [availableTimeId], references: [id])
 
   serviceId String?  @map("service_id")

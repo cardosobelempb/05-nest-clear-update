@@ -4,6 +4,7 @@ import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
 import {
   Body,
+  ConflictException,
   Controller,
   HttpCode,
   HttpStatus,
@@ -13,10 +14,9 @@ import {
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
-export namespace AppointmentProps {
+export namespace CategoryProps {
   export const request = z.object({
-    serviceId: z.string(),
-    availableTimeId: z.string(),
+    name: z.string(),
   })
 
   export type Request = z.infer<typeof request>
@@ -24,25 +24,34 @@ export namespace AppointmentProps {
   export interface Response {}
 }
 
-@Controller('/appointments')
+@Controller('/categories')
 @UseGuards(JwtGuard)
-export class AppointmentCreateController {
+export class CategoryCreateController {
   constructor(private readonly prisma: PrismaService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
   async handle(
-    @Body() body: AppointmentProps.Request,
+    @Body() body: CategoryProps.Request,
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
-    const { serviceId, availableTimeId } = body
+    const { name } = body
 
-    const data: Prisma.AppontmentUncheckedCreateInput = {
-      serviceId,
-      availableTimeId,
+    const category = await this.prisma.category.findFirst({
+      where: {
+        name,
+      },
+    })
+
+    if (category) {
+      throw new ConflictException('Category with name already exists.')
+    }
+
+    const data: Prisma.CategoryUncheckedCreateInput = {
+      name,
       userId: user.sub,
     }
-    await this.prisma.appontment.create({
+    await this.prisma.category.create({
       data,
     })
   }
