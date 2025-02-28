@@ -37,6 +37,10 @@ export class CategoryEntity extends Entity<CategoryProps.Props> {
     return this.props.updatedAt
   }
 
+  get isActive() {
+    return this.props.isActive
+  }
+
   private touch() {
     this.props.updatedAt = new Date()
   }

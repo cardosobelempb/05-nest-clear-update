@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { DatabaseModule } from './database.module'
 import { AuthenticationSigninController } from './infrastructure/controllers/authentication/authentication-signin/authentication-signin.controller'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 
 @Module({
   imports: [

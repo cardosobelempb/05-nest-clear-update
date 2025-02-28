@@ -27,8 +27,10 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
     return AvailableTimePrismaMapper.toDomain(availableTime)
   }
 
-  async findMany({ page }: Pagination.Params): Promise<AvailableTimeEntity[]> {
-    const perPage = 20
+  async findMany({
+    page,
+    perPage,
+  }: Pagination.Params): Promise<AvailableTimeEntity[]> {
     const availableTimes = await this.prisma.availableTime.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
@@ -37,26 +39,30 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
       },
     })
 
-    return availableTimes.map(availableTime =>
-      AvailableTimePrismaMapper.toDomain(availableTime),
-    )
+    return availableTimes.map(AvailableTimePrismaMapper.toDomain)
   }
 
   async create(entity: AvailableTimeEntity): Promise<void> {
     const data = AvailableTimePrismaMapper.toPrisma(entity)
-    await this.prisma.user.findUnique({
-      where: {
-        id: data.userId,
-      },
-    })
     await this.prisma.availableTime.create({ data })
   }
 
-  update(entity: AvailableTimeEntity): Promise<void> {
-    throw new Error('Method not implemented.')
+  async update(entity: AvailableTimeEntity): Promise<void> {
+    const data = AvailableTimePrismaMapper.toPrisma(entity)
+    await this.prisma.availableTime.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    })
   }
 
-  delete(entity: AvailableTimeEntity): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(entity: AvailableTimeEntity): Promise<void> {
+    const data = AvailableTimePrismaMapper.toPrisma(entity)
+    await this.prisma.availableTime.delete({
+      where: {
+        id: data.id,
+      },
+    })
   }
 }

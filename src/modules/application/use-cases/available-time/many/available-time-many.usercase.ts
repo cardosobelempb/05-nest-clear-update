@@ -7,7 +7,10 @@ export class AvailableTimeManyUseCase {
     private readonly availablePrismaTimeRespository: AvailablePrismaTimeRepository,
   ) {}
 
-  async execute({ page }: Pagination.Params): Promise<AvailableTimeEntity[]> {
-    return await this.availablePrismaTimeRespository.findMany({ page })
+  async execute({
+    page,
+    perPage,
+  }: Pagination.Params): Promise<AvailableTimeEntity[]> {
+    return await this.availablePrismaTimeRespository.findMany({ page, perPage })
   }
 }

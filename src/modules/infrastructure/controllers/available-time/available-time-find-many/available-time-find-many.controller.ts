@@ -38,8 +38,10 @@ export class AvailableTimeFindManyController {
   async handle(
     @Query('page', AvailableTimeFindManyProps.request)
     page: AvailableTimeFindManyProps.Request,
+    @Query('perPage', AvailableTimeFindManyProps.request)
+    perPage: AvailableTimeFindManyProps.Request,
   ) {
-    const times = await this.availableTimeManyUseCase.execute({ page })
+    const times = await this.availableTimeManyUseCase.execute({ page, perPage })
     return { times }
   }
 }

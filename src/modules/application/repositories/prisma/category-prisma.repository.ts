@@ -1,21 +1,61 @@
 import { CategoryEntity } from '@/modules/anterprise/entity/category.entity'
-import { CategoryRepository } from '../category.repository'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { CategoryRepository } from '../category.repository'
+import { CategoryPrismaMapper } from './mappers/category-prisma.mapper'
 
 export class PrismaCategoryRepository implements CategoryRepository {
-  findById(id: string): Promise<CategoryEntity | null> {
-    throw new Error('Method not implemented.')
+  constructor(private readonly prisma: PrismaService) {}
+
+  async findById(id: string): Promise<CategoryEntity | null> {
+    const category = await this.prisma.category.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!category) {
+      return null
+    }
+
+    return CategoryPrismaMapper.toDomain(category)
   }
-  findMany(params: Pagination.Params): Promise<CategoryEntity[]> {
-    throw new Error('Method not implemented.')
+
+  async findMany({
+    page,
+    perPage,
+  }: Pagination.Params): Promise<CategoryEntity[]> {
+    const categories = await this.prisma.category.findMany({
+      take: perPage,
+      skip: (page - 1) * perPage,
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+    return categories.map(CategoryPrismaMapper.toDomain)
   }
-  create(entity: CategoryEntity): Promise<void> {
-    throw new Error('Method not implemented.')
+
+  async create(entity: CategoryEntity): Promise<void> {
+    const data = CategoryPrismaMapper.toPrisma(entity)
+    await this.prisma.category.create({ data })
   }
-  update(entity: CategoryEntity): Promise<void> {
-    throw new Error('Method not implemented.')
+
+  async update(entity: CategoryEntity): Promise<void> {
+    const data = CategoryPrismaMapper.toPrisma(entity)
+    await this.prisma.category.update({
+      where: {
+        id: entity.id.toString(),
+      },
+      data,
+    })
   }
-  delete(entity: CategoryEntity): Promise<void> {
-    throw new Error('Method not implemented.')
+
+  async delete(entity: CategoryEntity): Promise<void> {
+    const data = CategoryPrismaMapper.toPrisma(entity)
+    await this.prisma.category.delete({
+      where: {
+        id: entity.id.toString(),
+      },
+    })
   }
 }
