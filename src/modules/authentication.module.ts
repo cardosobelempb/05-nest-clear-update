@@ -4,14 +4,16 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
+
 import { DatabaseModule } from './database.module'
 import { AuthenticationSigninController } from './infrastructure/controllers/authentication/authentication-signin/authentication-signin.controller'
-import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { CryptoGraphyModule } from './infrastructure/cryptography/cryptography.module'
 
 @Module({
   imports: [
     DatabaseModule,
     PassportModule,
+    CryptoGraphyModule,
     JwtModule.registerAsync({
       global: true,
       inject: [ConfigService],
