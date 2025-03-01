@@ -1,4 +1,5 @@
 import { AvailableTimeManyUseCase } from '@/modules/application/use-cases/available-time/many/available-time-many.usercase'
+import { AvailableTimePresenter } from '@/modules/infrastructure/presenters/available-time.presenter'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
 import {
@@ -41,7 +42,17 @@ export class AvailableTimeFindManyController {
     @Query('perPage', AvailableTimeFindManyProps.request)
     perPage: AvailableTimeFindManyProps.Request,
   ) {
-    const times = await this.availableTimeManyUseCase.execute({ page, perPage })
-    return { times }
+    const result = await this.availableTimeManyUseCase.execute({
+      page,
+      perPage,
+    })
+
+    if (result.isLeft()) {
+      throw new Error()
+    }
+
+    const availableTimes = result.value.availableTimes
+
+    return { availableTimes: availableTimes.map(AvailableTimePresenter.toHTTP) }
   }
 }

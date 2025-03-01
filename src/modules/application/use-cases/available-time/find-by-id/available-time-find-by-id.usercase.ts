@@ -5,7 +5,7 @@ import {
   left,
   right,
 } from '@/shared/infrastructure/handle-erros/either'
-import { NotFoundError } from '../../errors/not-found.erro'
+import { NotFoundError } from '../../errors/not-found.error'
 
 export namespace AvailableTimeFindByIdProps {
   export interface Request {
