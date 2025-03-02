@@ -1,5 +1,6 @@
 import { UserAlreadyExistsError } from '@/modules/application/use-cases/errors/user-already-exists.error'
 import { UserSignupUseCase } from '@/modules/application/use-cases/user/user-signup.usecase'
+import { Public } from '@/shared/infrastructure/guards/jwt/public'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
 import { BadRequestException, Body, ConflictException, Controller, HttpCode, HttpStatus, Post, UsePipes } from '@nestjs/common'
 import { z } from 'zod'
@@ -18,6 +19,7 @@ export namespace UserSignUpProps {
 }
 
 @Controller('/signup')
+@Public()
 export class UserSignUpController {
   constructor(private readonly userSignupUseCase: UserSignupUseCase) {}
 

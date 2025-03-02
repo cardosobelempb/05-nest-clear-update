@@ -23,6 +23,8 @@ import { UserModule } from './user.module'
     CategoryModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+
+  ],
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
 import { AuthenticationSigninUseCase } from '@/modules/application/use-cases/authentication/signin/authentication-signin.usecase'
 import { WrongCredentialsError } from '@/modules/infrastructure/erros/wrong-credentials-error'
+import { Public } from '@/shared/infrastructure/guards/jwt/public'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
 import { BadRequestException, Body, Controller, HttpCode, HttpStatus, Post, UnauthorizedException, UsePipes } from '@nestjs/common'
 import { z } from 'zod'
@@ -19,6 +20,7 @@ export namespace AuthProps {
 }
 
 @Controller('/auth/token')
+@Public()
 export class AuthenticationSigninController {
   constructor(private readonly authenticationSigninUsecase: AuthenticationSigninUseCase) {}
 

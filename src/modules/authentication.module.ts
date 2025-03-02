@@ -2,8 +2,10 @@ import { Encrypter } from '@/shared/application/cryptography/encrypter'
 import { HashComparer } from '@/shared/application/cryptography/hash-comparer'
 import { EnvType } from '@/shared/infrastructure/env/env'
 import { JwtStrategy } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
+import { JwtAuthGuard } from '@/shared/infrastructure/guards/jwt/JwtAuth.guard'
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 
@@ -37,6 +39,10 @@ import { JwtEncrypter } from './infrastructure/cryptography/jwt-encrypter'
   controllers: [AuthenticationSigninController],
   providers: [
     JwtStrategy,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
     {
       provide: 'Encrypter',
       useClass: JwtEncrypter
