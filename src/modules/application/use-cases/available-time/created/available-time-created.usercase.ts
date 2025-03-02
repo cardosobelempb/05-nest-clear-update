@@ -1,20 +1,46 @@
 import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
 import { AvailablePrismaTimeRepository } from '@/modules/application/repositories/prisma/available-time-prisma.repository'
-import { ConflictException } from '@nestjs/common'
+import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+
+import { AvailableTimeNameAlreadyExistsError } from '../../errors/available-time-name-already-exists.error'
+
+export namespace AvailableTimeCreatedProps {
+  export interface Request {
+    name: string
+    userId: UniqueEntityUUID
+  }
+
+  export type Response = Either<
+    AvailableTimeNameAlreadyExistsError,
+    {
+      availableTime: AvailableTimeEntity
+    }
+  >
+}
 
 export class AvailableTimeCreatedUseCase {
   constructor(
     private readonly availablePrismaTimeRespository: AvailablePrismaTimeRepository,
   ) {}
 
-  async execute(entity: AvailableTimeEntity): Promise<void> {
+  async execute({name, userId}: AvailableTimeCreatedProps.Request): Promise<AvailableTimeCreatedProps.Response> {
     const availableTimeName =
-      await this.availablePrismaTimeRespository.findByName(entity.name)
+      await this.availablePrismaTimeRespository.findByName(name)
 
     if (availableTimeName) {
-      throw new ConflictException('Time with name already exists.')
+       return left(new AvailableTimeNameAlreadyExistsError(name))
     }
 
-    this.availablePrismaTimeRespository.create(entity)
+    const availableTime = AvailableTimeEntity.create({
+      name,
+      userId
+    })
+
+    await this.availablePrismaTimeRespository.create(availableTime)
+
+    return right({
+      availableTime,
+    })
   }
 }
