@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common'
+
 import { AvailablePrismaTimeRepository } from './application/repositories/prisma/available-time-prisma.repository'
 import { AvailableTimeCreatedUseCase } from './application/use-cases/available-time/created/available-time-created.usercase'
+import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-time/find-by-id/available-time-find-by-id.usercase'
+import { AvailableTimeManyUseCase } from './application/use-cases/available-time/many/available-time-many.usercase'
 import { DatabaseModule } from './database.module'
 import { AvailableTimeCreateController } from './infrastructure/controllers/available-time/available-time-create/available-time-create.controller'
-import { AvailableTimeFindManyController } from './infrastructure/controllers/available-time/available-time-find-many/available-time-find-many.controller'
-import { AvailableTimeManyUseCase } from './application/use-cases/available-time/many/available-time-many.usercase'
 import { AvailableTimeFindByIdController } from './infrastructure/controllers/available-time/available-time-find-by-id/available-time-find-by-id.controller'
-import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-time/find-by-id/available-time-find-by-id.usercase'
+import { AvailableTimeFindManyController } from './infrastructure/controllers/available-time/available-time-find-many/available-time-find-many.controller'
 
 @Module({
   imports: [DatabaseModule],
@@ -23,7 +24,7 @@ import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-
       ) => {
         return new AvailableTimeCreatedUseCase(availablePrismaTimeRepository)
       },
-      inject: ['AvailablePrismaTimeRepository'],
+      inject: [AvailablePrismaTimeRepository],
     },
     {
       provide: AvailableTimeManyUseCase,
@@ -32,7 +33,7 @@ import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-
       ) => {
         return new AvailableTimeManyUseCase(availablePrismaTimeRepository)
       },
-      inject: ['AvailablePrismaTimeRepository'],
+      inject: [AvailablePrismaTimeRepository],
     },
     {
       provide: AvailableTimeFindByIdUseCase,
@@ -41,7 +42,7 @@ import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-
       ) => {
         return new AvailableTimeFindByIdUseCase(availablePrismaTimeRepository)
       },
-      inject: ['AvailablePrismaTimeRepository'],
+      inject: [AvailablePrismaTimeRepository],
     },
   ],
 })

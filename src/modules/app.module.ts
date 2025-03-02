@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config'
 import { AppointmentModule } from './appointment.module'
 import { AvailableTimeModule } from './available-time.module'
 import { CategoryModule } from './category.module'
+import { EnvModule } from './env.module'
 import { ServiceModule } from './service.module'
 import { UserModule } from './user.module'
 
@@ -15,6 +16,7 @@ import { UserModule } from './user.module'
       validate: env => envSchema.parse(env),
       isGlobal: true,
     }),
+    EnvModule,
     AuthenticationModule,
     UserModule,
     AppointmentModule,

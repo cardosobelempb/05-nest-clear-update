@@ -23,11 +23,11 @@ export class PrismaCategoryRepository implements CategoryRepository {
 
   async findMany({
     page,
-    perPage,
+    linesPerPage,
   }: Pagination.Params): Promise<CategoryEntity[]> {
     const categories = await this.prisma.category.findMany({
-      take: perPage,
-      skip: (page - 1) * perPage,
+      take: linesPerPage,
+      skip: (page - 1) * linesPerPage,
       orderBy: {
         createdAt: 'desc',
       },

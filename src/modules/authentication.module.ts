@@ -1,39 +1,39 @@
 import { Encrypter } from '@/shared/application/cryptography/encrypter'
 import { HashComparer } from '@/shared/application/cryptography/hash-comparer'
-import { EnvType } from '@/shared/infrastructure/env/env'
 import { JwtStrategy } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { JwtAuthGuard } from '@/shared/infrastructure/guards/jwt/JwtAuth.guard'
 import { Module } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 
+import { EnvService } from '@/shared/infrastructure/env/env.service'
 import { UserPrismaRepository } from './application/repositories/prisma/user-prisma.repository'
 import { AuthenticationSigninUseCase } from './application/use-cases/authentication/signin/authentication-signin.usecase'
 import { CryptoGraphyModule } from './cryptography.module'
 import { DatabaseModule } from './database.module'
+import { EnvModule } from './env.module'
 import { AuthenticationSigninController } from './infrastructure/controllers/authentication/authentication-signin/authentication-signin.controller'
-import { BcryptHasher } from './infrastructure/cryptography/bcrypt-hasher'
-import { JwtEncrypter } from './infrastructure/cryptography/jwt-encrypter'
 
 @Module({
   imports: [
     DatabaseModule,
     CryptoGraphyModule,
     PassportModule,
+    EnvModule,
     JwtModule.registerAsync({
       global: true,
-      inject: [ConfigService],
-      useFactory(config: ConfigService<EnvType, true>) {
-        const jwtPrivateKey = config.get('JWT_PRIVATE_KEY', { infer: true })
-        const jwtPublicKey = config.get('JWT_PUBLIC_KEY', { infer: true })
+      imports: [EnvModule],
+      useFactory(envService: EnvService) {
+        const jwtPrivateKey = envService.get('JWT_PRIVATE_KEY')
+        const jwtPublicKey = envService.get('JWT_PUBLIC_KEY')
         return {
           signOptions: { algorithm: 'RS256' },
           privateKey: Buffer.from(jwtPrivateKey, 'base64'),
           publicKey: Buffer.from(jwtPublicKey, 'base64'),
         }
       },
+      inject: [EnvService],
     }),
   ],
   controllers: [AuthenticationSigninController],
@@ -42,14 +42,6 @@ import { JwtEncrypter } from './infrastructure/cryptography/jwt-encrypter'
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
-    },
-    {
-      provide: 'Encrypter',
-      useClass: JwtEncrypter
-    },
-    {
-      provide: 'HashComparer',
-      useClass: BcryptHasher
     },
     {
       provide: AuthenticationSigninUseCase,
@@ -64,7 +56,7 @@ import { JwtEncrypter } from './infrastructure/cryptography/jwt-encrypter'
           userPrismaRepository,
         )
       },
-      inject: ['Encrypter','HashComparer', 'UserPrismaRepository'],
+      inject: [Encrypter,HashComparer, UserPrismaRepository],
     },
   ],
 })

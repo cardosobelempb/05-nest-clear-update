@@ -1,11 +1,7 @@
 import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
 import { AvailablePrismaTimeRepository } from '@/modules/application/repositories/prisma/available-time-prisma.repository'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
-import { NotFoundError } from '../../errors/not-found.error'
+import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
 
 export namespace AvailableTimeFindByIdProps {
   export interface Request {
@@ -13,7 +9,7 @@ export namespace AvailableTimeFindByIdProps {
   }
 
   export type Response = Either<
-    NotFoundError,
+    ResourceNotFoundErro,
     { availableTime: AvailableTimeEntity }
   >
 }
@@ -30,8 +26,9 @@ export class AvailableTimeFindByIdUseCase {
       await this.availablePrismaTimeRespository.findById(availableTimeId)
 
     if (!availableTime) {
-      return left(new NotFoundError())
+      return left(new ResourceNotFoundErro())
     }
+
     return right({ availableTime })
   }
 }

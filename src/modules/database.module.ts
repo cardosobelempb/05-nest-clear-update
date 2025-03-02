@@ -14,14 +14,14 @@ import { UserPrismaRepository } from './application/repositories/prisma/user-pri
       useClass: PrismaService,
     },
     {
-      provide: 'UserPrismaRepository',
+      provide: UserPrismaRepository,
       useFactory: (prismaService: PrismaService) => {
         return new UserPrismaRepository(prismaService)
       },
       inject: ['PrismaService'],
     },
     {
-      provide: 'AvailablePrismaTimeRepository',
+      provide: AvailablePrismaTimeRepository,
       useFactory: (prismaService: PrismaService) => {
         return new AvailablePrismaTimeRepository(prismaService)
       },
@@ -35,14 +35,14 @@ import { UserPrismaRepository } from './application/repositories/prisma/user-pri
       useClass: PrismaService,
     },
      {
-      provide: 'UserPrismaRepository',
+      provide: UserPrismaRepository,
       useFactory: (prismaService: PrismaService) => {
         return new UserPrismaRepository(prismaService)
       },
       inject: ['PrismaService'],
     },
     {
-      provide: 'AvailablePrismaTimeRepository',
+      provide: AvailablePrismaTimeRepository,
       useFactory: (prismaService: PrismaService) => {
         return new AvailablePrismaTimeRepository(prismaService)
       },

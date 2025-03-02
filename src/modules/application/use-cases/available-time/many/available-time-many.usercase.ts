@@ -23,11 +23,11 @@ export class AvailableTimeManyUseCase {
 
   async execute({
     page,
-    perPage,
+    linesPerPage,
   }: Pagination.Params): Promise<AvailableTimeManyProps.Response> {
     const availableTimes = await this.availablePrismaTimeRespository.findMany({
       page,
-      perPage,
+      linesPerPage,
     })
 
     return right({

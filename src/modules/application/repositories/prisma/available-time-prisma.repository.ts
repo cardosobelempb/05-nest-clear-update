@@ -1,6 +1,7 @@
 import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+
 import { AvailableTimeRepository } from '../available-time.repository'
 import { AvailableTimePrismaMapper } from './mappers/available-prisma-mapper-time.mapper'
 
@@ -29,11 +30,11 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
 
   async findMany({
     page,
-    perPage,
+    linesPerPage,
   }: Pagination.Params): Promise<AvailableTimeEntity[]> {
     const availableTimes = await this.prisma.availableTime.findMany({
-      take: perPage,
-      skip: (page - 1) * perPage,
+      take: 20,
+      skip: (page - 1) * linesPerPage,
       orderBy: {
         createdAt: 'desc',
       },

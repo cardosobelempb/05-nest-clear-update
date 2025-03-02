@@ -2,14 +2,7 @@ import { AvailableTimeManyUseCase } from '@/modules/application/use-cases/availa
 import { AvailableTimePresenter } from '@/modules/infrastructure/presenters/available-time.presenter'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
-import {
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Query,
-  UseGuards,
-} from '@nestjs/common'
+import { Controller, Get, HttpCode, HttpStatus, Query, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace AvailableTimeFindManyProps {
@@ -24,7 +17,9 @@ export namespace AvailableTimeFindManyProps {
 
   export const request = new ZodValidationPipe(params)
 
-  export interface Response {}
+  export interface Response {
+    availableTimes: AvailableTimePresenter[]
+  }
 }
 
 @Controller('/available-times')
@@ -39,12 +34,12 @@ export class AvailableTimeFindManyController {
   async handle(
     @Query('page', AvailableTimeFindManyProps.request)
     page: AvailableTimeFindManyProps.Request,
-    @Query('perPage', AvailableTimeFindManyProps.request)
-    perPage: AvailableTimeFindManyProps.Request,
-  ) {
+    @Query('linesPerPage', AvailableTimeFindManyProps.request)
+    linesPerPage: AvailableTimeFindManyProps.Request,
+  ): Promise<AvailableTimeFindManyProps.Response> {
     const result = await this.availableTimeManyUseCase.execute({
       page,
-      perPage,
+      linesPerPage,
     })
 
     if (result.isLeft()) {
