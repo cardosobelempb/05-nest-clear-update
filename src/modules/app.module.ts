@@ -1,15 +1,13 @@
 import { AuthenticationModule } from '@/modules/authentication.module'
-
 import { envSchema } from '@/shared/infrastructure/env/env'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
-import { AvailableTimeModule } from './available-time.module'
 import { AppointmentModule } from './appointment.module'
-import { UserModule } from './user.module'
-import { ServiceModule } from './service.module'
+import { AvailableTimeModule } from './available-time.module'
 import { CategoryModule } from './category.module'
-import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { ServiceModule } from './service.module'
+import { UserModule } from './user.module'
 
 @Module({
   imports: [
@@ -25,6 +23,6 @@ import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.se
     CategoryModule,
   ],
   controllers: [],
-  providers: [PrismaService],
+  providers: [],
 })
 export class AppModule {}

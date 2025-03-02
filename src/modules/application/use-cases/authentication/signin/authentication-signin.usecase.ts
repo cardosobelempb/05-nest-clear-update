@@ -1,10 +1,8 @@
-import { Controller } from '@nestjs/common'
-
 import { UserPrismaRepository } from '@/modules/application/repositories/prisma/user-prisma.repository'
 import { Encrypter } from '@/shared/application/cryptography/encrypter'
 import { HashComparer } from '@/shared/application/cryptography/hash-comparer'
 import { WrongCreadentialsErro } from '@/shared/application/usecase-erros/wrong-creadentials.error'
-import { Either, left } from '@/shared/infrastructure/handle-erros/either'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
 
 export namespace AuthenticationSigninProps {
   export interface Request {
@@ -15,20 +13,19 @@ export namespace AuthenticationSigninProps {
   export type Response = Either<
     WrongCreadentialsErro,
     {
-      access_token: string
+      accessToken: string
     }
   >
 }
 
-@Controller('/auth/token')
-export class AuthenticationSigninControllerUseCase {
+export class AuthenticationSigninUseCase {
   constructor(
-    private readonly userPrismaRepository: UserPrismaRepository,
-    private readonly hashCompare: HashComparer,
     private readonly encrypter: Encrypter,
+    private readonly hashCompare: HashComparer,
+    private readonly userPrismaRepository: UserPrismaRepository,
   ) {}
 
-  async execute({ email, password }: AuthenticationSigninProps.Request) {
+  async execute({ email, password }: AuthenticationSigninProps.Request): Promise<AuthenticationSigninProps.Response> {
     const user = await this.userPrismaRepository.findByEmail(email)
 
     if (!user) {
@@ -43,9 +40,11 @@ export class AuthenticationSigninControllerUseCase {
     if (!isPasswordValid) {
       return left(new WrongCreadentialsErro())
     }
+
     const accessToken = await this.encrypter.encrypt({
       sub: user.id.toString(),
     })
-    return { access_token: accessToken }
+
+    return right({ accessToken })
   }
 }

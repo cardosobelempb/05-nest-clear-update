@@ -1,6 +1,8 @@
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { Module } from '@nestjs/common'
+
 import { AvailablePrismaTimeRepository } from './application/repositories/prisma/available-time-prisma.repository'
+import { UserPrismaRepository } from './application/repositories/prisma/user-prisma.repository'
 
 @Module({
   imports: [],
@@ -10,6 +12,13 @@ import { AvailablePrismaTimeRepository } from './application/repositories/prisma
     {
       provide: 'PrismaService',
       useClass: PrismaService,
+    },
+    {
+      provide: 'UserPrismaRepository',
+      useFactory: (prismaService: PrismaService) => {
+        return new UserPrismaRepository(prismaService)
+      },
+      inject: ['PrismaService'],
     },
     {
       provide: 'AvailablePrismaTimeRepository',
@@ -24,6 +33,13 @@ import { AvailablePrismaTimeRepository } from './application/repositories/prisma
     {
       provide: 'PrismaService',
       useClass: PrismaService,
+    },
+     {
+      provide: 'UserPrismaRepository',
+      useFactory: (prismaService: PrismaService) => {
+        return new UserPrismaRepository(prismaService)
+      },
+      inject: ['PrismaService'],
     },
     {
       provide: 'AvailablePrismaTimeRepository',

@@ -1,10 +1,7 @@
 import { UserEntity } from '@/modules/anterprise/entity/user.entity'
 import { HashGenerator } from '@/shared/application/cryptography/hash-generator'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+
 import { UserPrismaRepository } from '../../repositories/prisma/user-prisma.repository'
 import { UserAlreadyExistsError } from '../errors/user-already-exists.error'
 
@@ -23,10 +20,10 @@ export namespace UserCreatedProps {
     }
   >
 }
-export class UserCreatedUseCase {
+export class UserSignupUseCase {
   constructor(
-    private readonly userPrismaRespository: UserPrismaRepository,
     private readonly hashGenerator: HashGenerator,
+    private readonly userPrismaRespository: UserPrismaRepository,
   ) {}
 
   async execute({
@@ -51,7 +48,7 @@ export class UserCreatedUseCase {
       phone,
     })
 
-    this.userPrismaRespository.create(user)
+    await this.userPrismaRespository.create(user)
 
     return right({
       user,
