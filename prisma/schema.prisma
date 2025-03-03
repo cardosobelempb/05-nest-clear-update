@@ -49,7 +49,6 @@ model AvailableTime {
   user   User   @relation(fields: [userId], references: [id])
 
   appontments Appontment[]
-  services    Service[]
 
   @@map("available_times")
 }
@@ -66,9 +65,10 @@ model Service {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  availableTimeId String?
-  availableTime   AvailableTime? @relation(fields: [availableTimeId], references: [id])
-  appontments     Appontment[]
+  categoryId String?   @map("category_id")
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  appontments Appontment[]
 
   @@map("services")
 }
@@ -82,6 +82,8 @@ model Category {
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
+
+  services Service[]
 
   @@map("categories")
 }
@@ -103,7 +105,7 @@ model Appontment {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  availableTimeId String         @map("available_time_id")
+  availableTimeId String?        @map("available_time_id")
   availableTime   AvailableTime? @relation(fields: [availableTimeId], references: [id])
 
   serviceId String?  @map("service_id")

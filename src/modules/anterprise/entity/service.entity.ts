@@ -10,7 +10,7 @@ export namespace ServiceProps {
     duration: string
     isActive: boolean
     userId: UniqueEntityUUID
-    availableTimeId: UniqueEntityUUID | null
+    categoryId: UniqueEntityUUID | null
     createdAt: Date
     updatedAt?: Date | null
   }
@@ -51,8 +51,8 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
     return this.props.userId
   }
 
-  get availableTimeId() {
-    return this.props.availableTimeId
+  get categoryId() {
+    return this.props.categoryId
   }
 
   get isActive() {

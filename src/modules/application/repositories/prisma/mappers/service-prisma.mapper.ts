@@ -9,8 +9,8 @@ export class ServicePrismaMapper {
         name: raw.name,
         price: raw.price,
         duration: raw.duration,
-        availableTimeId: raw.availableTimeId
-          ? new UniqueEntityUUID(raw.availableTimeId)
+        categoryId: raw.categoryId
+          ? new UniqueEntityUUID(raw.categoryId)
           : null,
         userId: new UniqueEntityUUID(raw.userId),
         isActive: raw.isActive,
@@ -27,7 +27,6 @@ export class ServicePrismaMapper {
       name: entity.name,
       price: entity.price,
       duration: entity.duration,
-      availableTimeId: entity.availableTimeId?.toString(),
       userId: entity.userId.toString(),
       isActive: entity.isActive,
       createdAt: entity.createdAt,

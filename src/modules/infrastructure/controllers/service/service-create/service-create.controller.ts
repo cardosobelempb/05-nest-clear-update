@@ -20,7 +20,7 @@ export namespace AppontmentServiceProps {
     name: z.string(),
     price: z.number(),
     duration: z.string(),
-    availableTimeId: z.string(),
+    categoryId: z.string(),
   })
 
   export type Request = z.infer<typeof request>
@@ -39,7 +39,7 @@ export class ServiceCreateController {
     @Body() body: AppontmentServiceProps.Request,
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
-    const { name, price, duration, availableTimeId } = body
+    const { name, price, duration, categoryId } = body
 
     const Service = await this.prisma.service.findFirst({
       where: {
@@ -51,13 +51,13 @@ export class ServiceCreateController {
       throw new ConflictException('Service with name already exists.')
     }
 
-    const availableTime = await this.prisma.availableTime.findUnique({
+    const category = await this.prisma.category.findUnique({
       where: {
-        id: availableTimeId,
+        id: categoryId,
       },
     })
 
-    if (!availableTime) {
+    if (!category) {
       throw new ResourceNotFoundErro()
     }
 
@@ -65,7 +65,7 @@ export class ServiceCreateController {
       name,
       price,
       userId: user.sub,
-      availableTimeId: availableTime.id,
+      categoryId: category.id,
       duration,
     }
     await this.prisma.service.create({
