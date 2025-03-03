@@ -1,10 +1,17 @@
-import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
 import { AvailableTimeCreatedUseCase } from '@/modules/application/use-cases/available-time/created/available-time-created.usercase'
 import { AvailableTimeNameAlreadyExistsError } from '@/modules/application/use-cases/errors/available-time-name-already-exists.error'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
-import { BadRequestException, Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
+import {
+  BadRequestException,
+  Body,
+  ConflictException,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+} from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace AvailableTimeProps {
@@ -31,13 +38,10 @@ export class AvailableTimeCreateController {
   ) {
     const { name } = body
 
-    const availableTime = AvailableTimeEntity.create({
+    const result = await this.availableTimeCreatedUseCase.execute({
       name,
       userId: new UniqueEntityUUID(user.sub),
     })
-
-
-    const result = await this.availableTimeCreatedUseCase.execute(availableTime)
 
     if (result.isLeft()) {
       const error = result.value

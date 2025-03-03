@@ -3,7 +3,7 @@ import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 
 import { AvailableTimeRepository } from '../available-time.repository'
-import { AvailableTimePrismaMapper } from './mappers/available-prisma-mapper-time.mapper'
+import { AvailableTimePrismaMapper } from './mappers/available-time-prisma.mapper'
 
 export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -36,7 +36,7 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
       take: 20,
       skip: (page - 1) * linesPerPage,
       orderBy: {
-        createdAt: 'desc',
+        name: 'asc',
       },
     })
 
