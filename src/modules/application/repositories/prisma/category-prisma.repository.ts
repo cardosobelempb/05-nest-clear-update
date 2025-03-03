@@ -1,6 +1,7 @@
 import { CategoryEntity } from '@/modules/anterprise/entity/category.entity'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+
 import { CategoryRepository } from '../category.repository'
 import { CategoryPrismaMapper } from './mappers/category-prisma.mapper'
 
@@ -23,11 +24,10 @@ export class PrismaCategoryRepository implements CategoryRepository {
 
   async findMany({
     page,
-    linesPerPage,
   }: Pagination.Params): Promise<CategoryEntity[]> {
     const categories = await this.prisma.category.findMany({
-      take: linesPerPage,
-      skip: (page - 1) * linesPerPage,
+      take: 20,
+      skip: (page - 1) * 20,
       orderBy: {
         createdAt: 'desc',
       },

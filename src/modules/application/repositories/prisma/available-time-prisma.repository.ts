@@ -30,11 +30,11 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
 
   async findMany({
     page,
-    linesPerPage,
+
   }: Pagination.Params): Promise<AvailableTimeEntity[]> {
     const availableTimes = await this.prisma.availableTime.findMany({
       take: 20,
-      skip: (page - 1) * linesPerPage,
+      skip: (page - 1) * 20,
       orderBy: {
         name: 'asc',
       },

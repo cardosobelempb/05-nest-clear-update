@@ -37,10 +37,10 @@ export class UserPrismaRepository implements UserRepository {
     return UserPrismaMapper.toDomain(user)
   }
 
-  async findMany({ page, linesPerPage }: Pagination.Params): Promise<UserEntity[]> {
+  async findMany({ page }: Pagination.Params): Promise<UserEntity[]> {
     const users = await this.prismaService.user.findMany({
-      take: linesPerPage,
-      skip: (page - 1) * linesPerPage,
+      take: 20,
+      skip: (page - 1) * 20,
       orderBy: {
         createdAt: 'desc',
       },

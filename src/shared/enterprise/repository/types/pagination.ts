@@ -4,7 +4,7 @@ export namespace Pagination {
     page: number
     sort?: [],
     direction?: 'asc'| 'desc'
-    linesPerPage: number
+    linesPerPage?: number
     orderBy?: number
   }
 }
