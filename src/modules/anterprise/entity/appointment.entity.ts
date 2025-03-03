@@ -1,14 +1,15 @@
 import { Entity } from '@/shared/enterprise/entities/entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { AppointmentStatus } from '@prisma/client'
 import { Optional } from '@prisma/client/runtime/library'
 
 export namespace AppointmentProps {
   export interface Props {
-    status: string
+    status: AppointmentStatus
     isActive: boolean
     userId: UniqueEntityUUID
-    appointmentTimeId: UniqueEntityUUID
-    appointmentServiceId: UniqueEntityUUID
+    availableTimeId: UniqueEntityUUID | null
+    serviceId: UniqueEntityUUID | null
     createdAt: Date
     updatedAt?: Date | null
   }
@@ -22,7 +23,7 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
     return this.props.status
   }
 
-  set status(status: string) {
+  set status(status: AppointmentStatus) {
     this.props.status = status
     this.touch()
   }
@@ -31,12 +32,16 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
     return this.props.userId
   }
 
-  get appointmentTimeId() {
-    return this.props.appointmentTimeId
+  get availableTimeId() {
+    return this.props.availableTimeId
   }
 
-  get appointmentServiceId() {
-    return this.props.appointmentServiceId
+  get serviceId() {
+    return this.props.serviceId
+  }
+
+   get isActive() {
+    return this.props.isActive
   }
 
   get createdAt() {
@@ -58,7 +63,9 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
     const appointment = new AppointmentEntity(
       {
         ...props,
+        isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.updatedAt ?? new Date(),
       },
       id,
     )

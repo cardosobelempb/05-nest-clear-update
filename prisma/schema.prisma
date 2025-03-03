@@ -33,7 +33,7 @@ model User {
   availablesTimes AvailableTime[]
   services        Service[]
   categories      Category[]
-  appontments     Appontment[]
+  Appointments    Appointment[]
 
   @@map("users")
 }
@@ -48,7 +48,7 @@ model AvailableTime {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  appontments Appontment[]
+  Appointments Appointment[]
 
   @@map("available_times")
 }
@@ -68,7 +68,7 @@ model Service {
   categoryId String?   @map("category_id")
   category   Category? @relation(fields: [categoryId], references: [id])
 
-  appontments Appontment[]
+  Appointments Appointment[]
 
   @@map("services")
 }
@@ -88,19 +88,19 @@ model Category {
   @@map("categories")
 }
 
-enum AppontmentStatus {
+enum AppointmentStatus {
   ATTENDED
   SCHEDULED
   CANCELLED
   INATTENDANCE
 }
 
-model Appontment {
-  id        String           @id @default(uuid())
-  status    AppontmentStatus @default(SCHEDULED)
-  isActive  Boolean          @default(true)
-  createdAt DateTime         @default(now()) @map("created_at")
-  updatedAt DateTime?        @updatedAt @map("updated_at")
+model Appointment {
+  id        String            @id @default(uuid())
+  status    AppointmentStatus @default(SCHEDULED)
+  isActive  Boolean           @default(true)
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime?         @updatedAt @map("updated_at")
 
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
@@ -111,5 +111,5 @@ model Appontment {
   serviceId String?  @map("service_id")
   service   Service? @relation(fields: [serviceId], references: [id])
 
-  @@map("appontments")
+  @@map("Appointments")
 }

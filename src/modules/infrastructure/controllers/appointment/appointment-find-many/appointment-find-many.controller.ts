@@ -1,16 +1,9 @@
-import {
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Query,
-  UseGuards,
-} from '@nestjs/common'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
+import { Controller, Get, HttpCode, HttpStatus, Query, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace AppointmentFindManyProps {
@@ -41,7 +34,7 @@ export class AppointmentFindManyController {
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
     const perPage = 20
-    const appontments = await this.prisma.appontment.findMany({
+    const appontments = await this.prisma.appointment.findMany({
       take: perPage,
       skip: (page - 1) * perPage,
       orderBy: {

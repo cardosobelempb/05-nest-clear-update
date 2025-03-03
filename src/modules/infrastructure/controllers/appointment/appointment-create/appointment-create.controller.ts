@@ -2,14 +2,7 @@ import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.se
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common'
+import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
@@ -37,12 +30,12 @@ export class AppointmentCreateController {
   ) {
     const { serviceId, availableTimeId } = body
 
-    const data: Prisma.AppontmentUncheckedCreateInput = {
+    const data: Prisma.AppointmentUncheckedCreateInput = {
       serviceId,
       availableTimeId,
       userId: user.sub,
     }
-    await this.prisma.appontment.create({
+    await this.prisma.appointment.create({
       data,
     })
   }
