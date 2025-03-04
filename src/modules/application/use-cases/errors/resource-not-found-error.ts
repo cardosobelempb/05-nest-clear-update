@@ -1,7 +1,7 @@
 import { UseCaseError } from "@/shared/application/usecase-erros/usecase-erro.interface";
 
-export class NotFoundError extends Error  implements UseCaseError{
+export class ResourceNotFoundError extends Error implements UseCaseError {
   constructor() {
-     super('Not allowed')
+     super('Resource not found')
   }
 }

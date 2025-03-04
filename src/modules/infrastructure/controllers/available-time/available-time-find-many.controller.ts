@@ -1,4 +1,5 @@
-import { AvailableTimeManyUseCase } from '@/modules/application/use-cases/available-time/many/available-time-many.usercase'
+
+import { AvailableTimeManyUseCase } from '@/modules/application/use-cases/available-time/available-time-many.usercase'
 import { AvailableTimePresenter } from '@/modules/infrastructure/presenters/available-time.presenter'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'

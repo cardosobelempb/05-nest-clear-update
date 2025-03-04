@@ -1,4 +1,5 @@
-import { AvailableTimeFindByIdUseCase } from '@/modules/application/use-cases/available-time/find-by-id/available-time-find-by-id.usercase'
+
+import { AvailableTimeFindByIdUseCase } from '@/modules/application/use-cases/available-time/available-time-find-by-id.usercase'
 import { AvailableTimeNameAlreadyExistsError } from '@/modules/application/use-cases/errors/available-time-name-already-exists.error'
 import { AvailableTimePresenter } from '@/modules/infrastructure/presenters/available-time.presenter'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'

@@ -6,8 +6,8 @@ import {
   left,
   right,
 } from '@/shared/infrastructure/handle-erros/either'
+import { AvailableTimeNameAlreadyExistsError } from '../errors/available-time-name-already-exists.error'
 
-import { AvailableTimeNameAlreadyExistsError } from '../../errors/available-time-name-already-exists.error'
 
 export namespace AvailableTimeCreatedProps {
   export interface Request {

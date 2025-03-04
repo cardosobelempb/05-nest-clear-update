@@ -1,4 +1,5 @@
-import { AvailableTimeCreatedUseCase } from '@/modules/application/use-cases/available-time/created/available-time-created.usercase'
+
+import { AvailableTimeCreatedUseCase } from '@/modules/application/use-cases/available-time/available-time-created.usercase'
 import { AvailableTimeNameAlreadyExistsError } from '@/modules/application/use-cases/errors/available-time-name-already-exists.error'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'

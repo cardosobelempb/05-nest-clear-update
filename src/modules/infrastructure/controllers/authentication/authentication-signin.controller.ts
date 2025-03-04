@@ -1,4 +1,4 @@
-import { AuthenticationSigninUseCase } from '@/modules/application/use-cases/authentication/signin/authentication-signin.usecase'
+import { AuthenticationSigninUseCase } from '@/modules/application/use-cases/authentication/authentication-signin.usecase'
 import { WrongCredentialsError } from '@/modules/infrastructure/erros/wrong-credentials-error'
 import { Public } from '@/shared/infrastructure/guards/jwt/public'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'

@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common'
 
 import { AvailablePrismaTimeRepository } from './application/repositories/prisma/available-time-prisma.repository'
-import { AvailableTimeCreatedUseCase } from './application/use-cases/available-time/created/available-time-created.usercase'
-import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-time/find-by-id/available-time-find-by-id.usercase'
-import { AvailableTimeManyUseCase } from './application/use-cases/available-time/many/available-time-many.usercase'
+
+import { AvailableTimeCreatedUseCase } from './application/use-cases/available-time/available-time-created.usercase'
+import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-time/available-time-find-by-id.usercase'
+import { AvailableTimeManyUseCase } from './application/use-cases/available-time/available-time-many.usercase'
 import { DatabaseModule } from './database.module'
-import { AvailableTimeCreateController } from './infrastructure/controllers/available-time/available-time-create/available-time-create.controller'
-import { AvailableTimeFindByIdController } from './infrastructure/controllers/available-time/available-time-find-by-id/available-time-find-by-id.controller'
-import { AvailableTimeFindManyController } from './infrastructure/controllers/available-time/available-time-find-many/available-time-find-many.controller'
+import { AvailableTimeCreateController } from './infrastructure/controllers/available-time/available-time-create.controller'
+import { AvailableTimeFindByIdController } from './infrastructure/controllers/available-time/available-time-find-by-id.controller'
+import { AvailableTimeFindManyController } from './infrastructure/controllers/available-time/available-time-find-many.controller'
 
 @Module({
   imports: [DatabaseModule],

@@ -9,11 +9,11 @@ import { PassportModule } from '@nestjs/passport'
 
 import { EnvService } from '@/shared/infrastructure/env/env.service'
 import { UserPrismaRepository } from './application/repositories/prisma/user-prisma.repository'
-import { AuthenticationSigninUseCase } from './application/use-cases/authentication/signin/authentication-signin.usecase'
+import { AuthenticationSigninUseCase } from './application/use-cases/authentication/authentication-signin.usecase'
 import { CryptoGraphyModule } from './cryptography.module'
 import { DatabaseModule } from './database.module'
 import { EnvModule } from './env.module'
-import { AuthenticationSigninController } from './infrastructure/controllers/authentication/authentication-signin/authentication-signin.controller'
+import { AuthenticationSigninController } from './infrastructure/controllers/authentication/authentication-signin.controller'
 
 @Module({
   imports: [
