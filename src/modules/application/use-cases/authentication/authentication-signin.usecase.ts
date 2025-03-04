@@ -1,4 +1,4 @@
-import { UserPrismaRepository } from '@/modules/application/repositories/prisma/user-prisma.repository'
+import { UserRepository } from '@/modules/application/repositories/user.repository'
 import { Encrypter } from '@/shared/application/cryptography/encrypter'
 import { HashComparer } from '@/shared/application/cryptography/hash-comparer'
 import { WrongCreadentialsErro } from '@/shared/application/usecase-erros/wrong-creadentials.error'
@@ -22,11 +22,11 @@ export class AuthenticationSigninUseCase {
   constructor(
     private readonly encrypter: Encrypter,
     private readonly hashCompare: HashComparer,
-    private readonly userPrismaRepository: UserPrismaRepository,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async execute({ email, password }: AuthenticationSigninProps.Request): Promise<AuthenticationSigninProps.Response> {
-    const user = await this.userPrismaRepository.findByEmail(email)
+    const user = await this.userRepository.findByEmail(email)
 
     if (!user) {
       return left(new WrongCreadentialsErro())

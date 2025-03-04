@@ -1,7 +1,8 @@
 import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
-import { AvailablePrismaTimeRepository } from '@/modules/application/repositories/prisma/available-time-prisma.repository'
 import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+
+import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 
 export namespace AvailableTimeFindByIdProps {
   export interface Request {
@@ -16,14 +17,14 @@ export namespace AvailableTimeFindByIdProps {
 
 export class AvailableTimeFindByIdUseCase {
   constructor(
-    private readonly availablePrismaTimeRespository: AvailablePrismaTimeRepository,
+    private readonly availableTimeRespository: AvailableTimeRepository,
   ) {}
 
   async execute({
     availableTimeId,
   }: AvailableTimeFindByIdProps.Request): Promise<AvailableTimeFindByIdProps.Response> {
     const availableTime =
-      await this.availablePrismaTimeRespository.findById(availableTimeId)
+      await this.availableTimeRespository.findById(availableTimeId)
 
     if (!availableTime) {
       return left(new ResourceNotFoundErro())

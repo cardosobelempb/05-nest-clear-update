@@ -1,7 +1,8 @@
 import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
-import { AvailablePrismaTimeRepository } from '@/modules/application/repositories/prisma/available-time-prisma.repository'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+
+import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 
 export namespace AvailableTimeManyProps {
   export interface Request {
@@ -18,14 +19,14 @@ export namespace AvailableTimeManyProps {
 
 export class AvailableTimeManyUseCase {
   constructor(
-    private readonly availablePrismaTimeRespository: AvailablePrismaTimeRepository,
+    private readonly availableTimeRespository: AvailableTimeRepository,
   ) {}
 
   async execute({
     page,
     linesPerPage,
   }: Pagination.Params): Promise<AvailableTimeManyProps.Response> {
-    const availableTimes = await this.availablePrismaTimeRespository.findMany({
+    const availableTimes = await this.availableTimeRespository.findMany({
       page,
       linesPerPage,
     })

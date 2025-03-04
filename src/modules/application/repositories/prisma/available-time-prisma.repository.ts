@@ -5,11 +5,11 @@ import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.se
 import { AvailableTimeRepository } from '../available-time.repository'
 import { AvailableTimePrismaMapper } from './mappers/available-time-prisma.mapper'
 
-export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
-  constructor(private readonly prisma: PrismaService) {}
+export class AvailableTimePrismaRepository implements AvailableTimeRepository {
+  constructor(private readonly prismaService: PrismaService) {}
 
   async findByName(name: string): Promise<AvailableTimeEntity | null> {
-    const availableTime = await this.prisma.availableTime.findFirst({
+    const availableTime = await this.prismaService.availableTime.findFirst({
       where: { name },
     })
     if (!availableTime) {
@@ -20,7 +20,7 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
   }
 
   async findById(id: string): Promise<AvailableTimeEntity | null> {
-    const availableTime = await this.prisma.availableTime.findUnique({
+    const availableTime = await this.prismaService.availableTime.findUnique({
       where: { id },
     })
     if (!availableTime) return null
@@ -32,7 +32,7 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
     page,
 
   }: Pagination.Params): Promise<AvailableTimeEntity[]> {
-    const availableTimes = await this.prisma.availableTime.findMany({
+    const availableTimes = await this.prismaService.availableTime.findMany({
       take: 20,
       skip: (page - 1) * 20,
       orderBy: {
@@ -45,12 +45,12 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
 
   async create(entity: AvailableTimeEntity): Promise<void> {
     const data = AvailableTimePrismaMapper.toPrisma(entity)
-    await this.prisma.availableTime.create({ data })
+    await this.prismaService.availableTime.create({ data })
   }
 
   async update(entity: AvailableTimeEntity): Promise<void> {
     const data = AvailableTimePrismaMapper.toPrisma(entity)
-    await this.prisma.availableTime.update({
+    await this.prismaService.availableTime.update({
       where: {
         id: data.id,
       },
@@ -59,10 +59,9 @@ export class AvailablePrismaTimeRepository implements AvailableTimeRepository {
   }
 
   async delete(entity: AvailableTimeEntity): Promise<void> {
-    const data = AvailableTimePrismaMapper.toPrisma(entity)
-    await this.prisma.availableTime.delete({
+    await this.prismaService.availableTime.delete({
       where: {
-        id: data.id,
+        id: entity.id.toString(),
       },
     })
   }

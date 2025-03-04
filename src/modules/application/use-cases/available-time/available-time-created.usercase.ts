@@ -1,18 +1,14 @@
 import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
-import { AvailablePrismaTimeRepository } from '@/modules/application/repositories/prisma/available-time-prisma.repository'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
-import { AvailableTimeNameAlreadyExistsError } from '../errors/available-time-name-already-exists.error'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
 
+import { AvailableTimeRepository } from '../../repositories/available-time.repository'
+import { AvailableTimeNameAlreadyExistsError } from '../errors/available-time-name-already-exists.error'
 
 export namespace AvailableTimeCreatedProps {
   export interface Request {
+    userId: string
     name: string
-    userId: UniqueEntityUUID
   }
 
   export type Response = Either<
@@ -25,7 +21,7 @@ export namespace AvailableTimeCreatedProps {
 
 export class AvailableTimeCreatedUseCase {
   constructor(
-    private readonly availablePrismaTimeRespository: AvailablePrismaTimeRepository,
+    private readonly availableTimeRespository: AvailableTimeRepository,
   ) {}
 
   async execute({
@@ -33,29 +29,21 @@ export class AvailableTimeCreatedUseCase {
     userId,
   }: AvailableTimeCreatedProps.Request): Promise<AvailableTimeCreatedProps.Response> {
     const availableTimeName =
-      await this.availablePrismaTimeRespository.findByName(name)
-
-    console.log(
-      availableTimeName?.name,
-      name,
-      availableTimeName?.userId.toString(),
-      userId.toString(),
-    )
+      await this.availableTimeRespository.findByName(name)
 
     if (
       availableTimeName?.name === name &&
-      availableTimeName?.userId.toString() === userId.toString()
+      availableTimeName?.userId.toString() === userId
     ) {
-      console.log('true')
       return left(new AvailableTimeNameAlreadyExistsError(name))
     }
 
     const availableTime = AvailableTimeEntity.create({
+      userId: new UniqueEntityUUID(userId),
       name,
-      userId,
     })
 
-    await this.availablePrismaTimeRespository.create(availableTime)
+    await this.availableTimeRespository.create(availableTime)
 
     return right({
       availableTime,

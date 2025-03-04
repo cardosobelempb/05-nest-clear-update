@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common'
 
-import { AvailablePrismaTimeRepository } from './application/repositories/prisma/available-time-prisma.repository'
-
+import { AvailableTimeRepository } from './application/repositories/available-time.repository'
 import { AvailableTimeCreatedUseCase } from './application/use-cases/available-time/available-time-created.usercase'
 import { AvailableTimeFindByIdUseCase } from './application/use-cases/available-time/available-time-find-by-id.usercase'
 import { AvailableTimeManyUseCase } from './application/use-cases/available-time/available-time-many.usercase'
+import { AvailableTimeUpdateUseCase } from './application/use-cases/available-time/available-time-update.usercase'
 import { DatabaseModule } from './database.module'
 import { AvailableTimeCreateController } from './infrastructure/controllers/available-time/available-time-create.controller'
 import { AvailableTimeFindByIdController } from './infrastructure/controllers/available-time/available-time-find-by-id.controller'
 import { AvailableTimeFindManyController } from './infrastructure/controllers/available-time/available-time-find-many.controller'
+import { AvailableTimeUpdateController } from './infrastructure/controllers/available-time/available-time-update.controller'
 
 @Module({
   imports: [DatabaseModule],
@@ -16,34 +17,44 @@ import { AvailableTimeFindManyController } from './infrastructure/controllers/av
     AvailableTimeCreateController,
     AvailableTimeFindManyController,
     AvailableTimeFindByIdController,
+    AvailableTimeUpdateController,
   ],
   providers: [
     {
       provide: AvailableTimeCreatedUseCase,
       useFactory: (
-        availablePrismaTimeRepository: AvailablePrismaTimeRepository,
+        availableTimeRepository: AvailableTimeRepository,
       ) => {
-        return new AvailableTimeCreatedUseCase(availablePrismaTimeRepository)
+        return new AvailableTimeCreatedUseCase(availableTimeRepository)
       },
-      inject: [AvailablePrismaTimeRepository],
+      inject: ['AvailableTimeRepository'],
     },
     {
       provide: AvailableTimeManyUseCase,
       useFactory: (
-        availablePrismaTimeRepository: AvailablePrismaTimeRepository,
+        availableTimeRepository: AvailableTimeRepository,
       ) => {
-        return new AvailableTimeManyUseCase(availablePrismaTimeRepository)
+        return new AvailableTimeManyUseCase(availableTimeRepository)
       },
-      inject: [AvailablePrismaTimeRepository],
+      inject: ['AvailableTimeRepository'],
     },
     {
       provide: AvailableTimeFindByIdUseCase,
       useFactory: (
-        availablePrismaTimeRepository: AvailablePrismaTimeRepository,
+        availableTimeRepository: AvailableTimeRepository,
       ) => {
-        return new AvailableTimeFindByIdUseCase(availablePrismaTimeRepository)
+        return new AvailableTimeFindByIdUseCase(availableTimeRepository)
       },
-      inject: [AvailablePrismaTimeRepository],
+      inject: ['AvailableTimeRepository'],
+    },
+    {
+      provide: AvailableTimeUpdateUseCase,
+      useFactory: (
+        availableTimeRepository: AvailableTimeRepository,
+      ) => {
+        return new AvailableTimeUpdateUseCase(availableTimeRepository)
+      },
+      inject: ['AvailableTimeRepository'],
     },
   ],
 })

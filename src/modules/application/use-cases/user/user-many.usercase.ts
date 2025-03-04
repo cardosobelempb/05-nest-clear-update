@@ -1,7 +1,8 @@
 import { UserEntity } from '@/modules/anterprise/entity/user.entity'
-import { UserPrismaRepository } from '@/modules/application/repositories/prisma/user-prisma.repository'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+
+import { UserRepository } from '../../repositories/user.repository'
 
 export namespace UserManyProps {
   export interface Request {
@@ -18,13 +19,13 @@ export namespace UserManyProps {
 
 export class UserManyUseCase {
   constructor(
-    private readonly userPrismaRespository: UserPrismaRepository,
+    private readonly userRespository: UserRepository,
   ) {}
 
   async execute({
     page,
   }: Pagination.Params): Promise<UserManyProps.Response> {
-    const users = await this.userPrismaRespository.findMany({
+    const users = await this.userRespository.findMany({
       page,
     })
 

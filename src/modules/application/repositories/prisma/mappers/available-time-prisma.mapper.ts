@@ -1,9 +1,10 @@
 import { AvailableTimeEntity } from '@/modules/anterprise/entity/available-time.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { AvailableTime as PrismaAvailableTime, Prisma } from '@prisma/client'
+import { Prisma, AvailableTime as PrismaAvailableTime } from '@prisma/client'
 
 export class AvailableTimePrismaMapper {
   static toDomain(raw: PrismaAvailableTime): AvailableTimeEntity {
+
     return AvailableTimeEntity.create(
       {
         name: raw.name,

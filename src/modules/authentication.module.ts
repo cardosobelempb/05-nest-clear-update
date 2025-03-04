@@ -1,5 +1,6 @@
 import { Encrypter } from '@/shared/application/cryptography/encrypter'
 import { HashComparer } from '@/shared/application/cryptography/hash-comparer'
+import { EnvService } from '@/shared/infrastructure/env/env.service'
 import { JwtStrategy } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { JwtAuthGuard } from '@/shared/infrastructure/guards/jwt/JwtAuth.guard'
 import { Module } from '@nestjs/common'
@@ -7,8 +8,7 @@ import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 
-import { EnvService } from '@/shared/infrastructure/env/env.service'
-import { UserPrismaRepository } from './application/repositories/prisma/user-prisma.repository'
+import { UserRepository } from './application/repositories/user.repository'
 import { AuthenticationSigninUseCase } from './application/use-cases/authentication/authentication-signin.usecase'
 import { CryptoGraphyModule } from './cryptography.module'
 import { DatabaseModule } from './database.module'
@@ -48,15 +48,15 @@ import { AuthenticationSigninController } from './infrastructure/controllers/aut
       useFactory: (
         encrypter: Encrypter,
         hashCompare: HashComparer,
-        userPrismaRepository: UserPrismaRepository,
+        userRepository: UserRepository,
       ) => {
         return new AuthenticationSigninUseCase(
           encrypter,
           hashCompare,
-          userPrismaRepository,
+          userRepository,
         )
       },
-      inject: [Encrypter,HashComparer, UserPrismaRepository],
+      inject: [Encrypter,HashComparer, 'UserRepository'],
     },
   ],
 })

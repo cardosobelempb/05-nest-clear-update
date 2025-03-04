@@ -1,7 +1,7 @@
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { Module } from '@nestjs/common'
 
-import { AvailablePrismaTimeRepository } from './application/repositories/prisma/available-time-prisma.repository'
+import { AvailableTimePrismaRepository } from './application/repositories/prisma/available-time-prisma.repository'
 import { UserPrismaRepository } from './application/repositories/prisma/user-prisma.repository'
 
 @Module({
@@ -14,16 +14,24 @@ import { UserPrismaRepository } from './application/repositories/prisma/user-pri
       useClass: PrismaService,
     },
     {
-      provide: UserPrismaRepository,
+      provide: 'UserRepository',
+      useClass: UserPrismaRepository,
+    },
+    {
+      provide: 'AvailableTimeRepository',
+      useClass: AvailableTimePrismaRepository,
+    },
+    {
+      provide: 'UserRepository',
       useFactory: (prismaService: PrismaService) => {
         return new UserPrismaRepository(prismaService)
       },
       inject: ['PrismaService'],
     },
     {
-      provide: AvailablePrismaTimeRepository,
+      provide: 'AvailableTimeRepository',
       useFactory: (prismaService: PrismaService) => {
-        return new AvailablePrismaTimeRepository(prismaService)
+        return new AvailableTimePrismaRepository(prismaService)
       },
       inject: ['PrismaService'],
     },
@@ -34,17 +42,25 @@ import { UserPrismaRepository } from './application/repositories/prisma/user-pri
       provide: 'PrismaService',
       useClass: PrismaService,
     },
-     {
-      provide: UserPrismaRepository,
+    {
+      provide: 'UserRepository',
+      useClass: UserPrismaRepository,
+    },
+    {
+      provide: 'AvailableTimeRepository',
+      useClass: AvailableTimePrismaRepository,
+    },
+    {
+      provide: 'UserRepository',
       useFactory: (prismaService: PrismaService) => {
         return new UserPrismaRepository(prismaService)
       },
       inject: ['PrismaService'],
     },
     {
-      provide: AvailablePrismaTimeRepository,
+      provide: 'AvailableTimeRepository',
       useFactory: (prismaService: PrismaService) => {
-        return new AvailablePrismaTimeRepository(prismaService)
+        return new AvailableTimePrismaRepository(prismaService)
       },
       inject: ['PrismaService'],
     },

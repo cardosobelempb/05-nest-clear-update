@@ -1,7 +1,7 @@
 import { HashGenerator } from '@/shared/application/cryptography/hash-generator'
 import { Module } from '@nestjs/common'
 
-import { UserPrismaRepository } from './application/repositories/prisma/user-prisma.repository'
+import { UserRepository } from './application/repositories/user.repository'
 import { UserFindByIdUseCase } from './application/use-cases/user/user-find-by-id.usercase'
 import { UserManyUseCase } from './application/use-cases/user/user-many.usercase'
 import { UserSignupUseCase } from './application/use-cases/user/user-signup.usecase'
@@ -19,29 +19,29 @@ import { UserSignUpController } from './infrastructure/controllers/user/user-sig
       provide: UserSignupUseCase,
       useFactory: (
         hashGenerator: HashGenerator,
-        userPrismaRepository: UserPrismaRepository,
+        userRepository: UserRepository,
       ) => {
-        return new UserSignupUseCase(hashGenerator, userPrismaRepository)
+        return new UserSignupUseCase(hashGenerator, userRepository)
       },
-      inject: [HashGenerator, UserPrismaRepository],
+      inject: [HashGenerator, 'UserRepository'],
     },
     {
       provide: UserManyUseCase,
       useFactory: (
-        userPrismaRepository: UserPrismaRepository,
+        userRepository: UserRepository,
       ) => {
-        return new UserManyUseCase(userPrismaRepository)
+        return new UserManyUseCase(userRepository)
       },
-      inject: [UserPrismaRepository],
+      inject: ['UserRepository'],
     },
     {
       provide: UserFindByIdUseCase,
       useFactory: (
-        userPrismaRepository: UserPrismaRepository,
+        userRepository: UserRepository,
       ) => {
-        return new UserFindByIdUseCase(userPrismaRepository)
+        return new UserFindByIdUseCase(userRepository)
       },
-      inject: [UserPrismaRepository],
+      inject: ['UserRepository'],
     },
   ],
 })
