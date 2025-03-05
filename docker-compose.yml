@@ -3,6 +3,7 @@ version: '3.8'
 services:
   postgres:
     container_name: nest-clean-pg
+    restart: always
     image: postgres
     ports:
       - 5432:5432

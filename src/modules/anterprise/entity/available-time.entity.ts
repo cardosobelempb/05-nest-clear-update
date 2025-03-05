@@ -57,7 +57,6 @@ export class AvailableTimeEntity extends Entity<AvailableTimeProps.Props> {
         ...props,
         isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
-        updatedAt: props.updatedAt ?? new Date(),
       },
       id,
     )

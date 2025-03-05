@@ -46,12 +46,13 @@ export class CategoryEntity extends Entity<CategoryProps.Props> {
   }
 
   static create(
-    props: Optional<CategoryProps.Props, 'createdAt'>,
+    props: Optional<CategoryProps.Props, 'createdAt' | 'isActive' | 'updatedAt'>,
     id?: UniqueEntityUUID,
   ) {
     const time = new CategoryEntity(
       {
         ...props,
+        isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
       },
       id,

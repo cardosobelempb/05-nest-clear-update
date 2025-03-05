@@ -78,6 +78,7 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
     const Service = new ServiceEntity(
       {
         ...props,
+        isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
       },
       id,

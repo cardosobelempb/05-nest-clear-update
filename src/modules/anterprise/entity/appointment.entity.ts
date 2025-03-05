@@ -66,7 +66,6 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
         status: props.status ?? 'SCHEDULED',
         isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
-        updatedAt: props.updatedAt ?? new Date(),
       },
       id,
     )

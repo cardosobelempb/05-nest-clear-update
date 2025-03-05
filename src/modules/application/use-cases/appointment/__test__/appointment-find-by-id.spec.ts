@@ -16,7 +16,6 @@ describe('AppointmentFindByIdUseCase', () => {
     const newAppointment = appointmentFactory()
 
     await appointmentInMemoryRepository.create(newAppointment)
-    console.log("Appointment =>", newAppointment.id.toString())
 
     const { appointment } = await sut.execute({
       appointmentId: newAppointment.id.toString(),
