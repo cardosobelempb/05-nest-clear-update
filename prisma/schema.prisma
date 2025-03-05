@@ -111,5 +111,5 @@ model Appointment {
   serviceId String?  @map("service_id")
   service   Service? @relation(fields: [serviceId], references: [id])
 
-  @@map("Appointments")
+  @@map("appointments")
 }

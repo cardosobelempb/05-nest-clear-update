@@ -3,27 +3,26 @@ import { AvailableTimeInMemoryRepository } from '@/modules/application/repositor
 import { AvailableTimeCreatedUseCase } from '../available-time-created.usercase'
 
 let availableTimeInMemoryRepository: AvailableTimeInMemoryRepository
-let availableTimeCreatedUseCase: AvailableTimeCreatedUseCase
+let sut: AvailableTimeCreatedUseCase
 
 describe('AvailableTimeCreateUseCase', () => {
 
   beforeAll(() => {
-
-  })
-
-  it('should ble create a available time', async () => {
-
     availableTimeInMemoryRepository = new AvailableTimeInMemoryRepository()
 
-    availableTimeCreatedUseCase = new AvailableTimeCreatedUseCase(
+    sut = new AvailableTimeCreatedUseCase(
       availableTimeInMemoryRepository,
     )
+  })
 
-    const result = await availableTimeCreatedUseCase.execute({
+  it('should be ble create a available time', async () => {
+
+    const result = await sut.execute({
+      userId: '1',
       name: '07:00',
-      userId: '',
     })
 
     expect(result.value).toBeTruthy()
+    // expect(availableTimeInMemoryRepository.items[0].id).toEqual(result.value)
   })
 })

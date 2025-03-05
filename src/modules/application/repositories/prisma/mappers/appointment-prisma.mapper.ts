@@ -8,12 +8,8 @@ export class AppointmentPrismaMapper {
       {
         status: raw.status,
         userId: new UniqueEntityUUID(raw.userId),
-        availableTimeId: raw.availableTimeId
-          ? new UniqueEntityUUID(raw.availableTimeId)
-          : null,
-         serviceId: raw.serviceId
-          ? new UniqueEntityUUID(raw.serviceId)
-          : null,
+        availableTimeId: raw.availableTimeId ?  new UniqueEntityUUID(raw.availableTimeId) : null,
+        serviceId: raw.serviceId ?  new UniqueEntityUUID(raw.serviceId) : null,
         isActive: raw.isActive,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,

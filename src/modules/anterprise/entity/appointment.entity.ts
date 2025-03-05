@@ -57,12 +57,13 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
   }
 
   static create(
-    props: Optional<AppointmentProps.Props, 'createdAt'>,
+    props: Optional<AppointmentProps.Props, 'createdAt' | 'isActive' | 'updatedAt' | 'status'>,
     id?: UniqueEntityUUID,
   ) {
     const appointment = new AppointmentEntity(
       {
         ...props,
+        status: props.status ?? 'SCHEDULED',
         isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
