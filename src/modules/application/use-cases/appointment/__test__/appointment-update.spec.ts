@@ -24,8 +24,6 @@ describe('AppointmentUpdate', () => {
       new UniqueEntityUUID('appointment-1'),
     )
 
-    console.log('newAppointment => ', newAppointment)
-
     await appointmentInMemoryRepository.create(newAppointment)
 
     await sut.execute({

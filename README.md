@@ -45,6 +45,7 @@
 
 - os agendamentos do prestador no dia devem ser armazenado em cache;
 - as notificações do prestador devem ser armazenadas no mongoDB;
+- as notificações do prestador devem ser envidas em tempo-real utilizando socket.io;
 
 **RN**
 
