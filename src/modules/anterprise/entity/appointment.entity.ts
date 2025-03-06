@@ -25,7 +25,6 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
 
   set status(status: AppointmentStatus) {
     this.props.status = status
-    this.touch()
   }
 
   get userId() {
@@ -36,12 +35,24 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
     return this.props.availableTimeId
   }
 
+  set availableTimeId(availableTimeId: UniqueEntityUUID | null ) {
+    this.props.availableTimeId = availableTimeId
+  }
+
   get serviceId() {
     return this.props.serviceId
   }
 
-   get isActive() {
+  set serviceId(serviceId: UniqueEntityUUID | null ) {
+    this.props.serviceId = serviceId
+  }
+
+  get isActive() {
     return this.props.isActive
+  }
+
+  set isActive(isActive: boolean ) {
+    this.props.isActive = isActive
   }
 
   get createdAt() {
