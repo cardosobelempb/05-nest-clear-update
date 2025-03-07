@@ -69,7 +69,7 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
   }
 
   static create(
-    props: Optional<ServiceProps.Props, 'createdAt' | 'updatedAt' | 'isActive'>,
+    props: Optional<ServiceProps.Props, 'createdAt' | 'isActive' | 'updatedAt'>,
     id?: UniqueEntityUUID,
   ) {
     const Service = new ServiceEntity(
