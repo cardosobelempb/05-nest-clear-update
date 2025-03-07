@@ -4,8 +4,8 @@ import { HashGenerator } from '@/shared/application/cryptography/hash-generator'
 import { Module } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
-import { BcryptHasher } from './infrastructure/cryptography/bcrypt-hasher'
-import { JwtEncrypter } from './infrastructure/cryptography/jwt-encrypter'
+import { BcryptHasher } from '../infrastructure/cryptography/bcrypt-hasher'
+import { JwtEncrypter } from '../infrastructure/cryptography/jwt-encrypter'
 
 @Module({
   providers: [

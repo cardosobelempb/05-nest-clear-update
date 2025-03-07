@@ -56,7 +56,7 @@ model AvailableTime {
 model Service {
   id        String    @id @default(uuid())
   name      String
-  price     Decimal
+  price     Decimal?  @db.Money()
   duration  String
   isActive  Boolean   @default(true)
   createdAt DateTime  @default(now()) @map("created_at")

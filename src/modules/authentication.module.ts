@@ -8,12 +8,12 @@ import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 
-import { UserRepository } from './application/repositories/user.repository'
-import { AuthenticationSigninUseCase } from './application/use-cases/authentication/authentication-signin.usecase'
+import { UserRepository } from '../application/repositories/user.repository'
+import { AuthenticationSigninUseCase } from '../application/use-cases/authentication/authentication-signin.usecase'
 import { CryptoGraphyModule } from './cryptography.module'
 import { DatabaseModule } from './database.module'
 import { EnvModule } from './env.module'
-import { AuthenticationSigninController } from './infrastructure/controllers/authentication/authentication-signin.controller'
+import { AuthenticationSigninController } from '../infrastructure/controllers/authentication/authentication-signin.controller'
 
 @Module({
   imports: [
@@ -56,7 +56,7 @@ import { AuthenticationSigninController } from './infrastructure/controllers/aut
           userRepository,
         )
       },
-      inject: [Encrypter,HashComparer, 'UserRepository'],
+      inject: [Encrypter, HashComparer, 'UserRepository'],
     },
   ],
 })

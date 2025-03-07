@@ -1,8 +1,8 @@
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { Module } from '@nestjs/common'
 
-import { AvailableTimePrismaRepository } from './application/repositories/prisma/available-time-prisma.repository'
-import { UserPrismaRepository } from './application/repositories/prisma/user-prisma.repository'
+import { AvailableTimePrismaRepository } from '../application/repositories/prisma/available-time-prisma.repository'
+import { UserPrismaRepository } from '../application/repositories/prisma/user-prisma.repository'
 
 @Module({
   imports: [],
