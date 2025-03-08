@@ -26,21 +26,21 @@ export class ServiceInMemoryRepository implements ServiceRepository {
   }
 
   async findById(id: string) {
-    const question = this.items.find(item => item.id.toString() === id)
+    const service = this.items.find(item => item.id.toString() === id)
 
-    if (!question) {
+    if (!service) {
       return null
     }
 
-    return question
+    return service
   }
 
   async findMany({ page }: Pagination.Params) {
-    const questions = this.items
+    const services = this.items
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice((page - 1) * 20, page * 20)
 
-    return questions
+    return services
   }
 
   async create(entity: ServiceEntity) {
