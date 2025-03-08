@@ -1,4 +1,4 @@
-import { AppointmentEntity } from '@/modules/anterprise/entity/Appointment.entity'
+import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Appointment as AppointmentMapper, Prisma } from '@prisma/client'
 

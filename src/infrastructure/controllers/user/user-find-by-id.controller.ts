@@ -1,15 +1,7 @@
 import { UserFindByIdUseCase } from '@/application/use-cases/user/user-find-by-id.usercase'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
-import {
-  BadRequestException,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  UseGuards,
-} from '@nestjs/common'
+import { BadRequestException, Controller, Get, HttpCode, HttpStatus, Param, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
 
 import { UserPresenter } from '../../presenters/user.presenter'
@@ -37,7 +29,7 @@ export class UserFindByIdController {
     @Param('userId', UserFindByIdProps.request)
     userId: UserFindByIdProps.Request,
   ): Promise<UserFindByIdProps.Response> {
-    const result = await this.userFindByIdUseCase.execute({ userId })
+    const result = await this.userFindByIdUseCase.execute(userId)
 
     if (result.isLeft()) {
       throw new BadRequestException()

@@ -1,18 +1,8 @@
 import { AvailableTimeFindByIdUseCase } from '@/application/use-cases/available-time/available-time-find-by-id.usercase'
 import { AvailableTimeNameAlreadyExistsError } from '@/application/use-cases/errors/available-time-name-already-exists.error'
 import { AvailableTimePresenter } from '@/infrastructure/presenters/available-time.presenter'
-import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
-import {
-  BadRequestException,
-  ConflictException,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  UseGuards,
-} from '@nestjs/common'
+import { BadRequestException, ConflictException, Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace AvailableTimeFindByIdProps {
@@ -30,7 +20,6 @@ export namespace AvailableTimeFindByIdProps {
 }
 
 @Controller('/available-times/:availableTimeId')
-@UseGuards(JwtGuard)
 export class AvailableTimeFindByIdController {
   constructor(
     private readonly availableTimeFindByIdUseCase: AvailableTimeFindByIdUseCase,

@@ -7,7 +7,7 @@ export class ServicePrismaMapper {
     return ServiceEntity.create(
       {
         name: raw.name,
-        price: raw.price,
+        price: Number(raw.price),
         duration: raw.duration,
         categoryId: raw.categoryId
           ? new UniqueEntityUUID(raw.categoryId)

@@ -1,10 +1,6 @@
 import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
 import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
 
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 

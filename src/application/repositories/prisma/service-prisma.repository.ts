@@ -7,6 +7,9 @@ import { ServicePrismaMapper } from './mappers/service-prisma.mapper'
 
 export class PrismaServiceRepository implements ServiceRepository {
   constructor(private readonly prismaService: PrismaService) {}
+  findByCategoryId(categoryId: string): Promise<ServiceEntity | null> {
+    throw new Error('Method not implemented.')
+  }
 
   async findById(id: string): Promise<ServiceEntity | null> {
     const service = await this.prismaService.service.findUnique({
