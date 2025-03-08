@@ -6,9 +6,9 @@ export namespace CategoryProps {
   export interface Props {
     name: string
     isActive: boolean
-    userId: UniqueEntityUUID
     createdAt: Date
     updatedAt?: Date | null
+    userId: UniqueEntityUUID
   }
   export interface Id {
     categoryId: string
@@ -41,12 +41,20 @@ export class CategoryEntity extends Entity<CategoryProps.Props> {
     return this.props.isActive
   }
 
+  set isActive(isActive: boolean) {
+    this.props.isActive = isActive
+    this.touch()
+  }
+
   private touch() {
     this.props.updatedAt = new Date()
   }
 
   static create(
-    props: Optional<CategoryProps.Props, 'createdAt' | 'isActive' | 'updatedAt'>,
+    props: Optional<
+      CategoryProps.Props,
+      'createdAt' | 'isActive' | 'updatedAt'
+    >,
     id?: UniqueEntityUUID,
   ) {
     const time = new CategoryEntity(

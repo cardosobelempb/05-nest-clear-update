@@ -34,7 +34,6 @@ export class CategoryInMemoryRepository implements CategoryRepository {
 
   async delete(entity: CategoryEntity) {
     const itemIndex = this.items.findIndex(item => item.id === entity.id)
-
     this.items.splice(itemIndex, 1)
   }
 }

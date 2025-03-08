@@ -1,11 +1,11 @@
-import { AvailableTimeRepository } from '@/application/repositories/available-time.repository';
-import { ServiceRepository } from '@/application/repositories/service.repository';
-import { UserRepository } from '@/application/repositories/user.repository';
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro';
-import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error';
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid';
+import { AvailableTimeRepository } from '@/application/repositories/available-time.repository'
+import { ServiceRepository } from '@/application/repositories/service.repository'
+import { UserRepository } from '@/application/repositories/user.repository'
+import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
+import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
-import { AppointmentRepository } from '../../repositories/appointmen.repository';
+import { AppointmentRepository } from '../../repositories/appointmen.repository'
 
 export namespace AppointmentUpdateProps {
   export interface Request {
@@ -21,25 +21,18 @@ export namespace AppointmentUpdateProps {
 export class AppointmentUpdate {
   constructor(
     private readonly appointimentRespository: AppointmentRepository,
-    private readonly userRepository: UserRepository,
     private readonly serviceRespository: ServiceRepository,
     private readonly availableRepository: AvailableTimeRepository,
+    private readonly userRespository: UserRepository,
   ) {}
 
   async execute({
     userId,
-    serviceId,
     appointmentId,
+    serviceId,
     availableTimeId,
   }: AppointmentUpdateProps.Request) {
-
-    const user =
-      await this.userRepository.findById(userId)
-
-   if (!user) {
-      throw new ResourceNotFoundErro()
-    }
-
+    const user = await this.userRespository.findById(userId)
     const appointment =
       await this.appointimentRespository.findById(appointmentId)
 
@@ -48,30 +41,16 @@ export class AppointmentUpdate {
     const availableTime =
       await this.availableRepository.findById(availableTimeId)
 
-    if (!appointment) {
+    if (!user || !appointment || !service || !availableTime) {
       throw new ResourceNotFoundErro()
     }
 
-    if (!service) {
-      throw new ResourceNotFoundErro()
-    }
-
-    if (!availableTime) {
-      throw new ResourceNotFoundErro()
-    }
-
-
-    if (userId !== appointment?.userId.toString()) {
-      throw new NotAllowedErro()
-    }
-
-
-    if (userId !== service?.userId.toString()) {
-      throw new NotAllowedErro()
-    }
-
-
-    if (userId !== appointment?.userId.toString()) {
+    if (
+      userId !== user.id.toString() ||
+      userId !== appointment.userId.toString() ||
+      userId !== service.userId.toString() ||
+      userId !== availableTime.userId.toString()
+    ) {
       throw new NotAllowedErro()
     }
 

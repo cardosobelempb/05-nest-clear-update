@@ -22,7 +22,7 @@ describe('ServiceCreate', () => {
       categoryId: '',
       duration: '',
       name: '',
-      price: 20.00
+      price: 20.0 /*494.30*/,
     })
 
     expect(service.id).toBeTruthy()

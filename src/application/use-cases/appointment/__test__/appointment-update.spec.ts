@@ -19,34 +19,36 @@ let sut: AppointmentUpdate
 
 describe('AppointmentUpdate', () => {
   beforeAll(() => {
-    userInMemoryRepository = new UserInMemoryRepository()
     appointmentInMemoryRepository = new AppointmentInMemoryRepository()
     serviceInMemoryRepository = new ServiceInMemoryRepository()
     availableTimeInMemoryRepository = new AvailableTimeInMemoryRepository()
+    userInMemoryRepository = new UserInMemoryRepository()
     sut = new AppointmentUpdate(
       appointmentInMemoryRepository,
-      userInMemoryRepository,
       serviceInMemoryRepository,
       availableTimeInMemoryRepository,
+      userInMemoryRepository,
     )
   })
 
   it('should ble to update a appointment from user', async () => {
-
     const newUser = userFactory({}, new UniqueEntityUUID('user-01'))
-
     await userInMemoryRepository.create(newUser)
 
-    const newService = serviceFactory({
-      userId: newUser.id
-    },  new UniqueEntityUUID('service-01'))
-
+    const newService = serviceFactory(
+      {
+        userId: newUser.id,
+      },
+      new UniqueEntityUUID('service-01'),
+    )
     await serviceInMemoryRepository.create(newService)
 
-    const newAvailableTime = availabletimeFactory({
-      userId: newUser.id
-    }, new UniqueEntityUUID('available-time-01'))
-
+    const newAvailableTime = availabletimeFactory(
+      {
+        userId: newUser.id,
+      },
+      new UniqueEntityUUID('available-time-01'),
+    )
     await availableTimeInMemoryRepository.create(newAvailableTime)
 
     const newAppointment = appointmentFactory(
@@ -63,7 +65,7 @@ describe('AppointmentUpdate', () => {
     await sut.execute({
       userId: 'user-01',
       appointmentId: 'appointment-01',
-      serviceId:'service-01',
+      serviceId: 'service-01',
       availableTimeId: 'available-time-01',
     })
 
@@ -81,24 +83,22 @@ describe('AppointmentUpdate', () => {
     await userInMemoryRepository.create(newUser02)
 
     const newService = serviceFactory({
-      userId: newUser01.id
+      userId: newUser01.id,
     })
 
     await serviceInMemoryRepository.create(newService)
 
     const newAvailableTime = availabletimeFactory({
-      userId: newUser01.id
+      userId: newUser01.id,
     })
 
     await availableTimeInMemoryRepository.create(newAvailableTime)
 
-    const newAppointment = appointmentFactory(
-      {
-        userId: new UniqueEntityUUID('user-01'),
-        serviceId: new UniqueEntityUUID('serviceId-01'),
-        availableTimeId: new UniqueEntityUUID('availableTimeId-01'),
-      },
-    )
+    const newAppointment = appointmentFactory({
+      userId: new UniqueEntityUUID('user-01'),
+      serviceId: new UniqueEntityUUID('serviceId-01'),
+      availableTimeId: new UniqueEntityUUID('availableTimeId-01'),
+    })
 
     await appointmentInMemoryRepository.create(newAppointment)
 

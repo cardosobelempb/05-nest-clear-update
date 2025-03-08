@@ -15,7 +15,7 @@ export namespace ServiceProps {
     updatedAt?: Date | null
   }
   export interface Id {
-    timeId: string
+    serviceId: string
   }
 }
 
@@ -52,8 +52,18 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
     return this.props.categoryId
   }
 
+  set categoryId(categoryId: UniqueEntityUUID | null) {
+    this.props.categoryId = categoryId
+    this.touch()
+  }
+
   get isActive() {
     return this.props.isActive
+  }
+
+  set isActive(isActive: boolean) {
+    this.props.isActive = isActive
+    this.touch()
   }
 
   get createdAt() {
