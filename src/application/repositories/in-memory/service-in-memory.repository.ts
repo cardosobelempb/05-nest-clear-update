@@ -18,11 +18,15 @@ export class ServiceInMemoryRepository implements ServiceRepository {
     return service
   }
 
-  findManyByCategoryId(
-    category: string,
+  async findManyByCategoryId(
+    categoryId: string,
     { page }: Pagination.Params,
   ): Promise<ServiceEntity[]> {
-    throw new Error('Method not implemented.')
+    const services = this.items
+      .filter(item => item.categoryId?.toString() === categoryId)
+      .slice((page - 1) * 20, page * 20)
+
+    return services
   }
 
   async findById(id: string) {
