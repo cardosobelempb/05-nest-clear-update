@@ -4,7 +4,7 @@ import { Either, left, right } from '@/shared/infrastructure/handle-erros/either
 
 import { UserAlreadyExistsError } from '../errors/user-already-exists.error'
 
-export namespace UserCreatedProps {
+export namespace UserMeProps {
   export interface Request {
     userId: string
   }
@@ -17,14 +17,14 @@ export namespace UserCreatedProps {
   >
 
 }
-export class UserProfileService {
+export class UserMeService {
   constructor(
     private readonly userRepository: UserRepository
   ) {}
 
   async execute(
     userId: string
-  ): Promise<UserCreatedProps.Response> {
+  ): Promise<UserMeProps.Response> {
 
     const user = await this.userRepository.findById(userId)
 

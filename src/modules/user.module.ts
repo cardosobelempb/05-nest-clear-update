@@ -1,5 +1,5 @@
-import { UserProfileService } from '@/application/use-cases/user/user-profile.service'
-import { UserProfileController } from '@/infrastructure/controllers/user/user-profile.controller'
+import { UserMeService } from '@/application/use-cases/user/user-me.service'
+import { UserMeController } from '@/infrastructure/controllers/user/user-me.controller'
 import { HashGenerator } from '@/shared/application/cryptography/hash-generator'
 import { Module } from '@nestjs/common'
 
@@ -19,7 +19,7 @@ import { DatabaseModule } from './database.module'
     UserSignUpController,
     UserManyController,
     UserFindByIdController,
-    UserProfileController,
+    UserMeController,
   ],
   providers: [
     {
@@ -47,9 +47,9 @@ import { DatabaseModule } from './database.module'
       inject: ['UserRepository'],
     },
     {
-      provide: UserProfileService,
+      provide: UserMeService,
       useFactory: (userRepository: UserRepository) => {
-        return new UserProfileService(userRepository)
+        return new UserMeService(userRepository)
       },
       inject: ['UserRepository'],
     },
