@@ -12,7 +12,7 @@ export namespace CategoryUpdateProps {
   export type Response = {}
 }
 
-export class CategoryUpdate {
+export class CategoryUpdateService {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
   async execute({ categoryId, name, userId }: CategoryUpdateProps.Request) {

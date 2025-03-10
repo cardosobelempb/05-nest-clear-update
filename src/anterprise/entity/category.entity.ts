@@ -1,7 +1,8 @@
 import { Entity } from '@/shared/enterprise/entities/entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Optional } from '@prisma/client/runtime/library'
 
-export namespace CategoryProps {
+export namespace CategoryEntityProps {
   export interface Props {
     userId: UniqueEntityUUID
     name: string
@@ -14,14 +15,13 @@ export namespace CategoryProps {
   }
 }
 
-export abstract class CategoryEntity<Props extends CategoryProps.Props> extends Entity<Props> {
+export class CategoryEntity extends Entity<CategoryEntityProps.Props> {
   get name() {
     return this.props.name
   }
 
   set name(name: string) {
     this.props.name = name
-    this.touch()
   }
 
   get userId() {
@@ -49,4 +49,22 @@ export abstract class CategoryEntity<Props extends CategoryProps.Props> extends 
     this.props.updatedAt = new Date()
   }
 
+  static create(
+    props: Optional<
+      CategoryEntityProps.Props,
+      'createdAt' | 'updatedAt' | 'isActive'
+    >,
+    id?: UniqueEntityUUID,
+  ) {
+    const category = new CategoryEntity(
+      {
+        ...props,
+        isActive: props.isActive ?? true,
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id,
+    )
+
+    return category
+  }
 }

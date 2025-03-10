@@ -1,6 +1,5 @@
 import { Entity } from '@/shared/enterprise/entities/entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { Prisma } from '@prisma/client'
 import { Optional } from '@prisma/client/runtime/library'
 
 export namespace ServiceProps {

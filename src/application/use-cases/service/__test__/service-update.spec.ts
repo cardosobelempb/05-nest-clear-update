@@ -1,5 +1,5 @@
 import { CategoryInMemoryRepository } from '@/application/repositories/in-memory/category-in-memory.repository'
-import { availabletimeFactory } from '@/application/repositories/in-memory/factories/available-time.factory'
+import { categoryFactory } from '@/application/repositories/in-memory/factories/category.factory'
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
 import { userFactory } from '@/application/repositories/in-memory/factories/user.factory'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
@@ -7,7 +7,6 @@ import { UserInMemoryRepository } from '@/application/repositories/in-memory/use
 import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { ServiceUpdate } from '../service-update'
-import { categoryFactory } from '@/application/repositories/in-memory/factories/category.factory'
 
 let userInMemoryRepository: UserInMemoryRepository
 let serviceInMemoryRepository: ServiceInMemoryRepository

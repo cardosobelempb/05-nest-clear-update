@@ -1,4 +1,3 @@
-import { AvailableTimeRepository } from '@/application/repositories/available-time.repository'
 import { CategoryRepository } from '@/application/repositories/category.repository'
 import { ServiceRepository } from '@/application/repositories/service.repository'
 import { UserRepository } from '@/application/repositories/user.repository'

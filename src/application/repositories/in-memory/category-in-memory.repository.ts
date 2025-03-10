@@ -6,21 +6,21 @@ export class CategoryInMemoryRepository implements CategoryRepository {
   public items: CategoryEntity[] = []
 
   async findById(id: string) {
-    const question = this.items.find(item => item.id.toString() === id)
+    const category = this.items.find(item => item.id.toString() === id)
 
-    if (!question) {
+    if (!category) {
       return null
     }
 
-    return question
+    return category
   }
 
   async findMany({ page }: Pagination.Params) {
-    const questions = this.items
+    const categories = this.items
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice((page - 1) * 20, page * 20)
 
-    return questions
+    return categories
   }
 
   async create(entity: CategoryEntity) {

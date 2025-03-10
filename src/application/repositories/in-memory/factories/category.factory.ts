@@ -1,12 +1,12 @@
 import {
   CategoryEntity,
-  CategoryProps,
+  CategoryEntityProps,
 } from '@/anterprise/entity/category.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { faker } from '@faker-js/faker'
 
 export function categoryFactory(
-  override: Partial<CategoryProps.Props> = {},
+  override: Partial<CategoryEntityProps.Props> = {},
   id?: UniqueEntityUUID,
 ) {
   const category = CategoryEntity.create(
