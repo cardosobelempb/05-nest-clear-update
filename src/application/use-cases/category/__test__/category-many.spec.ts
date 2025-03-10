@@ -1,25 +1,25 @@
+import { CategoryInMemoryRepository } from '@/application/repositories/in-memory/category-in-memory.repository'
 import { categoryFactory } from '@/application/repositories/in-memory/factories/category.factory'
-import { ServiceCategoryInMemoryRepository } from '@/application/repositories/in-memory/service-category-in-memory.repository'
 
 import { CategoryManyService } from '../category-many.service'
 
-let serviceCategoryInMemoryRepository: ServiceCategoryInMemoryRepository
+let categoryInMemoryRepository: CategoryInMemoryRepository
 let sut: CategoryManyService
 
 describe('CategoryManyService', () => {
   beforeEach(() => {
-    serviceCategoryInMemoryRepository = new ServiceCategoryInMemoryRepository()
-    sut = new CategoryManyService(serviceCategoryInMemoryRepository)
+    categoryInMemoryRepository = new CategoryInMemoryRepository()
+    sut = new CategoryManyService(categoryInMemoryRepository)
   })
 
   it('shold ble  to many categories', async () => {
-    await serviceCategoryInMemoryRepository.create(
+    await categoryInMemoryRepository.create(
       categoryFactory({ createdAt: new Date(2022, 0, 20) }),
     )
-    await serviceCategoryInMemoryRepository.create(
+    await categoryInMemoryRepository.create(
       categoryFactory({ createdAt: new Date(2022, 0, 18) }),
     )
-    await serviceCategoryInMemoryRepository.create(
+    await categoryInMemoryRepository.create(
       categoryFactory({ createdAt: new Date(2022, 0, 23) }),
     )
 
@@ -33,7 +33,7 @@ describe('CategoryManyService', () => {
 
   it('should be ble to paginated services', async () => {
     for (let i = 1; i <= 22; i++) {
-      await serviceCategoryInMemoryRepository.create(categoryFactory())
+      await categoryInMemoryRepository.create(categoryFactory())
     }
 
     const result = await sut.execute({ page: 2 })
