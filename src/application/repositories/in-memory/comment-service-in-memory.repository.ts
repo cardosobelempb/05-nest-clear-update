@@ -17,6 +17,15 @@ export class CommentServiceInMemoryRepository
     return commentService
   }
 
+  async findManyServiceId(serviceId: string, { page }: Pagination.Params) {
+    const commentServices = this.items
+      .filter(item => item.serviceId.toString() === serviceId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * 20, page * 20)
+
+    return commentServices
+  }
+
   async findMany({ page }: Pagination.Params) {
     const commentService = this.items
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
