@@ -1,6 +1,6 @@
 import { CategoryEntity } from '@/anterprise/entity/category.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { Prisma, Category as EntityMapper } from '@prisma/client'
+import { Category as EntityMapper, Prisma } from '@prisma/client'
 
 export class CategoryPrismaMapper {
   static toDomain(raw: EntityMapper): CategoryEntity {
