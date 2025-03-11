@@ -26,7 +26,7 @@ describe('ServiceManyByCategoryId', () => {
 
     const result = await sut.execute({categoryId: 'category-01',  page: 1 })
 
-    expect(result.services).toHaveLength(3)
+    expect(result.value?.services).toHaveLength(3)
   })
 
   it('should be ble to paginated service categories', async () => {
@@ -38,6 +38,6 @@ describe('ServiceManyByCategoryId', () => {
 
     const result = await sut.execute({ categoryId: 'category-01', page: 2 })
 
-    expect(result.services).toHaveLength(2)
+    expect(result.value?.services).toHaveLength(2)
   })
 })

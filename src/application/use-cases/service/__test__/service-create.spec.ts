@@ -17,7 +17,7 @@ describe('ServiceCreate', () => {
     const newService = serviceFactory()
     // console.log(newService)
 
-    const { service } = await sut.execute({
+    const result = await sut.execute({
       userId: newService.userId.toString(),
       categoryId: '',
       duration: '',
@@ -25,7 +25,7 @@ describe('ServiceCreate', () => {
       price: 20.0 /*494.30*/,
     })
 
-    expect(service.id).toBeTruthy()
-    expect(serviceInMemoryRepository.items[0].id).toEqual(service.id)
+    expect(result.value?.service.id).toBeTruthy()
+    expect(serviceInMemoryRepository.items[0].id).toEqual(result.value?.service.id)
   })
 })

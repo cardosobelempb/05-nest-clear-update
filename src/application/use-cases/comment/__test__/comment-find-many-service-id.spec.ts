@@ -1,6 +1,7 @@
 import { CommentServiceInMemoryRepository } from '@/application/repositories/in-memory/comment-service-in-memory.repository'
 import { commentserviceFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+
 import { CommentFindManyServiceId } from '../comment-find-many-service-id.service'
 
 let commentServiceInMemoryRepository: CommentServiceInMemoryRepository
@@ -29,12 +30,12 @@ describe('CommentFindManyServiceId', () => {
       }),
     )
 
-    const { commentServices } = await sut.execute({
+    const result = await sut.execute({
       serviceId: 'comment-service-01',
       page: 1,
     })
 
-    expect(commentServices).toHaveLength(3)
+    expect(result.value?.commentServices).toHaveLength(3)
   })
 
   it('should be ble to paginated comment service id', async () => {
@@ -46,11 +47,11 @@ describe('CommentFindManyServiceId', () => {
       )
     }
 
-    const { commentServices } = await sut.execute({
+    const result = await sut.execute({
       serviceId: 'comment-service-01',
       page: 2,
     })
 
-    expect(commentServices).toHaveLength(2)
+    expect(result.value?.commentServices).toHaveLength(2)
   })
 })

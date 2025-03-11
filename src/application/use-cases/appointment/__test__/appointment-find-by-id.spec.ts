@@ -17,11 +17,11 @@ describe('AppointmentFindByIdUseCase', () => {
 
     await appointmentInMemoryRepository.create(newAppointment)
 
-    const { appointment } = await sut.execute({
+    const result = await sut.execute({
       appointmentId: newAppointment.id.toString(),
     })
 
-    expect(appointment.id.toString()).toBeTruthy()
+    expect(result.value).toBeTruthy()
     expect(appointmentInMemoryRepository.items).toHaveLength(1)
   })
 })

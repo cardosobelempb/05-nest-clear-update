@@ -1,5 +1,6 @@
 import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
+import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 
 import { ServiceRepository } from '../../repositories/service.repository'
 
@@ -9,7 +10,7 @@ export namespace ServiceDeleteProps {
     serviceId: string
   }
 
-  export type Response = {}
+  export type Response = Either<ResourceNotFoundErro | NotAllowedErro, {}>
 }
 
 export class ServiceDelete {
@@ -28,6 +29,6 @@ export class ServiceDelete {
 
     await this.serviceRespository.delete(service)
 
-    return {}
+    return right({})
   }
 }

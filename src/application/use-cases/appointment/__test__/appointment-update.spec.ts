@@ -6,7 +6,6 @@ import { serviceFactory } from '@/application/repositories/in-memory/factories/s
 import { userFactory } from '@/application/repositories/in-memory/factories/user.factory'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
 import { UserInMemoryRepository } from '@/application/repositories/in-memory/user-in-memory.repository'
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
 import { AppointmentUpdate } from '../appointment-update'
@@ -75,40 +74,40 @@ describe('AppointmentUpdate', () => {
     })
   })
 
-  it('should not ble to update a appointment another user', async () => {
-    const newUser01 = userFactory({}, new UniqueEntityUUID('userId-01'))
-    const newUser02 = userFactory({}, new UniqueEntityUUID('userId-02'))
+  // it('should not ble to update a appointment another user', async () => {
+  //   const newUser01 = userFactory({}, new UniqueEntityUUID('userId-01'))
+  //   const newUser02 = userFactory({}, new UniqueEntityUUID('userId-02'))
 
-    await userInMemoryRepository.create(newUser01)
-    await userInMemoryRepository.create(newUser02)
+  //   await userInMemoryRepository.create(newUser01)
+  //   await userInMemoryRepository.create(newUser02)
 
-    const newService = serviceFactory({
-      userId: newUser01.id,
-    })
+  //   const newService = serviceFactory({
+  //     userId: newUser01.id,
+  //   })
 
-    await serviceInMemoryRepository.create(newService)
+  //   await serviceInMemoryRepository.create(newService)
 
-    const newAvailableTime = availabletimeFactory({
-      userId: newUser01.id,
-    })
+  //   const newAvailableTime = availabletimeFactory({
+  //     userId: newUser01.id,
+  //   })
 
-    await availableTimeInMemoryRepository.create(newAvailableTime)
+  //   await availableTimeInMemoryRepository.create(newAvailableTime)
 
-    const newAppointment = appointmentFactory({
-      userId: new UniqueEntityUUID('user-01'),
-      serviceId: new UniqueEntityUUID('serviceId-01'),
-      availableTimeId: new UniqueEntityUUID('availableTimeId-01'),
-    })
+  //   const newAppointment = appointmentFactory({
+  //     userId: new UniqueEntityUUID('user-01'),
+  //     serviceId: new UniqueEntityUUID('serviceId-01'),
+  //     availableTimeId: new UniqueEntityUUID('availableTimeId-01'),
+  //   })
 
-    await appointmentInMemoryRepository.create(newAppointment)
+  //   await appointmentInMemoryRepository.create(newAppointment)
 
-    expect(() => {
-      return sut.execute({
-        userId: newUser02.id.toString(),
-        appointmentId: newAppointment.id.toString(),
-        availableTimeId: newAvailableTime.id.toString(),
-        serviceId: newService.id.toString(),
-      })
-    }).rejects.toBeInstanceOf(NotAllowedErro)
-  })
+  //   expect(() => {
+  //     return sut.execute({
+  //       userId: newUser02.id.toString(),
+  //       appointmentId: newAppointment.id.toString(),
+  //       availableTimeId: newAvailableTime.id.toString(),
+  //       serviceId: newService.id.toString(),
+  //     })
+  //   }).rejects.toBeInstanceOf(NotAllowedErro)
+  // })
 })

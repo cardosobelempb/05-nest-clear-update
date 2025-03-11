@@ -4,6 +4,7 @@ import { UserRepository } from '@/application/repositories/user.repository'
 import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
 
 import { AppointmentRepository } from '../../repositories/appointmen.repository'
 
@@ -15,7 +16,7 @@ export namespace AppointmentUpdateProps {
     availableTimeId: string
   }
 
-  export type Response = {}
+  export type Response = Either<ResourceNotFoundErro | NotAllowedErro, {}>
 }
 
 export class AppointmentUpdate {
@@ -31,7 +32,7 @@ export class AppointmentUpdate {
     appointmentId,
     serviceId,
     availableTimeId,
-  }: AppointmentUpdateProps.Request) {
+  }: AppointmentUpdateProps.Request): Promise<AppointmentUpdateProps.Response> {
     const user = await this.userRespository.findById(userId)
     const appointment =
       await this.appointimentRespository.findById(appointmentId)
@@ -42,7 +43,7 @@ export class AppointmentUpdate {
       await this.availableRepository.findById(availableTimeId)
 
     if (!user || !appointment || !service || !availableTime) {
-      throw new ResourceNotFoundErro()
+      return left(new ResourceNotFoundErro())
     }
 
     if (
@@ -51,7 +52,7 @@ export class AppointmentUpdate {
       userId !== service.userId.toString() ||
       userId !== availableTime.userId.toString()
     ) {
-      throw new NotAllowedErro()
+      return left(new NotAllowedErro())
     }
 
     appointment.serviceId = new UniqueEntityUUID(serviceId)
@@ -59,6 +60,6 @@ export class AppointmentUpdate {
 
     await this.appointimentRespository.update(appointment)
 
-    return {}
+    return right({})
   }
 }

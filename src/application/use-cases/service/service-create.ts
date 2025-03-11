@@ -1,5 +1,6 @@
 import { ServiceEntity } from '@/anterprise/entity/service.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 
 import { ServiceRepository } from '../../repositories/service.repository'
 
@@ -12,9 +13,9 @@ export namespace ServiceCreateProps {
     categoryId: string
   }
 
-  export type Response = {
+  export type Response = Either<null, {
     service: ServiceEntity
-  }
+  }>
 }
 
 export class ServiceCreate {
@@ -37,8 +38,8 @@ export class ServiceCreate {
 
     await this.serviceRespository.create(service)
 
-    return {
+    return right({
       service,
-    }
+    })
   }
 }

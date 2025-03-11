@@ -1,5 +1,6 @@
 import { CommentServiceEntity } from '@/anterprise/entity/comment-service.entity'
 import { CommentServiceRepository } from '@/application/repositories/commnet-service.repository'
+import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 
 export namespace CommentFindManyServiceIdProps {
   export interface Request {
@@ -7,9 +8,9 @@ export namespace CommentFindManyServiceIdProps {
     serviceId: string
   }
 
-  export type Response = {
+  export type Response = Either<null, {
     commentServices: CommentServiceEntity[]
-  }
+  }>
 }
 
 export class CommentFindManyServiceId {
@@ -24,8 +25,8 @@ export class CommentFindManyServiceId {
     const commentServices =
       await this.commentServiceRepository.findManyServiceId(serviceId, { page })
 
-    return {
+    return right({
       commentServices,
-    }
+    })
   }
 }

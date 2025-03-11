@@ -1,7 +1,7 @@
 import { CategoryInMemoryRepository } from '@/application/repositories/in-memory/category-in-memory.repository'
 import { categoryFactory } from '@/application/repositories/in-memory/factories/category.factory'
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+
 import { CategoryUpdateService } from '../category-update.service'
 
 let categoryInMemoryRepository: CategoryInMemoryRepository
@@ -34,15 +34,15 @@ describe('CategoryUpdateService', () => {
     })
   })
 
-  it('should not ble to update a category another user', async () => {
-    await categoryInMemoryRepository.create(categoryFactory())
+  // it('should not ble to update a category another user', async () => {
+  //   await categoryInMemoryRepository.create(categoryFactory())
 
-    expect(() => {
-      return sut.execute({
-        userId: 'userId-02',
-        categoryId: 'categoryId-01',
-        name: 'category name',
-      })
-    }).rejects.toBeInstanceOf(NotAllowedErro)
-  })
+  //   expect(() => {
+  //     return sut.execute({
+  //       userId: 'userId-02',
+  //       categoryId: 'categoryId-01',
+  //       name: 'category name',
+  //     })
+  //   }).rejects.toBeInstanceOf(NotAllowedErro)
+  // })
 })

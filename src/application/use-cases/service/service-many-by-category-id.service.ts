@@ -1,5 +1,6 @@
 import { ServiceEntity } from '@/anterprise/entity/service.entity'
 import { ServiceRepository } from '@/application/repositories/service.repository'
+import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 
 export namespace ServiceManyByCategoryIdProps {
   export interface Request {
@@ -7,7 +8,7 @@ export namespace ServiceManyByCategoryIdProps {
     page: number
   }
 
-  export type Response = { services: ServiceEntity[] }
+  export type Response = Either<null, { services: ServiceEntity[] }>
 }
 
 export class ServiceManyByCategoryId {
@@ -19,6 +20,6 @@ export class ServiceManyByCategoryId {
     const services = await this.serviceRepository.findManyByCategoryId(categoryId, {page})
 
 
-    return { services }
+    return right({ services })
   }
 }

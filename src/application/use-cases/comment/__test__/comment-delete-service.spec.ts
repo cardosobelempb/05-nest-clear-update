@@ -2,6 +2,7 @@ import { CommentServiceInMemoryRepository } from '@/application/repositories/in-
 import { commentserviceFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
 import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+
 import { CommentDeleteService } from '../comment-delete-service.service'
 
 let commentServiceInMemoryRepository: CommentServiceInMemoryRepository
@@ -27,17 +28,25 @@ describe('CommentDeleteService', () => {
   })
 
   it('should not ble to delete comment a service another user', async () => {
-    const commentService = commentserviceFactory({
-      userId: new UniqueEntityUUID('user-1'),
+
+    await commentServiceInMemoryRepository.create(commentserviceFactory({
+      userId: new UniqueEntityUUID('userId-01'),
+      serviceId: new UniqueEntityUUID('serviceId-01')
+    }, new UniqueEntityUUID('commentServiceId-01')))
+
+    console.log(commentServiceInMemoryRepository.items[0])
+
+    const result = await sut.execute({
+        commentServiceId: 'commentServiceId-01',
+        userId: 'userId-02',
     })
 
-    await commentServiceInMemoryRepository.create(commentService)
 
     expect(() => {
       return sut.execute({
-        commentServiceId: commentService.id.toString(),
-        userId: 'user-2',
-      })
+        commentServiceId: 'commentServiceId-01',
+        userId: 'userId-02',
+    })
     }).rejects.toBeInstanceOf(NotAllowedErro)
   })
 })

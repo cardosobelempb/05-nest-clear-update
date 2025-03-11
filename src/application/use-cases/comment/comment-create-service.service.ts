@@ -3,6 +3,7 @@ import { CommentServiceRepository } from '@/application/repositories/commnet-ser
 import { ServiceRepository } from '@/application/repositories/service.repository'
 import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
 
 export namespace CommentCreateServiceProps {
   export interface Request {
@@ -11,9 +12,9 @@ export namespace CommentCreateServiceProps {
     serviceId: string
   }
 
-  export type Response = {
+  export type Response = Either<ResourceNotFoundErro, {
     commentService: CommentServiceEntity
-  }
+  }>
 }
 
 export class CommentCreateService {
@@ -30,7 +31,7 @@ export class CommentCreateService {
     const service = await this.serviceRespository.findById(serviceId)
 
     if (!service) {
-      throw new ResourceNotFoundErro()
+      return left(new ResourceNotFoundErro())
     }
 
     const commentService = CommentServiceEntity.create({
@@ -41,8 +42,8 @@ export class CommentCreateService {
 
     await this.commentServiceRepository.create(commentService)
 
-    return {
+    return right({
       commentService,
-    }
+    })
   }
 }
