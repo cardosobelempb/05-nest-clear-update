@@ -1,19 +1,11 @@
-import {
-  Body,
-  ConflictException,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common'
-import { Prisma } from '@prisma/client'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
+import { Body, ConflictException, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import { z } from 'zod'
-import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
 
 export namespace AppontmentServiceProps {
   export const request = z.object({
@@ -58,7 +50,7 @@ export class ServiceCreateController {
     })
 
     if (!category) {
-      throw new ResourceNotFoundErro()
+      throw new ResourceNotFoundError()
     }
 
     const data: Prisma.ServiceUncheckedCreateInput = {

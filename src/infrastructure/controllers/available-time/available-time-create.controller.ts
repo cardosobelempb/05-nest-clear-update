@@ -1,16 +1,8 @@
-import { AvailableTimeCreatedUseCase } from '@/application/use-cases/available-time/available-time-created.usercase'
+import { AvailableTimeCreateService } from '@/application/use-cases/available-time/available-time-create.service'
 import { AvailableTimeNameAlreadyExistsError } from '@/application/use-cases/errors/available-time-name-already-exists.error'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
-import {
-  BadRequestException,
-  Body,
-  ConflictException,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-} from '@nestjs/common'
+import { BadRequestException, Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace AvailableTimeProps {
@@ -26,7 +18,7 @@ export namespace AvailableTimeProps {
 @Controller('/available-times')
 export class AvailableTimeCreateController {
   constructor(
-    private readonly availableTimeCreatedUseCase: AvailableTimeCreatedUseCase,
+    private readonly availableTimeCreatedUseCase: AvailableTimeCreateService,
   ) {}
 
   @HttpCode(HttpStatus.CREATED)

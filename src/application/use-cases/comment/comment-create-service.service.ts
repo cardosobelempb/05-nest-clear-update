@@ -8,8 +8,8 @@ import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 export namespace CommentCreateServiceProps {
   export interface Request {
     content: string
-    userId: string
-    serviceId: string
+    userId: UniqueEntityUUID
+    serviceId: UniqueEntityUUID
   }
 
   export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
@@ -27,8 +27,8 @@ export class CommentCreateService {
   }: CommentCreateServiceProps.Request): Promise<CommentCreateServiceProps.Response> {
     const commentService = CommentServiceEntity.create({
       content,
-      userId: new UniqueEntityUUID(userId),
-      serviceId: new UniqueEntityUUID(serviceId),
+      userId,
+      serviceId,
     })
 
     await this.commentServiceRepository.create(commentService)

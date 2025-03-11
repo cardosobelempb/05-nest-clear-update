@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common'
 
 import { AvailableTimeRepository } from '../application/repositories/available-time.repository'
-import { AvailableTimeCreatedUseCase } from '../application/use-cases/available-time/available-time-created.usercase'
+import { AvailableTimeCreateService } from '../application/use-cases/available-time/available-time-create.service'
 import { AvailableTimeFindByIdUseCase } from '../application/use-cases/available-time/available-time-find-by-id.usercase'
 import { AvailableTimeManyUseCase } from '../application/use-cases/available-time/available-time-many.usercase'
 import { AvailableTimeUpdateUseCase } from '../application/use-cases/available-time/available-time-update.usercase'
-import { DatabaseModule } from './database.module'
 import { AvailableTimeCreateController } from '../infrastructure/controllers/available-time/available-time-create.controller'
 import { AvailableTimeFindByIdController } from '../infrastructure/controllers/available-time/available-time-find-by-id.controller'
 import { AvailableTimeFindManyController } from '../infrastructure/controllers/available-time/available-time-find-many.controller'
 import { AvailableTimeUpdateController } from '../infrastructure/controllers/available-time/available-time-update.controller'
+import { DatabaseModule } from './database.module'
 
 @Module({
   imports: [DatabaseModule],
@@ -21,9 +21,9 @@ import { AvailableTimeUpdateController } from '../infrastructure/controllers/ava
   ],
   providers: [
     {
-      provide: AvailableTimeCreatedUseCase,
+      provide: AvailableTimeCreateService,
       useFactory: (availableTimeRepository: AvailableTimeRepository) => {
-        return new AvailableTimeCreatedUseCase(availableTimeRepository)
+        return new AvailableTimeCreateService(availableTimeRepository)
       },
       inject: ['AvailableTimeRepository'],
     },

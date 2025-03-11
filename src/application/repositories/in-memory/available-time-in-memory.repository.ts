@@ -41,6 +41,18 @@ export class AvailableTimeInMemoryRepository
     this.items.push(entity)
   }
 
+  async created(entity: AvailableTimeEntity): Promise<AvailableTimeEntity | null> {
+    this.items.push(entity)
+
+    const availableTime = this.findById(entity.id.toString())
+
+    if (!availableTime) {
+      return null
+    }
+
+    return availableTime
+  }
+
   async update(entity: AvailableTimeEntity) {
     const itemIndex = this.items.findIndex(item => item.id === entity.id)
     this.items[itemIndex] = entity

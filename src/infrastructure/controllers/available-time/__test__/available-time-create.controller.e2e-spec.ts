@@ -46,7 +46,7 @@ describe('AppointmentTimeCreateController (E2E)', () => {
         name: 'Time 01',
       })
 
-    const timesOndatabase = await prisma.appointmentTime.findFirst({
+    const timesOndatabase = await prisma.availableTime.findFirst({
       where: { name: 'Time 01' },
     })
 
