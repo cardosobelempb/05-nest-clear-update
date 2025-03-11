@@ -53,7 +53,6 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
 
   set categoryId(categoryId: UniqueEntityUUID | null) {
     this.props.categoryId = categoryId
-    this.touch()
   }
 
   get isActive() {
@@ -62,7 +61,6 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
 
   set isActive(isActive: boolean) {
     this.props.isActive = isActive
-    this.touch()
   }
 
   get createdAt() {
@@ -78,7 +76,7 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
   }
 
   static create(
-    props: Optional<ServiceProps.Props, 'createdAt' | 'isActive' | 'updatedAt'>,
+    props: Optional<ServiceProps.Props, 'createdAt' | 'updatedAt' | 'isActive'>,
     id?: UniqueEntityUUID,
   ) {
     const Service = new ServiceEntity(

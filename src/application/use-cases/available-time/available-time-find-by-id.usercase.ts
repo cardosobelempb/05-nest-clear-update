@@ -1,6 +1,10 @@
 import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
-import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
+import {
+  Either,
+  left,
+  right,
+} from '@/shared/infrastructure/handle-erros/either'
 
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 
@@ -10,7 +14,7 @@ export namespace AvailableTimeFindByIdProps {
   }
 
   export type Response = Either<
-    ResourceNotFoundErro,
+    ResourceNotFoundError,
     { availableTime: AvailableTimeEntity }
   >
 }
@@ -27,7 +31,7 @@ export class AvailableTimeFindByIdUseCase {
       await this.availableTimeRespository.findById(availableTimeId)
 
     if (!availableTime) {
-      return left(new ResourceNotFoundErro())
+      return left(new ResourceNotFoundError())
     }
 
     return right({ availableTime })

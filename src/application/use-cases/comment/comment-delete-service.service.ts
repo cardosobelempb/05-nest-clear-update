@@ -1,7 +1,11 @@
 import { CommentServiceRepository } from '@/application/repositories/commnet-service.repository'
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
+import {
+  Either,
+  left,
+  right,
+} from '@/shared/infrastructure/handle-erros/either'
 
 export namespace CommentDeleteServiceProps {
   export interface Request {
@@ -9,7 +13,7 @@ export namespace CommentDeleteServiceProps {
     commentServiceId: string
   }
 
-  export type Response = Either<ResourceNotFoundErro | NotAllowedErro, {}>
+  export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
 export class CommentDeleteService {
@@ -25,11 +29,11 @@ export class CommentDeleteService {
       await this.commentServiceRepository.findById(commentServiceId)
 
     if (!commentService) {
-      return left(new ResourceNotFoundErro())
+      return left(new ResourceNotFoundError())
     }
 
     if (userId !== commentService.userId.toString()) {
-      return left(new NotAllowedErro())
+      return left(new NotAllowedError())
     }
 
     await this.commentServiceRepository.delete(commentService)

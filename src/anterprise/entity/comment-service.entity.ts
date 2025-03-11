@@ -12,7 +12,7 @@ export class CommentServiceEntity extends CommentEntity<CommentServiceEntityProp
   get serviceId() {
     return this.props.serviceId
   }
-  o
+
   static create(
     props: Optional<
       CommentServiceEntityProps.Props,

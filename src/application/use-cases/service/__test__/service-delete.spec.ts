@@ -1,6 +1,6 @@
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
 import { ServiceDelete } from '../service-delete'
@@ -15,38 +15,35 @@ describe('ServiceDelete', () => {
   })
 
   it('should be ble to delete a service', async () => {
-    const newService = serviceFactory(
-      {
-        userId: new UniqueEntityUUID('user-1'),
-      },
-      new UniqueEntityUUID('service-1'),
+    await serviceInMemoryRepository.create(
+      serviceFactory(
+        {
+          userId: new UniqueEntityUUID('user-1'),
+        },
+        new UniqueEntityUUID('service-1'),
+      ),
     )
 
-    await serviceInMemoryRepository.create(newService)
-
     await sut.execute({
-      serviceId: 'service-1',
       userId: 'user-1',
+      serviceId: 'service-1',
     })
 
     expect(serviceInMemoryRepository.items).toHaveLength(0)
   })
 
   it('should not ble to delete a service another user', async () => {
-    const newService = serviceFactory(
-      {
-        userId: new UniqueEntityUUID('user-1'),
-      },
-      new UniqueEntityUUID('service-1'),
-    )
+    const service = serviceFactory({
+      userId: new UniqueEntityUUID('user-1'),
+    })
+    await serviceInMemoryRepository.create(service)
 
-    await serviceInMemoryRepository.create(newService)
+    const result = await sut.execute({
+      serviceId: service.id.toString(),
+      userId: 'user-2',
+    })
 
-    expect(() => {
-      return sut.execute({
-        serviceId: 'service-1',
-        userId: 'user-2',
-      })
-    }).rejects.toBeInstanceOf(NotAllowedErro)
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

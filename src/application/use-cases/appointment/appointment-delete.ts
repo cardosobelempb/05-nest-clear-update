@@ -1,6 +1,10 @@
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
+import {
+  Either,
+  left,
+  right,
+} from '@/shared/infrastructure/handle-erros/either'
 
 import { AppointmentRepository } from '../../repositories/appointmen.repository'
 
@@ -10,7 +14,7 @@ export namespace AppointmentDeleteProps {
     appointmentId: string
   }
 
-  export type Response = Either<ResourceNotFoundErro | NotAllowedErro, {}>
+  export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
 export class AppointmentDelete {
@@ -23,11 +27,11 @@ export class AppointmentDelete {
       await this.appointimentRespository.findById(appointmentId)
 
     if (!appointment) {
-      return left(new ResourceNotFoundErro())
+      return left(new ResourceNotFoundError())
     }
 
     if (userId !== appointment.userId.toString()) {
-      return left(new NotAllowedErro())
+      return left(new NotAllowedError())
     }
 
     await this.appointimentRespository.delete(appointment)

@@ -1,6 +1,10 @@
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
+import {
+  Either,
+  left,
+  right,
+} from '@/shared/infrastructure/handle-erros/either'
 
 import { ServiceRepository } from '../../repositories/service.repository'
 
@@ -10,7 +14,7 @@ export namespace ServiceDeleteProps {
     serviceId: string
   }
 
-  export type Response = Either<ResourceNotFoundErro | NotAllowedErro, {}>
+  export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
 export class ServiceDelete {
@@ -20,11 +24,11 @@ export class ServiceDelete {
     const service = await this.serviceRespository.findById(serviceId)
 
     if (!service) {
-      throw new ResourceNotFoundErro()
+      return left(new ResourceNotFoundError())
     }
 
     if (userId !== service.userId.toString()) {
-      throw new NotAllowedErro()
+      return left(new NotAllowedError())
     }
 
     await this.serviceRespository.delete(service)

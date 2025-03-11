@@ -5,7 +5,7 @@ import {
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { faker } from '@faker-js/faker'
 
-export function commentserviceFactory(
+export function commentServiceFactory(
   override: Partial<CommentServiceEntityProps.Props> = {},
   id?: UniqueEntityUUID,
 ) {

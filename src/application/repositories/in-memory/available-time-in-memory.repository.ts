@@ -20,21 +20,21 @@ export class AvailableTimeInMemoryRepository
   }
 
   async findById(id: string) {
-    const question = this.items.find(item => item.id.toString() === id)
+    const availableTime = this.items.find(item => item.id.toString() === id)
 
-    if (!question) {
+    if (!availableTime) {
       return null
     }
 
-    return question
+    return availableTime
   }
 
   async findMany({ page }: Pagination.Params) {
-    const questions = this.items
+    const availableTimes = this.items
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice((page - 1) * 20, page * 20)
 
-    return questions
+    return availableTimes
   }
 
   async create(entity: AvailableTimeEntity) {

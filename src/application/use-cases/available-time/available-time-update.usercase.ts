@@ -6,10 +6,10 @@ import {
   right,
 } from '@/shared/infrastructure/handle-erros/either'
 
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 import { AvailableTimeNameAlreadyExistsError } from '../errors/available-time-name-already-exists.error'
-import { NotAllowedError } from '../errors/not-allowed-error'
-import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 export namespace AvailableTimeUpdateProps {
   export interface Request {

@@ -1,7 +1,7 @@
 import { notificationFactory } from '@/application/repositories/in-memory/factories/notification.factory'
 import { NotificationInMemoryRepository } from '@/application/repositories/in-memory/notification-in-memory.repository'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { NotAllowedError } from '../../errors/not-allowed-error'
 import { NotificationRead } from '../notification-read'
 
 let notificationInMemoryRepository: NotificationInMemoryRepository

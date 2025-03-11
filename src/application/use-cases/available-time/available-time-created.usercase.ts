@@ -8,6 +8,7 @@ import {
 
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 import { AvailableTimeNameAlreadyExistsError } from '../errors/available-time-name-already-exists.error'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 
 export namespace AvailableTimeCreatedProps {
   export interface Request {
@@ -16,7 +17,7 @@ export namespace AvailableTimeCreatedProps {
   }
 
   export type Response = Either<
-    AvailableTimeNameAlreadyExistsError,
+    AvailableTimeNameAlreadyExistsError | NotAllowedError,
     {
       availableTime: AvailableTimeEntity
     }
@@ -35,11 +36,12 @@ export class AvailableTimeCreatedUseCase {
     const availableTimeName =
       await this.availableTimeRespository.findByName(name)
 
-    if (
-      availableTimeName?.name === name &&
-      availableTimeName?.userId.toString() === userId
-    ) {
+    if (availableTimeName?.name === name) {
       return left(new AvailableTimeNameAlreadyExistsError(name))
+    }
+
+    if (userId !== availableTimeName?.userId.toString()) {
+      return left(new NotAllowedError())
     }
 
     const availableTime = AvailableTimeEntity.create({

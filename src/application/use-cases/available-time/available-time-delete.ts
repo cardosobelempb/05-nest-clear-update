@@ -1,6 +1,10 @@
-import { NotAllowedErro } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { ResourceNotFoundErro } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
+import {
+  Either,
+  left,
+  right,
+} from '@/shared/infrastructure/handle-erros/either'
 
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 
@@ -10,7 +14,7 @@ export namespace AvailableTimeDeleteProps {
     availabletimeId: string
   }
 
-  export type Response = Either<ResourceNotFoundErro | NotAllowedErro, {}>
+  export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
 export class AvailableTimeDelete {
@@ -23,11 +27,11 @@ export class AvailableTimeDelete {
       await this.appointimentRespository.findById(availabletimeId)
 
     if (!availabletime) {
-      return left(new ResourceNotFoundErro())
+      return left(new ResourceNotFoundError())
     }
 
     if (userId !== availabletime.userId.toString()) {
-      return left(new NotAllowedErro())
+      return left(new NotAllowedError())
     }
 
     await this.appointimentRespository.delete(availabletime)

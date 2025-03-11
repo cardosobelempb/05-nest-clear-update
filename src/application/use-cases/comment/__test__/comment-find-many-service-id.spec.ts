@@ -1,5 +1,5 @@
 import { CommentServiceInMemoryRepository } from '@/application/repositories/in-memory/comment-service-in-memory.repository'
-import { commentserviceFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
+import { commentServiceFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
 import { CommentFindManyServiceId } from '../comment-find-many-service-id.service'
@@ -15,17 +15,17 @@ describe('CommentFindManyServiceId', () => {
 
   it('should not ble to comment by service id', async () => {
     await commentServiceInMemoryRepository.create(
-      commentserviceFactory({
+      commentServiceFactory({
         serviceId: new UniqueEntityUUID('comment-service-01'),
       }),
     )
     await commentServiceInMemoryRepository.create(
-      commentserviceFactory({
+      commentServiceFactory({
         serviceId: new UniqueEntityUUID('comment-service-01'),
       }),
     )
     await commentServiceInMemoryRepository.create(
-      commentserviceFactory({
+      commentServiceFactory({
         serviceId: new UniqueEntityUUID('comment-service-01'),
       }),
     )
@@ -41,7 +41,7 @@ describe('CommentFindManyServiceId', () => {
   it('should be ble to paginated comment service id', async () => {
     for (let i = 1; i <= 22; i++) {
       await commentServiceInMemoryRepository.create(
-        commentserviceFactory({
+        commentServiceFactory({
           serviceId: new UniqueEntityUUID('comment-service-01'),
         }),
       )

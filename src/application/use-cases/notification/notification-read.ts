@@ -1,12 +1,12 @@
 import { NotificationEntity } from '@/anterprise/entity/notification.entity'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
+import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import {
   Either,
   left,
   right,
 } from '@/shared/infrastructure/handle-erros/either'
 import { NotificationRepository } from '../../repositories/notifications-repository'
-import { NotAllowedError } from '../errors/not-allowed-error'
-import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 export namespace NotificationReadProps {
   export interface Request {
