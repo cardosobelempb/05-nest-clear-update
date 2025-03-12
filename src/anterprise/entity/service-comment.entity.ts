@@ -5,12 +5,16 @@ import { CommentEntity, CommentEntityProps } from './comment.entity'
 export namespace CommentServiceEntityProps {
   export interface Props extends CommentEntityProps.Props {
     serviceId: UniqueEntityUUID
+    commentId: UniqueEntityUUID
   }
 }
 
-export class CommentServiceEntity extends CommentEntity<CommentServiceEntityProps.Props> {
+export class ServiceCommnetEntity extends CommentEntity<CommentServiceEntityProps.Props> {
   get serviceId() {
     return this.props.serviceId
+  }
+  get commentId() {
+    return this.props.commentId
   }
 
   static create(
@@ -20,7 +24,7 @@ export class CommentServiceEntity extends CommentEntity<CommentServiceEntityProp
     >,
     id?: UniqueEntityUUID,
   ) {
-    const commentService = new CommentServiceEntity(
+    const serviceComment = new ServiceCommnetEntity(
       {
         ...props,
         isActive: props.isActive ?? true,
@@ -29,6 +33,6 @@ export class CommentServiceEntity extends CommentEntity<CommentServiceEntityProp
       id,
     )
 
-    return commentService
+    return serviceComment
   }
 }

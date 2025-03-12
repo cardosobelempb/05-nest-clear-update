@@ -1,4 +1,4 @@
-import { CommentServiceRepository } from '@/application/repositories/commnet-service.repository'
+import { CommentServiceRepository } from '@/application/repositories/service-commnet.repository'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import {

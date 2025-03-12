@@ -1,3 +1,4 @@
+import { AggregateRoot } from '@/shared/enterprise/entities/aggregate-root'
 import { Entity } from '@/shared/enterprise/entities/entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { AppointmentStatus } from '@prisma/client'
@@ -35,7 +36,7 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
     return this.props.availableTimeId
   }
 
-  set availableTimeId(availableTimeId: UniqueEntityUUID | null ) {
+  set availableTimeId(availableTimeId: UniqueEntityUUID | null) {
     this.props.availableTimeId = availableTimeId
   }
 
@@ -43,7 +44,7 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
     return this.props.serviceId
   }
 
-  set serviceId(serviceId: UniqueEntityUUID | null ) {
+  set serviceId(serviceId: UniqueEntityUUID | null) {
     this.props.serviceId = serviceId
   }
 
@@ -51,7 +52,7 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
     return this.props.isActive
   }
 
-  set isActive(isActive: boolean ) {
+  set isActive(isActive: boolean) {
     this.props.isActive = isActive
   }
 
@@ -68,7 +69,10 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
   }
 
   static create(
-    props: Optional<AppointmentProps.Props, 'createdAt' | 'isActive' | 'updatedAt' | 'status'>,
+    props: Optional<
+      AppointmentProps.Props,
+      'createdAt' | 'isActive' | 'updatedAt' | 'status'
+    >,
     id?: UniqueEntityUUID,
   ) {
     const appointment = new AppointmentEntity(

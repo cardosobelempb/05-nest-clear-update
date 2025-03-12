@@ -1,4 +1,4 @@
-import { CommentServiceInMemoryRepository } from '@/application/repositories/in-memory/comment-service-in-memory.repository'
+import { CommentServiceInMemoryRepository } from '@/application/repositories/in-memory/service-comment-in-memory.repository'
 import { commentServiceFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 

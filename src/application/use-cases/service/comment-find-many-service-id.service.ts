@@ -1,5 +1,5 @@
-import { CommentServiceEntity } from '@/anterprise/entity/comment-service.entity'
-import { CommentServiceRepository } from '@/application/repositories/commnet-service.repository'
+import { CommentServiceEntity } from '@/anterprise/entity/service-comment.entity'
+import { CommentServiceRepository } from '@/application/repositories/service-commnet.repository'
 import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 
 export namespace CommentFindManyServiceIdProps {
@@ -8,9 +8,12 @@ export namespace CommentFindManyServiceIdProps {
     serviceId: string
   }
 
-  export type Response = Either<null, {
-    commentServices: CommentServiceEntity[]
-  }>
+  export type Response = Either<
+    null,
+    {
+      commentServices: CommentServiceEntity[]
+    }
+  >
 }
 
 export class CommentFindManyServiceId {

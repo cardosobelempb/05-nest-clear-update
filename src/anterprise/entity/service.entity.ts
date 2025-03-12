@@ -1,6 +1,7 @@
-import { Entity } from '@/shared/enterprise/entities/entity'
+import { AggregateRoot } from '@/shared/enterprise/entities/aggregate-root'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Optional } from '@prisma/client/runtime/library'
+import { ServiceAttachmentEntity } from './service-attachment.entity'
 
 export namespace ServiceProps {
   export interface Props {
@@ -10,6 +11,7 @@ export namespace ServiceProps {
     isActive: boolean
     userId: UniqueEntityUUID
     categoryId: UniqueEntityUUID
+    attachments: ServiceAttachmentEntity[]
     createdAt: Date
     updatedAt?: Date | null
   }
@@ -18,7 +20,7 @@ export namespace ServiceProps {
   }
 }
 
-export class ServiceEntity extends Entity<ServiceProps.Props> {
+export class ServiceEntity extends AggregateRoot<ServiceProps.Props> {
   get name() {
     return this.props.name
   }
@@ -51,16 +53,20 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
     return this.props.categoryId
   }
 
-  set categoryId(categoryId: UniqueEntityUUID) {
-    this.props.categoryId = categoryId
-  }
-
   get isActive() {
     return this.props.isActive
   }
 
   set isActive(isActive: boolean) {
     this.props.isActive = isActive
+  }
+
+  get attachments() {
+    return this.props.attachments
+  }
+
+  set attachments(attachments: ServiceAttachmentEntity[]) {
+    this.props.attachments = attachments
   }
 
   get createdAt() {
@@ -76,13 +82,17 @@ export class ServiceEntity extends Entity<ServiceProps.Props> {
   }
 
   static create(
-    props: Optional<ServiceProps.Props, 'createdAt' | 'updatedAt' | 'isActive'>,
+    props: Optional<
+      ServiceProps.Props,
+      'createdAt' | 'updatedAt' | 'isActive' | 'attachments'
+    >,
     id?: UniqueEntityUUID,
   ) {
     const Service = new ServiceEntity(
       {
         ...props,
         isActive: props.isActive ?? true,
+        attachments: props.attachments ?? [],
         createdAt: props.createdAt ?? new Date(),
       },
       id,

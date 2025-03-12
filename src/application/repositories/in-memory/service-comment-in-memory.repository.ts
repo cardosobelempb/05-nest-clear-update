@@ -1,11 +1,11 @@
-import { CommentServiceEntity } from '@/anterprise/entity/comment-service.entity'
+import { ServiceCommnetEntity } from '@/anterprise/entity/service-comment.entity'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
-import { CommentServiceRepository } from '../commnet-service.repository'
+import { ServiceCommentRepository } from '../service-commnet.repository'
 
-export class CommentServiceInMemoryRepository
-  implements CommentServiceRepository
+export class ServiceCommentInMemoryRepository
+  implements ServiceCommentRepository
 {
-  public items: CommentServiceEntity[] = []
+  public items: ServiceCommnetEntity[] = []
 
   async findById(id: string) {
     const commentService = this.items.find(item => item.id.toString() === id)
@@ -34,16 +34,16 @@ export class CommentServiceInMemoryRepository
     return commentService
   }
 
-  async create(entity: CommentServiceEntity) {
+  async create(entity: ServiceCommnetEntity) {
     this.items.push(entity)
   }
 
-  async update(entity: CommentServiceEntity) {
+  async update(entity: ServiceCommnetEntity) {
     const itemIndex = this.items.findIndex(item => item.id === entity.id)
     this.items[itemIndex] = entity
   }
 
-  async delete(entity: CommentServiceEntity) {
+  async delete(entity: ServiceCommnetEntity) {
     const itemIndex = this.items.findIndex(item => item.id === entity.id)
 
     this.items.splice(itemIndex, 1)

@@ -1,7 +1,7 @@
 import {
   CommentServiceEntity,
   CommentServiceEntityProps,
-} from '@/anterprise/entity/comment-service.entity'
+} from '@/anterprise/entity/service-comment.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { faker } from '@faker-js/faker'
 

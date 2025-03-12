@@ -1,5 +1,5 @@
-import { CommentServiceEntity } from '@/anterprise/entity/comment-service.entity'
-import { CommentServiceRepository } from '@/application/repositories/commnet-service.repository'
+import { ServiceCommnetEntity } from '@/anterprise/entity/service-comment.entity'
+import { ServiceCommentRepository } from '@/application/repositories/service-commnet.repository'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
@@ -17,7 +17,7 @@ export namespace CommentCreateServiceProps {
 
 export class CommentCreateService {
   constructor(
-    private readonly commentServiceRepository: CommentServiceRepository,
+    private readonly serviceCommentRepository: ServiceCommentRepository,
   ) {}
 
   async execute({
@@ -25,13 +25,14 @@ export class CommentCreateService {
     userId,
     serviceId,
   }: CommentCreateServiceProps.Request): Promise<CommentCreateServiceProps.Response> {
-    const commentService = CommentServiceEntity.create({
+    const serviceComment = ServiceCommnetEntity.create({
       content,
       userId,
       serviceId,
+      commentId: new UniqueEntityUUID(),
     })
 
-    await this.commentServiceRepository.create(commentService)
+    await this.serviceCommentRepository.create(serviceComment)
 
     return right({})
   }

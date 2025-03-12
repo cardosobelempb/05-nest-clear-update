@@ -13,6 +13,7 @@ export function serviceFactory(
       duration: '08:00',
       categoryId: new UniqueEntityUUID(),
       userId: new UniqueEntityUUID(),
+      attachments: [],
       ...override,
     },
     id,
