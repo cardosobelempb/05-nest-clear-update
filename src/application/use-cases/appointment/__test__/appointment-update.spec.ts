@@ -4,12 +4,14 @@ import { appointmentFactory } from '@/application/repositories/in-memory/factori
 import { availabletimeFactory } from '@/application/repositories/in-memory/factories/available-time.factory'
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
 import { userFactory } from '@/application/repositories/in-memory/factories/user.factory'
+import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
 import { UserInMemoryRepository } from '@/application/repositories/in-memory/user-in-memory.repository'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
 import { AppointmentUpdate } from '../appointment-update'
 
+let serviceAttachmentInMemoryRepository: ServiceAttachmentInMemoryRepository
 let userInMemoryRepository: UserInMemoryRepository
 let appointmentInMemoryRepository: AppointmentInMemoryRepository
 let serviceInMemoryRepository: ServiceInMemoryRepository
@@ -18,8 +20,9 @@ let sut: AppointmentUpdate
 
 describe('AppointmentUpdate', () => {
   beforeAll(() => {
+    serviceAttachmentInMemoryRepository = new ServiceAttachmentInMemoryRepository()
     appointmentInMemoryRepository = new AppointmentInMemoryRepository()
-    serviceInMemoryRepository = new ServiceInMemoryRepository()
+    serviceInMemoryRepository = new ServiceInMemoryRepository(serviceAttachmentInMemoryRepository)
     availableTimeInMemoryRepository = new AvailableTimeInMemoryRepository()
     userInMemoryRepository = new UserInMemoryRepository()
     sut = new AppointmentUpdate(
