@@ -1,11 +1,12 @@
+import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 
-import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { ServiceAttachmentRepository } from '../service-attachment.repository'
 
 export class ServiceAttachmentInMemoryRepository
   implements ServiceAttachmentRepository
 {
+
   public items: ServiceAttachmentEntity[] = []
 
   async findManyByServiceId(
@@ -50,4 +51,11 @@ export class ServiceAttachmentInMemoryRepository
 
     this.items.splice(itemIndex, 1)
   }
+
+  async deleteManyServiceId(serviceId: string): Promise<void> {
+    const serviceAttachments = this.items.filter(item => item.serviceId.toString() !== serviceId)
+    this.items = serviceAttachments
+  }
+
+
 }

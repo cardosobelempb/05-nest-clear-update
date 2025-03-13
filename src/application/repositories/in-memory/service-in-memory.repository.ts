@@ -1,10 +1,16 @@
-import { ServiceEntity } from '@/anterprise/entity/service.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
+import { ServiceEntity } from '@/anterprise/entity/service.entity';
+import { Pagination } from '@/shared/enterprise/repository/types/pagination';
 
-import { ServiceRepository } from '../service.repository'
+import { ServiceRepository } from '../service.repository';
+import { ServiceAttachmentInMemoryRepository } from './service-attachment-in-memory.repository';
 
 export class ServiceInMemoryRepository implements ServiceRepository {
   public items: ServiceEntity[] = []
+
+  constructor(
+    private readonly serviceAttachmentInMemoryRepository: ServiceAttachmentInMemoryRepository
+  ){}
+
 
   async findByCategoryId(categoryId: string): Promise<ServiceEntity | null> {
     const service = this.items.find(
@@ -60,5 +66,7 @@ export class ServiceInMemoryRepository implements ServiceRepository {
     const itemIndex = this.items.findIndex(item => item.id === entity.id)
 
     this.items.splice(itemIndex, 1)
+    this.serviceAttachmentInMemoryRepository.deleteManyServiceId(entity.id.toString())
   }
+
 }
