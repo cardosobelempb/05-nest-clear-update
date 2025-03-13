@@ -1,12 +1,12 @@
 import { CategoryInMemoryRepository } from '@/application/repositories/in-memory/category-in-memory.repository'
 import { categoryFactory } from '@/application/repositories/in-memory/factories/category.factory'
+import { serviceAttachmentFactory } from '@/application/repositories/in-memory/factories/service-attachment.factory'
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
+import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
+import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
-import { serviceAttachmentFactory } from '@/application/repositories/in-memory/factories/service-attachment.factory'
-import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
-import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ServiceUpdateService } from '../service-update.service'
 
 let serviceAttachmentInMemoryRepository: ServiceAttachmentInMemoryRepository
@@ -18,7 +18,7 @@ describe('ServiceUpdateService', () => {
   beforeEach(() => {
     serviceAttachmentInMemoryRepository =
       new ServiceAttachmentInMemoryRepository()
-    serviceInMemoryRepository = new ServiceInMemoryRepository()
+    serviceInMemoryRepository = new ServiceInMemoryRepository(serviceAttachmentInMemoryRepository)
     categoryInMemoryRepository = new CategoryInMemoryRepository()
     sut = new ServiceUpdateService(
       serviceAttachmentInMemoryRepository,

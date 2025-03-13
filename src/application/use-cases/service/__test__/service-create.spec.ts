@@ -1,17 +1,19 @@
 import { CategoryInMemoryRepository } from '@/application/repositories/in-memory/category-in-memory.repository'
-import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
+import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
-
-import { ServiceCreateService } from '../service-create.service'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
+import { ServiceCreateService } from '../service-create.service'
+
+let serviceAttachmentInMemoryRepository: ServiceAttachmentInMemoryRepository
 let serviceInMemoryRepository: ServiceInMemoryRepository
 let categoryInMemoryRepository: CategoryInMemoryRepository
 let sut: ServiceCreateService
 
 describe('ServiceCreateService', () => {
   beforeAll(() => {
-    serviceInMemoryRepository = new ServiceInMemoryRepository()
+    serviceAttachmentInMemoryRepository = new ServiceAttachmentInMemoryRepository()
+    serviceInMemoryRepository = new ServiceInMemoryRepository(serviceAttachmentInMemoryRepository)
     categoryInMemoryRepository = new CategoryInMemoryRepository()
 
     sut = new ServiceCreateService(serviceInMemoryRepository)

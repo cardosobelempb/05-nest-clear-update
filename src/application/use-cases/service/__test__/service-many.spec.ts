@@ -1,14 +1,17 @@
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
+import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
 
 import { ServiceManyService } from '../service-many.service'
 
+let serviceAttachmentInMemoryRepository: ServiceAttachmentInMemoryRepository
 let serviceInMemoryRepository: ServiceInMemoryRepository
 let sut: ServiceManyService
 
 describe('ServiceManyService', () => {
   beforeEach(() => {
-    serviceInMemoryRepository = new ServiceInMemoryRepository()
+    serviceAttachmentInMemoryRepository = new ServiceAttachmentInMemoryRepository()
+    serviceInMemoryRepository = new ServiceInMemoryRepository(serviceAttachmentInMemoryRepository)
     sut = new ServiceManyService(serviceInMemoryRepository)
   })
 

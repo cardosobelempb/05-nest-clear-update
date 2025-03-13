@@ -1,15 +1,18 @@
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
+import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
 import { ServiceManyByCategoryIdService } from '../service-many-by-category-id.service'
 
+let serviceAttachmentInMemoryRepository: ServiceAttachmentInMemoryRepository
 let serviceInMemoryRepository: ServiceInMemoryRepository
 let sut: ServiceManyByCategoryIdService
 
 describe('ServiceManyByCategoryIdService', () => {
   beforeEach(() => {
-    serviceInMemoryRepository = new ServiceInMemoryRepository()
+    serviceAttachmentInMemoryRepository = new ServiceAttachmentInMemoryRepository()
+    serviceInMemoryRepository = new ServiceInMemoryRepository(serviceAttachmentInMemoryRepository)
     sut = new ServiceManyByCategoryIdService(serviceInMemoryRepository)
   })
 
