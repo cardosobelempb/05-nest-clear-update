@@ -11,14 +11,16 @@ export namespace ServiceManyByCategoryIdProps {
   export type Response = Either<null, { services: ServiceEntity[] }>
 }
 
-export class ServiceManyByCategoryId {
+export class ServiceManyByCategoryIdService {
   constructor(private readonly serviceRepository: ServiceRepository) {}
   async execute({
     categoryId,
     page,
   }: ServiceManyByCategoryIdProps.Request): Promise<ServiceManyByCategoryIdProps.Response> {
-    const services = await this.serviceRepository.findManyByCategoryId(categoryId, {page})
-
+    const services = await this.serviceRepository.findManyByCategoryId(
+      categoryId,
+      { page },
+    )
 
     return right({ services })
   }

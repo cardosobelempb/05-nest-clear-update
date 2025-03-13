@@ -1,6 +1,8 @@
+import { ServiceAttachmentListEntity } from '@/anterprise/entity/service-attachment-list.entity'
+import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { CategoryRepository } from '@/application/repositories/category.repository'
+import { ServiceAttachmentRepository } from '@/application/repositories/service-attachment.repository'
 import { ServiceRepository } from '@/application/repositories/service.repository'
-import { UserRepository } from '@/application/repositories/user.repository'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
@@ -16,14 +18,15 @@ export namespace ServiceUpdateProps {
     categoryId: string
     name: string
     userId: string
+    attachmentsIds: string[]
   }
 
   export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
-export class ServiceUpdate {
+export class ServiceUpdateService {
   constructor(
-    private readonly userRepository: UserRepository,
+    private readonly serviceAttachmentRepository: ServiceAttachmentRepository,
     private readonly serviceRespository: ServiceRepository,
     private readonly categoryRepository: CategoryRepository,
   ) {}
@@ -33,27 +36,41 @@ export class ServiceUpdate {
     categoryId,
     name,
     userId,
+    attachmentsIds,
   }: ServiceUpdateProps.Request) {
-    const user = await this.userRepository.findById(userId)
-
     const service = await this.serviceRespository.findById(serviceId)
-
     const category = await this.categoryRepository.findById(categoryId)
 
-    if (!user || !service || !category) {
+    if (!service || !category) {
       return left(new ResourceNotFoundError())
     }
 
     if (
-      userId !== user.id.toString() ||
       userId !== service.userId.toString() ||
       userId !== category.userId.toString()
     ) {
       return left(new NotAllowedError())
     }
 
+    const currentServiceAttachments =
+      await this.serviceAttachmentRepository.findManyByServiceId(serviceId)
+
+    const serviceAttachmentList = new ServiceAttachmentListEntity(
+      currentServiceAttachments,
+    )
+
+    const serviceAttachments = attachmentsIds.map(id => {
+      return ServiceAttachmentEntity.create({
+        attachmentId: new UniqueEntityUUID(id),
+        serviceId: service.id,
+      })
+    })
+
+    serviceAttachmentList.update(serviceAttachments)
+
     service.name = name
     service.categoryId = new UniqueEntityUUID(categoryId)
+    service.attachments = serviceAttachmentList
 
     await this.serviceRespository.update(service)
 

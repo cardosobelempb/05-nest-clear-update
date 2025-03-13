@@ -1,16 +1,16 @@
-import { serviceCommentFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
+import { serviceCommentFactory } from '@/application/repositories/in-memory/factories/service-comment.factory'
 import { ServiceCommentInMemoryRepository } from '@/application/repositories/in-memory/service-comment-in-memory.repository'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
-import { ServiceFindManyCommentId } from '../service-find-many-comment-id.service'
+import { ServiceFindManyCommentIdService } from '../service-find-many-comment-id.service'
 
 let serviceCommentInMemoryRepository: ServiceCommentInMemoryRepository
-let sut: ServiceFindManyCommentId
+let sut: ServiceFindManyCommentIdService
 
-describe('ServiceFindManyCommentId', () => {
+describe('ServiceFindManyCommentIdService', () => {
   beforeEach(() => {
     serviceCommentInMemoryRepository = new ServiceCommentInMemoryRepository()
-    sut = new ServiceFindManyCommentId(serviceCommentInMemoryRepository)
+    sut = new ServiceFindManyCommentIdService(serviceCommentInMemoryRepository)
   })
 
   it('should not ble to comment by service id', async () => {

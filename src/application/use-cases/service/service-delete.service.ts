@@ -17,7 +17,7 @@ export namespace ServiceDeleteProps {
   export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
-export class ServiceDelete {
+export class ServiceDeleteService {
   constructor(private readonly serviceRespository: ServiceRepository) {}
 
   async execute({ userId, serviceId }: ServiceDeleteProps.Request) {

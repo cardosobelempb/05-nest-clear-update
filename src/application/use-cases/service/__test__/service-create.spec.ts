@@ -35,10 +35,14 @@ describe('ServiceCreateService', () => {
 
     expect(result.isRight()).toBe(true)
     expect(serviceInMemoryRepository.items).toHaveLength(1)
-    expect(serviceInMemoryRepository.items[0].attachments).toHaveLength(2)
-    expect(serviceInMemoryRepository.items[0].attachments).toEqual([
-      expect.objectContaining({ attachmentId: new UniqueEntityUUID('1') }),
-      expect.objectContaining({ attachmentId: new UniqueEntityUUID('2') }),
-    ])
+    expect(
+      serviceInMemoryRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
+    expect(serviceInMemoryRepository.items[0].attachments.currentItems).toEqual(
+      [
+        expect.objectContaining({ attachmentId: new UniqueEntityUUID('1') }),
+        expect.objectContaining({ attachmentId: new UniqueEntityUUID('2') }),
+      ],
+    )
   })
 })

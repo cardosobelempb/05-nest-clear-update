@@ -1,4 +1,4 @@
-import { serviceCommentFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
+import { serviceCommentFactory } from '@/application/repositories/in-memory/factories/service-comment.factory'
 import { ServiceCommentInMemoryRepository } from '@/application/repositories/in-memory/service-comment-in-memory.repository'
 import { ServiceCommentCreateService } from '../service-comment-create.service'
 

@@ -16,7 +16,7 @@ export namespace ServiceFindManyCommentIdProps {
   >
 }
 
-export class ServiceFindManyCommentId {
+export class ServiceFindManyCommentIdService {
   constructor(
     private readonly serviceCommentRepository: ServiceCommentRepository,
   ) {}

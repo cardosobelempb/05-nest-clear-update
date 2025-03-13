@@ -1,3 +1,4 @@
+import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { ServiceEntity, ServiceProps } from '@/anterprise/entity/service.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { faker } from '@faker-js/faker'
@@ -13,7 +14,6 @@ export function serviceFactory(
       duration: '08:00',
       categoryId: new UniqueEntityUUID(),
       userId: new UniqueEntityUUID(),
-      attachments: [],
       ...override,
     },
     id,

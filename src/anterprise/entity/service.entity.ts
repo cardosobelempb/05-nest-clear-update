@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@/shared/enterprise/entities/aggregate-root'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Optional } from '@prisma/client/runtime/library'
-import { ServiceAttachmentEntity } from './service-attachment.entity'
+import { ServiceAttachmentListEntity } from './service-attachment-list.entity'
 
 export namespace ServiceProps {
   export interface Props {
@@ -11,7 +11,7 @@ export namespace ServiceProps {
     isActive: boolean
     userId: UniqueEntityUUID
     categoryId: UniqueEntityUUID
-    attachments: ServiceAttachmentEntity[]
+    attachments: ServiceAttachmentListEntity
     createdAt: Date
     updatedAt?: Date | null
   }
@@ -69,7 +69,7 @@ export class ServiceEntity extends AggregateRoot<ServiceProps.Props> {
     return this.props.attachments
   }
 
-  set attachments(attachments: ServiceAttachmentEntity[]) {
+  set attachments(attachments: ServiceAttachmentListEntity) {
     this.props.attachments = attachments
   }
 
@@ -96,7 +96,7 @@ export class ServiceEntity extends AggregateRoot<ServiceProps.Props> {
       {
         ...props,
         isActive: props.isActive ?? true,
-        attachments: props.attachments ?? [],
+        attachments: props.attachments ?? new ServiceAttachmentListEntity(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,

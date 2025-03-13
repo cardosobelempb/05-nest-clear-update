@@ -6,6 +6,7 @@ import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 
 import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { ServiceRepository } from '../../repositories/service.repository'
+import { ServiceAttachmentListEntity } from '@/anterprise/entity/service-attachment-list.entity'
 
 export namespace ServiceCreateProps {
   export interface Request {
@@ -46,7 +47,7 @@ export class ServiceCreateService {
       })
     })
 
-    service.attachments = serviceAttachments
+    service.attachments = new ServiceAttachmentListEntity(serviceAttachments)
 
     await this.serviceRespository.create(service)
 
