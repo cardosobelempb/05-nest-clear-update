@@ -1,43 +1,43 @@
-import { CommentServiceInMemoryRepository } from '@/application/repositories/in-memory/service-comment-in-memory.repository'
-import { commentServiceFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
+import { serviceCommentFactory } from '@/application/repositories/in-memory/factories/comment-service.factory'
+import { ServiceCommentInMemoryRepository } from '@/application/repositories/in-memory/service-comment-in-memory.repository'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { beforeEach } from 'vitest'
-import { CommentDeleteService } from '../comment-delete-service.service'
+import { ServiceCommentDeleteService } from '../service-comment-delete.service'
 
-let commentServiceInMemoryRepository: CommentServiceInMemoryRepository
-let sut: CommentDeleteService
+let serviceCommentInMemoryRepository: ServiceCommentInMemoryRepository
+let sut: ServiceCommentDeleteService
 
-describe('CommentDeleteService', () => {
+describe('ServiceCommentDeleteService', () => {
   beforeEach(() => {
-    commentServiceInMemoryRepository = new CommentServiceInMemoryRepository()
-    sut = new CommentDeleteService(commentServiceInMemoryRepository)
+    serviceCommentInMemoryRepository = new ServiceCommentInMemoryRepository()
+    sut = new ServiceCommentDeleteService(serviceCommentInMemoryRepository)
   })
 
   afterEach(() => {
-    commentServiceInMemoryRepository.items = []
+    serviceCommentInMemoryRepository.items = []
   })
 
   it('should be ble to comment delete a service', async () => {
-    const commentService = commentServiceFactory()
+    const commentService = serviceCommentFactory()
 
-    await commentServiceInMemoryRepository.create(commentService)
+    await serviceCommentInMemoryRepository.create(commentService)
 
     await sut.execute({
       commentServiceId: commentService.id.toString(),
       userId: commentService.userId.toString(),
     })
 
-    expect(commentServiceInMemoryRepository.items).toHaveLength(0)
+    expect(serviceCommentInMemoryRepository.items).toHaveLength(0)
   })
 
   it('should not ble to delete comment a service another user', async () => {
-    const commentService = commentServiceFactory({
+    const commentService = serviceCommentFactory({
       userId: new UniqueEntityUUID('user-1'),
     })
-    await commentServiceInMemoryRepository.create(commentService)
+    await serviceCommentInMemoryRepository.create(commentService)
 
     const result = await sut.execute({
       commentServiceId: commentService.id.toString(),
@@ -49,8 +49,8 @@ describe('CommentDeleteService', () => {
   })
 
   it('should not ble to delete comment a service id not found', async () => {
-    const commentService = commentServiceFactory()
-    await commentServiceInMemoryRepository.create(commentService)
+    const commentService = serviceCommentFactory()
+    await serviceCommentInMemoryRepository.create(commentService)
 
     const result = await sut.execute({
       commentServiceId: 'comment-service-1',

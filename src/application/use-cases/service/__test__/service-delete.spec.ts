@@ -3,7 +3,7 @@ import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
-import { ServiceDelete } from '../service-delete'
+import { ServiceDelete } from '../service-delete.service'
 
 let serviceInMemoryRepository: ServiceInMemoryRepository
 let sut: ServiceDelete

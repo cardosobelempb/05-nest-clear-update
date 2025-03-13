@@ -6,7 +6,7 @@ import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/
 import { UserInMemoryRepository } from '@/application/repositories/in-memory/user-in-memory.repository'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 
-import { ServiceUpdate } from '../service-update'
+import { ServiceUpdate } from '../service-update.service'
 
 let userInMemoryRepository: UserInMemoryRepository
 let serviceInMemoryRepository: ServiceInMemoryRepository

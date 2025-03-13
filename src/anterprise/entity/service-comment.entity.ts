@@ -2,14 +2,14 @@ import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/uni
 import { Optional } from '@prisma/client/runtime/library'
 import { CommentEntity, CommentEntityProps } from './comment.entity'
 
-export namespace CommentServiceEntityProps {
+export namespace ServiceCommentEntityProps {
   export interface Props extends CommentEntityProps.Props {
     serviceId: UniqueEntityUUID
     commentId: UniqueEntityUUID
   }
 }
 
-export class ServiceCommnetEntity extends CommentEntity<CommentServiceEntityProps.Props> {
+export class ServiceCommnetEntity extends CommentEntity<ServiceCommentEntityProps.Props> {
   get serviceId() {
     return this.props.serviceId
   }
@@ -19,7 +19,7 @@ export class ServiceCommnetEntity extends CommentEntity<CommentServiceEntityProp
 
   static create(
     props: Optional<
-      CommentServiceEntityProps.Props,
+      ServiceCommentEntityProps.Props,
       'createdAt' | 'updatedAt' | 'isActive'
     >,
     id?: UniqueEntityUUID,

@@ -4,7 +4,11 @@ import { UserRepository } from '@/application/repositories/user.repository'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+import {
+  Either,
+  left,
+  right,
+} from '@/shared/infrastructure/handle-erros/either'
 
 export namespace ServiceUpdateProps {
   export interface Request {
@@ -14,10 +18,7 @@ export namespace ServiceUpdateProps {
     userId: string
   }
 
-  export type Response = Either<
-    ResourceNotFoundError |
-    NotAllowedError,
-    {}>
+  export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
 export class ServiceUpdate {
@@ -40,7 +41,7 @@ export class ServiceUpdate {
     const category = await this.categoryRepository.findById(categoryId)
 
     if (!user || !service || !category) {
-      return left (new ResourceNotFoundError())
+      return left(new ResourceNotFoundError())
     }
 
     if (

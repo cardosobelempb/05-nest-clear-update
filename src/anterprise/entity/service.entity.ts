@@ -53,6 +53,10 @@ export class ServiceEntity extends AggregateRoot<ServiceProps.Props> {
     return this.props.categoryId
   }
 
+  set categoryId(categoryId: UniqueEntityUUID) {
+    this.props.categoryId = categoryId
+  }
+
   get isActive() {
     return this.props.isActive
   }

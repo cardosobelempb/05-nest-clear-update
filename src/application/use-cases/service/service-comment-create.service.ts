@@ -5,7 +5,7 @@ import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resour
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Either, right } from '@/shared/infrastructure/handle-erros/either'
 
-export namespace CommentCreateServiceProps {
+export namespace ServiceCommentCreateProps {
   export interface Request {
     content: string
     userId: UniqueEntityUUID
@@ -15,7 +15,7 @@ export namespace CommentCreateServiceProps {
   export type Response = Either<ResourceNotFoundError | NotAllowedError, {}>
 }
 
-export class CommentCreateService {
+export class ServiceCommentCreateService {
   constructor(
     private readonly serviceCommentRepository: ServiceCommentRepository,
   ) {}
@@ -24,7 +24,7 @@ export class CommentCreateService {
     content,
     userId,
     serviceId,
-  }: CommentCreateServiceProps.Request): Promise<CommentCreateServiceProps.Response> {
+  }: ServiceCommentCreateProps.Request): Promise<ServiceCommentCreateProps.Response> {
     const serviceComment = ServiceCommnetEntity.create({
       content,
       userId,
