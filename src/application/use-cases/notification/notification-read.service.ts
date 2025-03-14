@@ -1,11 +1,8 @@
 import { NotificationEntity } from '@/anterprise/entity/notification.entity'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+
 import { NotificationRepository } from '../../repositories/notifications-repository'
 
 export namespace NotificationReadProps {
@@ -22,7 +19,7 @@ export namespace NotificationReadProps {
   >
 }
 
-export class NotificationRead {
+export class NotificationReadService {
   constructor(private notificationRepository: NotificationRepository) {}
 
   async execute({

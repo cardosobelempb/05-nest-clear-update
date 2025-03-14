@@ -1,13 +1,14 @@
 import { NotificationInMemoryRepository } from '@/application/repositories/in-memory/notification-in-memory.repository'
-import { NotificationSend } from '../notification-send'
+
+import { NotificationSendService } from '../notification-send.service'
 
 let notificationInMemoryRepository: NotificationInMemoryRepository
-let sut: NotificationSend
+let sut: NotificationSendService
 
-describe('Send Notification', () => {
+describe('NotificationSendService', () => {
   beforeEach(() => {
     notificationInMemoryRepository = new NotificationInMemoryRepository()
-    sut = new NotificationSend(notificationInMemoryRepository)
+    sut = new NotificationSendService(notificationInMemoryRepository)
   })
 
   it('should be able to send a notification', async () => {

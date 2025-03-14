@@ -1,5 +1,6 @@
 import { NotificationEntity } from '@/anterprise/entity/notification.entity'
 import { Pagination } from '@/shared/enterprise/repository/types/pagination'
+
 import { NotificationRepository } from '../notifications-repository'
 
 export class NotificationInMemoryRepository implements NotificationRepository {
@@ -10,13 +11,13 @@ export class NotificationInMemoryRepository implements NotificationRepository {
   }
 
   async findById(id: string) {
-    const question = this.items.find(item => item.id.toString() === id)
+    const notification = this.items.find(item => item.id.toString() === id)
 
-    if (!question) {
+    if (!notification) {
       return null
     }
 
-    return question
+    return notification
   }
 
   async create(entity: NotificationEntity): Promise<void> {

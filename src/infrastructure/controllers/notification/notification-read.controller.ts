@@ -1,4 +1,4 @@
-import { NotificationRead } from '@/application/use-cases/notification/notification-read'
+import { NotificationRead } from '@/application/use-cases/notification/notification-read.service'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
 import {

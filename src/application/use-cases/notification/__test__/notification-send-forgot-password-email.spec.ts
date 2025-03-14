@@ -1,14 +1,15 @@
-import { UserInMemoryRepository } from '@/application/repositories/in-memory/user-in-memory.repository'
-import { NotificationSendForgotPasswordEmail } from '../notification-send-forgot-password-email'
 import { userFactory } from '@/application/repositories/in-memory/factories/user.factory'
+import { UserInMemoryRepository } from '@/application/repositories/in-memory/user-in-memory.repository'
+
+import { NotificationSendForgotPasswordEmailService } from '../notification-send-forgot-password-email.service'
 
 let userInMemoryRepository: UserInMemoryRepository
-let sut: NotificationSendForgotPasswordEmail
+let sut: NotificationSendForgotPasswordEmailService
 
-describe('NotificationSendForgotPasswordEmail', () => {
+describe('NotificationSendForgotPasswordEmailService', () => {
   beforeAll(() => {
     userInMemoryRepository = new UserInMemoryRepository()
-    sut = new NotificationSendForgotPasswordEmail(userInMemoryRepository)
+    sut = new NotificationSendForgotPasswordEmailService(userInMemoryRepository)
   })
 
   it('should be ble to recover the password usingg the email', async () => {

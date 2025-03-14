@@ -16,7 +16,7 @@ export namespace UserSendForgoPasswordEmailProps {
     }
   >
 }
-export class NotificationSendForgotPasswordEmail {
+export class NotificationSendForgotPasswordEmailService {
   constructor(private readonly userRespository: UserRepository) {}
 
   async execute({

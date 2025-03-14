@@ -1,6 +1,7 @@
 import { NotificationEntity } from '@/anterprise/entity/notification.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+
 import { NotificationRepository } from '../../repositories/notifications-repository'
 
 export namespace NotificationSendProps {
@@ -18,7 +19,7 @@ export namespace NotificationSendProps {
   >
 }
 
-export class NotificationSend {
+export class NotificationSendService {
   constructor(private notificationsRepository: NotificationRepository) {}
 
   async execute({

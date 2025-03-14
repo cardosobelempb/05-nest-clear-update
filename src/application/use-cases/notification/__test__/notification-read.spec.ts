@@ -2,15 +2,16 @@ import { notificationFactory } from '@/application/repositories/in-memory/factor
 import { NotificationInMemoryRepository } from '@/application/repositories/in-memory/notification-in-memory.repository'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { NotificationRead } from '../notification-read'
+
+import { NotificationReadService } from '../notification-read.service'
 
 let notificationInMemoryRepository: NotificationInMemoryRepository
-let sut: NotificationRead
+let sut: NotificationReadService
 
-describe('NotificationRead', () => {
+describe('NotificationReadService', () => {
   beforeEach(() => {
     notificationInMemoryRepository = new NotificationInMemoryRepository()
-    sut = new NotificationRead(notificationInMemoryRepository)
+    sut = new NotificationReadService(notificationInMemoryRepository)
   })
 
   it('should be able to read a notification', async () => {
@@ -31,14 +32,14 @@ describe('NotificationRead', () => {
 
   it('should not be able to read a notification from another user', async () => {
     const notification = notificationFactory({
-      recipientId: new UniqueEntityUUID('recipient-1'),
+      recipientId: new UniqueEntityUUID('recipient-01'),
     })
 
     notificationInMemoryRepository.create(notification)
 
     const result = await sut.execute({
       notificationId: notification.id.toString(),
-      recipientId: 'recipient-2',
+      recipientId: 'recipient-02',
     })
 
     expect(result.isLeft()).toBe(true)
