@@ -1,7 +1,8 @@
 import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
-
 import { UserEntity } from '@/anterprise/entity/user.entity'
+import { Pagination } from '@/shared/enterprise/repository/types/pagination'
+import { DomainEvents } from '@/shared/infrastructure/events/domain-events'
+
 import { AppointmentRepository } from '../appointmen.repository'
 
 export class AppointmentInMemoryRepository implements AppointmentRepository {
@@ -41,11 +42,13 @@ export class AppointmentInMemoryRepository implements AppointmentRepository {
 
   async create(entity: AppointmentEntity) {
     this.items.push(entity)
+    DomainEvents.dispatchEventsForAggregate(entity.id)
   }
 
   async update(entity: AppointmentEntity) {
     const itemIndex = this.items.findIndex(item => item.id === entity.id)
     this.items[itemIndex] = entity
+    DomainEvents.dispatchEventsForAggregate(entity.id)
   }
 
   async delete(entity: AppointmentEntity) {
