@@ -1,8 +1,9 @@
 import { AggregateRoot } from '@/shared/enterprise/entities/aggregate-root'
-import { Entity } from '@/shared/enterprise/entities/entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { AppointmentStatus } from '@prisma/client'
 import { Optional } from '@prisma/client/runtime/library'
+
+import { AppointmentCreatedEvent } from '../events/appointment-created.event'
 
 export namespace AppointmentProps {
   export interface Props {
@@ -19,7 +20,7 @@ export namespace AppointmentProps {
   }
 }
 
-export class AppointmentEntity extends Entity<AppointmentProps.Props> {
+export class AppointmentEntity extends AggregateRoot<AppointmentProps.Props> {
   get status() {
     return this.props.status
   }
@@ -84,6 +85,12 @@ export class AppointmentEntity extends Entity<AppointmentProps.Props> {
       },
       id,
     )
+
+    const isNewAppointiment = !id
+
+    if (isNewAppointiment) {
+      appointment.addDomainEvent(new AppointmentCreatedEvent(appointment))
+    }
 
     return appointment
   }
