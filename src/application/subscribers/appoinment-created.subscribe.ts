@@ -2,9 +2,13 @@ import { AppointmentCreatedEvent } from "@/anterprise/events/appointment-created
 import { DomainEvents } from "@/shared/infrastructure/events/domain-events";
 import { EventHandler } from "@/shared/infrastructure/events/event-handler";
 
+import { NotificationSendService } from "../use-cases/notification/notification-send.service";
+
 export class AppointmentCreatedSubscribe implements EventHandler{
 
-  constructor() {
+  constructor(
+    private notificationSendService: NotificationSendService
+  ) {
     this.setupSubscriptions()
   }
 
@@ -13,7 +17,11 @@ export class AppointmentCreatedSubscribe implements EventHandler{
   }
 
   private async sendNewAttatiomentNotification({appoinment}: AppointmentCreatedEvent) {
-    console.log('AppointmentCreatedSubscribe =>', appoinment)
+    await this.notificationSendService.execute({
+      recipientId: appoinment.userId.toString(),
+      title: `Novo agendamento em "${appoinment.createdAt}"`,
+      content: appoinment.status,
+    })
   }
 
 }
