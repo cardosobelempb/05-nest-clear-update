@@ -19,7 +19,12 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["./src/*"]
+      "@core": [
+        "../core/src"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
     },
     "types": [
       "vitest/globals"

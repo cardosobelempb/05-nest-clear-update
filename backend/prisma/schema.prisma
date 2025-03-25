@@ -33,7 +33,7 @@ model User {
   availablesTimes AvailableTime[]
   services        Service[]
   categories      Category[]
-  Appointments    Appointment[]
+  appointments    Appointment[]
 
   @@map("users")
 }
@@ -48,7 +48,7 @@ model AvailableTime {
   userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  Appointments Appointment[]
+  appointments Appointment[]
 
   @@map("available_times")
 }
