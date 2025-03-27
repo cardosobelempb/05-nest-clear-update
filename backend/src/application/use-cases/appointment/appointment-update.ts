@@ -1,16 +1,8 @@
-import { AvailableTimeRepository } from '@/application/repositories/available-time.repository'
-import { ServiceRepository } from '@/application/repositories/service.repository'
-import { UserRepository } from '@/application/repositories/user.repository'
-import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
-
-import { AppointmentRepository } from '../../repositories/appointmen.repository'
+import { AppointmentRepository } from "@/application/repositories/appointmen.repository"
+import { AvailableTimeRepository } from "@/application/repositories/available-time.repository"
+import { ServiceRepository } from "@/application/repositories/service.repository"
+import { UserRepository } from "@/application/repositories/user.repository"
+import { Either, left, NotAllowedError, ResourceNotFoundError, right, UniqueEntityUUID } from "@core"
 
 export namespace AppointmentUpdateProps {
   export interface Request {

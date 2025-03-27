@@ -1,7 +1,4 @@
-import { UniqueEntityUUID } from "@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid";
-import { DomainEvent } from "@/shared/infrastructure/events/domain-event";
-
-import { AppointmentEntity } from "../entity/appointment.entity";
+import { AppointmentEntity, DomainEvent, UniqueEntityUUID } from '@core';
 
 export class AppointmentCreatedEvent implements DomainEvent {
   ocurredAt: Date;

@@ -1,5 +1,4 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { AppointmentEntity, UniqueEntityUUID } from '@core'
 import { Appointment as AppointmentMapper, Prisma } from '@prisma/client'
 
 export class AppointmentPrismaMapper {
@@ -8,8 +7,8 @@ export class AppointmentPrismaMapper {
       {
         status: raw.status,
         userId: new UniqueEntityUUID(raw.userId),
-        availableTimeId: raw.availableTimeId ?  new UniqueEntityUUID(raw.availableTimeId) : null,
-        serviceId: raw.serviceId ?  new UniqueEntityUUID(raw.serviceId) : null,
+        availableTimeId: new UniqueEntityUUID(raw.availableTimeId),
+        serviceId: new UniqueEntityUUID(raw.serviceId),
         isActive: raw.isActive,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,

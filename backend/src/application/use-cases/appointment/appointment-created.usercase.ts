@@ -1,19 +1,6 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Appointment, AppointmentEntity, right, UniqueEntityUUID } from '@core'
 
 import { AppointmentRepository } from '../../repositories/appointmen.repository'
-
-export namespace AppointmentCreatedProps {
-  export interface Request {
-    userId: string
-    availableTimeId: string
-    serviceId: string
-  }
-
-  export type Response = {
-    appointment: AppointmentEntity
-  }
-}
 
 export class AppointmentCreatedUseCase {
   constructor(private readonly appointmentRespository: AppointmentRepository) {}
@@ -22,7 +9,8 @@ export class AppointmentCreatedUseCase {
     userId,
     serviceId,
     availableTimeId,
-  }: AppointmentCreatedProps.Request): Promise<AppointmentCreatedProps.Response> {
+  }: Appointment.Request): Promise<Appointment.Response> {
+    
     const appointment = AppointmentEntity.create({
       userId: new UniqueEntityUUID(userId),
       serviceId: new UniqueEntityUUID(serviceId),
@@ -31,8 +19,8 @@ export class AppointmentCreatedUseCase {
 
     await this.appointmentRespository.create(appointment)
 
-    return {
+    return right({
       appointment,
-    }
+    })
   }
 }

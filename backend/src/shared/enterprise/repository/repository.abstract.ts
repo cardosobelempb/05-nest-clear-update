@@ -1,4 +1,4 @@
-import { Pagination } from './types/pagination'
+import { Pagination } from '@core';
 
 export abstract class RepositoryAbstract<T> {
   abstract findById(id: string): Promise<T | null>

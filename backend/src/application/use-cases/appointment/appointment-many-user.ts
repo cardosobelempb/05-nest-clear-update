@@ -1,7 +1,5 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-
-import { AppointmentRepository } from '../../repositories/appointmen.repository'
-import { AppointmentAlreadyExistsError } from '../errors/appointment-already-exists.error'
+import { AppointmentRepository } from '@/application/repositories/appointmen.repository'
+import { AppointmentEntity } from '@core'
 
 export namespace AppointmentManyUserProps {
   export interface Request {

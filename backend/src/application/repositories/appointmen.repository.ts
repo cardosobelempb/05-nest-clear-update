@@ -1,5 +1,4 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-import { RepositoryAbstract } from '@/shared/enterprise/repository/repository.abstract'
+import { AppointmentEntity, RepositoryAbstract } from '@core'
 
 export abstract class AppointmentRepository extends RepositoryAbstract<AppointmentEntity> {
   // abstract appointmentManyUsers(

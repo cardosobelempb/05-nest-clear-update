@@ -1,6 +1,5 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { AppointmentEntity, Pagination } from '@core'
 
 import { AppointmentRepository } from '../appointmen.repository'
 import { AppointmentPrismaMapper } from './mappers/appointment-prisma.mapper'

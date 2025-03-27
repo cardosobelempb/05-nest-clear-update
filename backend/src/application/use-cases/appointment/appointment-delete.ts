@@ -1,10 +1,4 @@
-import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
+import { Either, left, NotAllowedError, ResourceNotFoundError, right } from '@core'
 
 import { AppointmentRepository } from '../../repositories/appointmen.repository'
 

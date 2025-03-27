@@ -1,11 +1,7 @@
-import {
-  AppointmentEntity,
-  AppointmentProps,
-} from '@/anterprise/entity/appointment.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Appointment, AppointmentEntity, UniqueEntityUUID } from "@core"
 
 export function appointmentFactory(
-  override: Partial<AppointmentProps.Props> = {},
+  override: Partial<Appointment.Props> = {},
   id?: UniqueEntityUUID,
 ) {
   const appointment = AppointmentEntity.create(

@@ -1,7 +1,4 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-import { UserEntity } from '@/anterprise/entity/user.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
-import { DomainEvents } from '@/shared/infrastructure/events/domain-events'
+import { AppointmentEntity, DomainEvents, Pagination } from '@core'
 
 import { AppointmentRepository } from '../appointmen.repository'
 

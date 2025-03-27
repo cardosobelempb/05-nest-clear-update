@@ -1,4 +1,4 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
+import { AppointmentEntity } from "@core";
 
 export class AppointmentPresenter {
   static toHTTP(appointment: AppointmentEntity) {

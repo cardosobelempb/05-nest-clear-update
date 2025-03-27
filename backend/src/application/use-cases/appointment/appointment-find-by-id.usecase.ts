@@ -1,13 +1,5 @@
-import { AppointmentEntity } from '@/anterprise/entity/appointment.entity'
-import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
-
-import { AppointmentRepository } from '../../repositories/appointmen.repository'
-import { AppointmentAlreadyExistsError } from '../errors/appointment-already-exists.error'
+import { AppointmentRepository } from '@/application/repositories/appointmen.repository'
+import { AppointmentAlreadyExistsError, AppointmentEntity, Either, left, ResourceNotFoundError, right } from '@core'
 
 export namespace AppointmentFindByIdProps {
   export interface Request {
