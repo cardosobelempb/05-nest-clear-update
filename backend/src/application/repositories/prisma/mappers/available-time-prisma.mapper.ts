@@ -6,7 +6,7 @@ export class AvailableTimePrismaMapper {
   static toDomain(raw: PrismaAvailableTime): AvailableTimeEntity {
     return AvailableTimeEntity.create(
       {
-        name: raw.name,
+        time: raw.time,
         userId: new UniqueEntityUUID(raw.userId),
         isActive: raw.isActive,
         createdAt: raw.createdAt,
@@ -21,7 +21,7 @@ export class AvailableTimePrismaMapper {
   ): Prisma.AvailableTimeUncheckedCreateInput {
     return {
       id: entity.id.toString(),
-      name: entity.name,
+      time: entity.time,
       userId: entity.userId.toString(),
       isActive: entity.isActive,
       createdAt: entity.createdAt,

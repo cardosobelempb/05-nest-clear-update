@@ -10,7 +10,7 @@ export class AvailableTimeInMemoryRepository
 
   constructor() {}
   async findByName(name: string): Promise<AvailableTimeEntity | null> {
-    const availableTime = this.items.find(item => item.name === name)
+    const availableTime = this.items.find(item => item.time === name)
 
     if (!availableTime) {
       return null

@@ -1,9 +1,7 @@
 import { Entity } from "../../shared/enterprise/entities/entity"
-import { Attachment } from "../../types/attachment"
+import { Attachment } from "../../shared/types/attachment"
 
-export class AttachmentEntity<
-  Props extends Attachment.Props,
-> extends Entity<Props> {
+export class AttachmentEntity extends Entity<Attachment.Props> {
   get name() {
     return this.props.name
   }
@@ -12,31 +10,18 @@ export class AttachmentEntity<
     this.props.name = name
   }
 
-  get link() {
-    return this.props.link
+  get url() {
+    return this.props.url
   }
 
-  set link(link: string) {
-    this.props.link = link
+  set url(url: string) {
+    this.props.url = url
   }
 
-  get isActive() {
-    return this.props.isActive
-  }
+  // static create(props: Attachment.Props, id?: UniqueEntityUUID) {
+  //   const attachment = new AttachmentEntity(props, id)
 
-  set isActive(isActive: boolean) {
-    this.props.isActive = isActive
-  }
+  //   return attachment
+  // }
 
-  get createdAt() {
-    return this.props.createdAt
-  }
-
-  get updatedAt() {
-    return this.props.updatedAt
-  }
-
-  private touch() {
-    this.props.updatedAt = new Date()
-  }
 }

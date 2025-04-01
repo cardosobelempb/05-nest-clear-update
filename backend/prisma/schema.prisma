@@ -34,13 +34,15 @@ model User {
   services        Service[]
   categories      Category[]
   appointments    Appointment[]
+  comments        Comment[]
+  sttachements    Attachement[]
 
   @@map("users")
 }
 
 model AvailableTime {
   id        String    @id @default(uuid())
-  name      String
+  time      String
   isActive  Boolean   @default(true)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
@@ -68,7 +70,9 @@ model Service {
   categoryId String?   @map("category_id")
   category   Category? @relation(fields: [categoryId], references: [id])
 
-  Appointments Appointment[]
+  appointments Appointment[]
+  comments     Comment[]
+  attachements Attachement[]
 
   @@map("services")
 }
@@ -112,4 +116,35 @@ model Appointment {
   service   Service? @relation(fields: [serviceId], references: [id])
 
   @@map("appointments")
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  content   String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  serviceId String  @map("service_id")
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  @@map("comments")
+}
+
+model Attachement {
+  id        String    @id @default(uuid())
+  title     String
+  url       String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  serviceId String  @map("service_id")
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  @@map("attachements")
 }

@@ -5,7 +5,7 @@ export class AvailableTimePresenter {
     return {
       id: availableTime.id.toString(),
       userId: availableTime.userId.toString(),
-      name: availableTime.name,
+      time: availableTime.time,
       createdAt: availableTime.createdAt,
       updatedAt: availableTime.updatedAt,
     }

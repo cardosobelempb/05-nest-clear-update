@@ -1,0 +1,25 @@
+{
+  "name": "05-nest-clear-update",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx concurrently \"cd backend && npm run start:dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cardosobelempb/05-nest-clear-update.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cardosobelempb/05-nest-clear-update/issues"
+  },
+  "homepage": "https://github.com/cardosobelempb/05-nest-clear-update#readme",
+  "description": "",
+  "dependencies": {
+    "node": "^20.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.13"
+  }
+}

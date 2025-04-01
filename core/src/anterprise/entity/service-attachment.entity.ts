@@ -1,10 +1,8 @@
-import { AggregateRoot } from "../../shared/enterprise/entities/aggregate-root"
+import { Entity } from "../../shared/enterprise"
 import { UniqueEntityUUID } from "../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid"
-import { Optional } from "../../shared/enterprise/types/optional"
+import { Service } from "../../shared/types"
 
-import { Service } from '../../types/service'
-
-export class ServiceAttachmentEntity extends AggregateRoot<Service.Attachment> {
+export class ServiceAttachmentEntity extends Entity<Service.Attachment> {
   get serviceId() {
     return this.props.serviceId
   }
@@ -14,17 +12,14 @@ export class ServiceAttachmentEntity extends AggregateRoot<Service.Attachment> {
   }
 
   static create(
-    props: Optional<
-      Service.Attachment,
-      'createdAt' | 'isActive' | 'updatedAt'
-    >,
+    props: 
+      Service.Attachment
+    ,
     id?: UniqueEntityUUID,
   ) {
     const serviceAttachment = new ServiceAttachmentEntity(
       {
         ...props,
-        isActive: props.isActive ?? true,
-        createdAt: props.createdAt ?? new Date(),
       },
       id,
     )

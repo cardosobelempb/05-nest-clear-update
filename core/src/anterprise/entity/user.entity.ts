@@ -1,7 +1,8 @@
 import { Entity } from "../../shared/enterprise/entities/entity"
 import { UniqueEntityUUID } from "../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid"
 import { Optional } from "../../shared/enterprise/types/optional"
-import { User } from "../../types/user"
+import { User } from "../../shared/types"
+
 
 
 export class UserEntity extends Entity<User.Props> {

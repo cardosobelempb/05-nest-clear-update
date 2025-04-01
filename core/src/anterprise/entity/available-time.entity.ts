@@ -1,9 +1,7 @@
 import { Entity } from "../../shared/enterprise/entities/entity"
 import { UniqueEntityUUID } from "../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid"
 import { Optional } from "../../shared/enterprise/types/optional"
-import { AvailableTime } from '../../types/available-time'
-
-
+import { AvailableTime } from '../../shared/types/available-time'
 
 export class AvailableTimeEntity extends Entity<AvailableTime.Props> {
   get name() {
@@ -22,6 +20,7 @@ export class AvailableTimeEntity extends Entity<AvailableTime.Props> {
   get userId() {
     return this.props.userId
   }
+  
 
   get createdAt() {
     return this.props.createdAt

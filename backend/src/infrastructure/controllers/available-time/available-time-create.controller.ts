@@ -7,7 +7,7 @@ import { z } from 'zod'
 
 export namespace AvailableTimeProps {
   export const request = z.object({
-    name: z.string(),
+    time: z.string(),
   })
 
   export type Request = z.infer<typeof request>
@@ -27,12 +27,16 @@ export class AvailableTimeCreateController {
     @Body() body: AvailableTimeProps.Request,
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
-    const { name } = body
+    const { time } = body
+
+    const userId = user.sub
+    console.log('AvailableTimeCreateController', time, userId)
 
     const result = await this.availableTimeCreatedUseCase.execute({
-      name,
-      userId: user.sub,
+      time,
+      userId,
     })
+
 
     if (result.isLeft()) {
       const error = result.value

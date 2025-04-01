@@ -29,6 +29,7 @@ export class AppointmentCreateController {
     @UserInLoggaed() user: JwtPayloadInfer,
   ) {
     const { serviceId, availableTimeId } = body
+    console.log('AppointmentCreateController =>', user.sub)
 
     const data: Prisma.AppointmentUncheckedCreateInput = {
       serviceId,

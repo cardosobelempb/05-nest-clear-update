@@ -1,19 +1,15 @@
 import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import {
-  Either,
-  left,
-  right,
-} from '@/shared/infrastructure/handle-erros/either'
-
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
+import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 import { AvailableTimeNameAlreadyExistsError } from '../errors/available-time-name-already-exists.error'
 
 export namespace AvailableTimeUpdateProps {
   export interface Request {
-    name: string
+    time: string
     availableTimeId: string
     userId: string
   }
@@ -34,7 +30,7 @@ export class AvailableTimeUpdateUseCase {
   ) {}
 
   async execute({
-    name,
+    time,
     availableTimeId,
     userId,
   }: AvailableTimeUpdateProps.Request): Promise<AvailableTimeUpdateProps.Response> {
@@ -45,8 +41,8 @@ export class AvailableTimeUpdateUseCase {
       return left(new ResourceNotFoundError())
     }
 
-    if (availableTime?.name === name) {
-      return left(new AvailableTimeNameAlreadyExistsError(name))
+    if (availableTime?.time === time) {
+      return left(new AvailableTimeNameAlreadyExistsError(time))
     }
 
     if (userId !== availableTime.userId.toString()) {
@@ -54,11 +50,11 @@ export class AvailableTimeUpdateUseCase {
     }
 
     const result = AvailableTimeEntity.create({
-      name,
+      time,
       userId: new UniqueEntityUUID(userId),
     })
 
-    result.name = name
+    result.time = time
 
     await this.availableTimeRespository.update(result)
 

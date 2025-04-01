@@ -1,8 +1,7 @@
 import { AggregateRoot } from '../../shared/enterprise/entities/aggregate-root'
 import { UniqueEntityUUID } from '../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-
 import { Optional } from '../../shared/enterprise/types/optional'
-import { Appointment } from '../../types/appointment'
+import { Appointment } from '../../shared/types/appointment'
 import { AppointmentCreatedEvent } from '../events/appointment-created.event'
 
 export class AppointmentEntity extends AggregateRoot<Appointment.Props> {
@@ -26,7 +25,7 @@ export class AppointmentEntity extends AggregateRoot<Appointment.Props> {
     this.props.availableTimeId = availableTimeId
   }
 
-  get serviceId():UniqueEntityUUID | null {
+  get serviceId():UniqueEntityUUID {
     return this.props.serviceId
   }
 

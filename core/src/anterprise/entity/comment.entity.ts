@@ -1,5 +1,6 @@
 import { Entity } from "../../shared/enterprise/entities/entity"
-import { Comment } from "../../types/comment"
+import { Comment } from "../../shared/types"
+
 
 export abstract class CommentEntity<
   Props extends Comment.Props,

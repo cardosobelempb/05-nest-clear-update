@@ -8,10 +8,12 @@ import { AvailableTimePrismaMapper } from './mappers/available-time-prisma.mappe
 export class AvailableTimePrismaRepository implements AvailableTimeRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findByName(name: string): Promise<AvailableTimeEntity | null> {
+  async findByName(time: string): Promise<AvailableTimeEntity | null> {
     const availableTime = await this.prismaService.availableTime.findFirst({
-      where: { name },
+      where: { time }
     })
+
+    console.log('AvailableTimePrismaRepository =>',availableTime)
     if (!availableTime) {
       return null
     }
@@ -33,7 +35,7 @@ export class AvailableTimePrismaRepository implements AvailableTimeRepository {
       take: 20,
       skip: (page - 1) * 20,
       orderBy: {
-        name: 'asc',
+        time: 'asc',
       },
     })
 

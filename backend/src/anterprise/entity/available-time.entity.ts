@@ -4,7 +4,7 @@ import { Optional } from '@prisma/client/runtime/library'
 
 export namespace AvailableTimeProps {
   export interface Props {
-    name: string
+    time: string
     isActive: boolean
     userId: UniqueEntityUUID
     createdAt: Date
@@ -16,12 +16,12 @@ export namespace AvailableTimeProps {
 }
 
 export class AvailableTimeEntity extends Entity<AvailableTimeProps.Props> {
-  get name() {
-    return this.props.name
+  get time() {
+    return this.props.time
   }
 
-  set name(name: string) {
-    this.props.name = name
+  set time(time: string) {
+    this.props.time = time
     this.touch()
   }
 
