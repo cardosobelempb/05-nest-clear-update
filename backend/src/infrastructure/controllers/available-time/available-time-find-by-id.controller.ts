@@ -1,8 +1,7 @@
 import { AvailableTimeFindByIdUseCase } from '@/application/use-cases/available-time/available-time-find-by-id.usercase'
-import { AvailableTimeNameAlreadyExistsError } from '@/application/use-cases/errors/available-time-name-already-exists.error'
 import { AvailableTimePresenter } from '@/infrastructure/presenters/available-time.presenter'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
-import { BadRequestException, ConflictException, Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common'
+import { BadRequestException, Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace AvailableTimeFindByIdProps {
@@ -37,13 +36,7 @@ export class AvailableTimeFindByIdController {
 
     if (result.isLeft()) {
       const error = result.value
-
-      switch (error.constructor) {
-        case AvailableTimeNameAlreadyExistsError:
-          throw new ConflictException(error.message)
-        default:
-          throw new BadRequestException(error.message)
-      }
+      throw new BadRequestException(error.message)
     }
 
     return {

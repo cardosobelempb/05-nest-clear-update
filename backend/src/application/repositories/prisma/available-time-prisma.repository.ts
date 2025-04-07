@@ -6,14 +6,16 @@ import { AvailableTimeRepository } from '../available-time.repository'
 import { AvailableTimePrismaMapper } from './mappers/available-time-prisma.mapper'
 
 export class AvailableTimePrismaRepository implements AvailableTimeRepository {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService
+  ) { }
 
   async findByName(time: string): Promise<AvailableTimeEntity | null> {
     const availableTime = await this.prismaService.availableTime.findFirst({
-      where: { time }
+      where: { time},
     })
 
-    console.log('AvailableTimePrismaRepository =>',availableTime)
+    console.log('AvailableTimePrismaRepository =>', availableTime)
     if (!availableTime) {
       return null
     }

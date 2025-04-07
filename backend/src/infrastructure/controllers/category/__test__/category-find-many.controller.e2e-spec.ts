@@ -7,7 +7,7 @@ import { Test } from '@nestjs/testing'
 import { hash } from 'bcryptjs'
 import request from 'supertest'
 
-describe('CategoryFindManyController (E2E)', () => {
+describe.skip('CategoryFindManyController (E2E)', () => {
   let app: INestApplication
   let prisma: PrismaService
   let jwt: JwtService

@@ -1,16 +1,7 @@
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
-import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { JwtPayloadInfer } from '@/shared/infrastructure/guards/jwt/jwt.strategy'
 import { UserInLoggaed } from '@/shared/infrastructure/guards/jwt/user-in-logged.decorator'
-import {
-  Body,
-  ConflictException,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common'
+import { Body, ConflictException, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
@@ -25,7 +16,6 @@ export namespace CategoryProps {
 }
 
 @Controller('/categories')
-@UseGuards(JwtGuard)
 export class CategoryCreateController {
   constructor(private readonly prisma: PrismaService) {}
 

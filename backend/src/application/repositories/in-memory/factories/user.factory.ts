@@ -1,6 +1,10 @@
 import { UserEntity, UserProps } from '@/anterprise/entity/user.entity'
 import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
 import { faker } from '@faker-js/faker'
+import { Injectable } from '@nestjs/common'
+
+import { UserPrismaMapper } from '../../prisma/mappers/user-prisma.mapper'
 
 export function userFactory(
   override: Partial<UserProps.Props> = {},
@@ -18,4 +22,19 @@ export function userFactory(
   )
 
   return user
+}
+
+@Injectable()
+export class UserFactory {
+  constructor(private readonly ptisma: PrismaService) { }
+
+  async create(data: Partial<UserProps.Props> = {}): Promise<UserEntity> {
+    const user = userFactory(data)
+
+    await this.ptisma.user.create({
+      data: UserPrismaMapper.toPrisma(user)
+    })
+
+    return user
+  }
 }
