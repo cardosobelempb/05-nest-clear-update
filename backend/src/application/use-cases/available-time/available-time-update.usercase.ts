@@ -1,8 +1,8 @@
 import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+import { UniqueEntityUUID } from '@core'
 
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 import { AvailableTimeNameAlreadyExistsError } from '../errors/available-time-name-already-exists.error'

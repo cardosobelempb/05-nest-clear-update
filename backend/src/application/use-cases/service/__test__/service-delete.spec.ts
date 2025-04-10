@@ -2,7 +2,7 @@ import { serviceAttachmentFactory } from '@/application/repositories/in-memory/f
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 
 import { ServiceDeleteService } from '../service-delete.service'
 import { ServiceAttachmentInMemoryRepository } from './../../../repositories/in-memory/service-attachment-in-memory.repository'

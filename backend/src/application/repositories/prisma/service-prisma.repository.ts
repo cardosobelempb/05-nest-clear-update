@@ -1,11 +1,10 @@
-import { ServiceEntity } from '@/anterprise/entity/service.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { Pagination, ServiceEntity } from '@core'
 
 import { ServiceRepository } from '../service.repository'
 import { ServicePrismaMapper } from './mappers/service-prisma.mapper'
 
-export class PrismaServiceRepository implements ServiceRepository {
+export class ServicePrismaRepository implements ServiceRepository {
   constructor(private readonly prismaService: PrismaService) {}
   findByCategoryId(categoryId: string): Promise<ServiceEntity | null> {
     throw new Error('Method not implemented.')

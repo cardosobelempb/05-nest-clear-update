@@ -1,6 +1,6 @@
 import { AppointmentInMemoryRepository } from '@/application/repositories/in-memory/appointment-in-memory.repository'
 import { appointmentFactory } from '@/application/repositories/in-memory/factories/appointment.factory'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 
 import { AppointmentDelete } from '../appointment-delete'
 

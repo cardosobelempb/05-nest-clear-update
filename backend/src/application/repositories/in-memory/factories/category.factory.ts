@@ -1,8 +1,5 @@
-import {
-  CategoryEntity,
-  CategoryEntityProps,
-} from '@/anterprise/entity/category.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { CategoryEntity, CategoryEntityProps } from '@/anterprise/entity/category.entity'
+import { UniqueEntityUUID } from '@core'
 import { faker } from '@faker-js/faker'
 
 export function categoryFactory(

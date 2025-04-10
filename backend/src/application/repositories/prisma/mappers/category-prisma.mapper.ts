@@ -1,5 +1,4 @@
-import { CategoryEntity } from '@/anterprise/entity/category.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { CategoryEntity, UniqueEntityUUID } from '@core'
 import { Category as EntityMapper, Prisma } from '@prisma/client'
 
 export class CategoryPrismaMapper {
@@ -7,7 +6,7 @@ export class CategoryPrismaMapper {
     return CategoryEntity.create(
       {
         name: raw.name,
-        userId: new UniqueEntityUUID(raw.userId),
+        userId: raw.userId,
         isActive: raw.isActive,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,

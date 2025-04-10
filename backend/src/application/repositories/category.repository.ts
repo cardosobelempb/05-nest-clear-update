@@ -1,4 +1,3 @@
-import { CategoryEntity } from '@/anterprise/entity/category.entity'
-import { RepositoryAbstract } from '@/shared/enterprise/repository/repository.abstract'
+import { CategoryEntity, RepositoryAbstract } from "@core";
 
 export abstract class CategoryRepository extends RepositoryAbstract<CategoryEntity> {}

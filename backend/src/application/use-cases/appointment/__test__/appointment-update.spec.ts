@@ -7,7 +7,7 @@ import { userFactory } from '@/application/repositories/in-memory/factories/user
 import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
 import { UserInMemoryRepository } from '@/application/repositories/in-memory/user-in-memory.repository'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 
 import { AppointmentUpdate } from '../appointment-update'
 

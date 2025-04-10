@@ -1,6 +1,5 @@
-import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { AvailableTimeEntity, Pagination } from '@core'
 
 import { AvailableTimeRepository } from '../available-time.repository'
 import { AvailableTimePrismaMapper } from './mappers/available-time-prisma.mapper'

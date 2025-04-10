@@ -1,5 +1,4 @@
-import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { AvailableTimeEntity, UniqueEntityUUID } from '@core'
 import { Prisma, AvailableTime as PrismaAvailableTime } from '@prisma/client'
 
 export class AvailableTimePrismaMapper {
@@ -7,10 +6,11 @@ export class AvailableTimePrismaMapper {
     return AvailableTimeEntity.create(
       {
         time: raw.time,
-        userId: new UniqueEntityUUID(raw.userId),
+        userId: raw.userId,
         isActive: raw.isActive,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
+        appointments: []
       },
       new UniqueEntityUUID(raw.id),
     )

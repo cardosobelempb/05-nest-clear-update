@@ -1,19 +1,18 @@
 import { AvailableTimeFindByIdUseCase } from '@/application/use-cases/available-time/available-time-find-by-id.usercase'
-import { AvailableTimePresenter } from '@/infrastructure/presenters/available-time.presenter'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
+import { AvailableTimePresenter } from '@core'
 import { BadRequestException, Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace AvailableTimeFindByIdProps {
-  const schema = z.object({
-    availableTimeId: z.string().uuid('Error 404 Not Found id doesn’t exist'),
-  })
+  export const params = z.string().optional().default('')
 
-  export const request = new ZodValidationPipe(schema)
+  export type Request = z.infer<typeof params>
 
-  export type Request = z.infer<typeof schema>
+    export const request = new ZodValidationPipe(params)
 
-  export interface Response {
+
+  export type Response = {
     availableTime: AvailableTimePresenter
   }
 }
@@ -27,20 +26,21 @@ export class AvailableTimeFindByIdController {
   @HttpCode(HttpStatus.OK)
   @Get()
   async handle(
-    @Param(AvailableTimeFindByIdProps.request)
-    { availableTimeId }: AvailableTimeFindByIdProps.Request,
+    @Param('availableTimeId', AvailableTimeFindByIdProps.params)
+    availableTimeId : AvailableTimeFindByIdProps.Request,
   ): Promise<AvailableTimeFindByIdProps.Response> {
-    const result = await this.availableTimeFindByIdUseCase.execute({
-      availableTimeId,
-    })
+    const result = await this.availableTimeFindByIdUseCase.execute(
+      {availableTimeId},
+    )
 
     if (result.isLeft()) {
-      const error = result.value
-      throw new BadRequestException(error.message)
+     throw new BadRequestException()
     }
 
+    const availableTime = AvailableTimePresenter.toHTTP(result.value.availableTime)
+
     return {
-      availableTime: AvailableTimePresenter.toHTTP(result.value.availableTime),
+      availableTime
     }
   }
 }

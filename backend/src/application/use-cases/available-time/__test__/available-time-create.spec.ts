@@ -14,7 +14,7 @@ describe('AvailableTimeCreateUseCase', () => {
   it('should be ble create a available time', async () => {
     const result = await sut.execute({
       userId: 'user-1',
-      name: 'time name',
+      time: 'time name',
     })
 
     expect(result.isRight()).toBe(true)

@@ -4,7 +4,7 @@ import { Comment } from '../types/comment';
 
 export namespace Service {
   export interface Props {
-    id: string;
+    id?: string;
     name: string;
     price: number;
     duration: string;

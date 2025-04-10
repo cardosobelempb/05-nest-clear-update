@@ -1,9 +1,5 @@
-import { AggregateRoot } from '@/shared/enterprise/entities/aggregate-root'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { AggregateRoot, DomainEvent, DomainEvents, UniqueEntityUUID } from '@core'
 import { vi } from 'vitest'
-
-import { DomainEvent } from './domain-event'
-import { DomainEvents } from './domain-events'
 
 class CustomAggregateCreated implements DomainEvent {
   public ocurredAt: Date

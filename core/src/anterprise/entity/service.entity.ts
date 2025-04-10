@@ -1,10 +1,6 @@
-import { AggregateRoot } from '../../shared/enterprise/entities/aggregate-root'
-import { UniqueEntityUUID } from '../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { Optional } from '../../shared/enterprise/types/optional'
-import { Service } from '../../shared/types'
-
-import { ServiceAttachmentListEntity } from './service-attachment-list.entity'
-
+import { AggregateRoot, Optional, UniqueEntityUUID } from "../../shared/enterprise"
+import { Service } from "../../shared/types"
+import { ServiceAttachmentListEntity } from "./service-attachment-list.entity"
 
 export class ServiceEntity extends AggregateRoot<Service.Props> {
   get name() {

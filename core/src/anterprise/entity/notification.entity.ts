@@ -1,10 +1,5 @@
-import { Entity } from "../../shared/enterprise/entities/entity"
-import { UniqueEntityUUID } from "../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid"
-import { Optional } from "../../shared/enterprise/types/optional"
-import { Notification } from "../../shared/types/notification"
-
-
-
+import { Entity, Optional, UniqueEntityUUID } from "../../shared/enterprise"
+import { Notification } from "../../shared/types"
 
 export class NotificationEntity extends Entity<Notification.Props> {
   get recipientId() {

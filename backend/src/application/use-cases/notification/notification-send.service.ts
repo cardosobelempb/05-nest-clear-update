@@ -1,6 +1,6 @@
 import { NotificationEntity } from '@/anterprise/entity/notification.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+import { UniqueEntityUUID } from '@core'
 
 import { NotificationRepository } from '../../repositories/notifications-repository'
 

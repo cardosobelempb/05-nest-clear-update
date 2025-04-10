@@ -1,11 +1,11 @@
-import { AvailableTimeEntity } from '../../anterprise/entity/available-time.entity'
+import { AvailableTimeEntity } from '@core'
 
 export class AvailableTimePresenter {
   static toHTTP(availableTime: AvailableTimeEntity) {
     return {
       id: availableTime.id.toString(),
       userId: availableTime.userId.toString(),
-      name: availableTime.name,
+      time: availableTime.time,
       createdAt: availableTime.createdAt,
       updatedAt: availableTime.updatedAt,
     }

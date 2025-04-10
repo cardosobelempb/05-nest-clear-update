@@ -1,5 +1,5 @@
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { Optional } from '@prisma/client/runtime/library'
+import { Optional, UniqueEntityUUID } from '@core'
+
 import { CommentEntity, CommentEntityProps } from './comment.entity'
 
 export namespace ServiceCommentEntityProps {

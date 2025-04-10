@@ -1,12 +1,12 @@
+import { ServiceAttachmentListEntity } from '@/anterprise/entity/service-attachment-list.entity'
+import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { ServiceEntity } from '@/anterprise/entity/service.entity'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
 import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
 import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+import { UniqueEntityUUID } from '@core'
 
-import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { ServiceRepository } from '../../repositories/service.repository'
-import { ServiceAttachmentListEntity } from '@/anterprise/entity/service-attachment-list.entity'
 
 export namespace ServiceCreateProps {
   export interface Request {

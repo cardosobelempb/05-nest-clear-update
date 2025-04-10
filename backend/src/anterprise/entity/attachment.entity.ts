@@ -1,4 +1,4 @@
-import { Entity } from '@/shared/enterprise/entities/entity'
+import { Entity } from '@core'
 
 export namespace AttachmentProps {
   export interface Props {

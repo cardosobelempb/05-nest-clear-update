@@ -1,6 +1,6 @@
 import { AvailableTimeInMemoryRepository } from '@/application/repositories/in-memory/available-time-in-memory.repository'
 import { availabletimeFactory } from '@/application/repositories/in-memory/factories/available-time.factory'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 
 import { AvailableTimeDelete } from '../available-time-delete'
 

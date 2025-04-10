@@ -1,5 +1,4 @@
-import { UserEntity } from '@/anterprise/entity/user.entity'
-import { RepositoryAbstract } from '@/shared/enterprise/repository/repository.abstract'
+import { RepositoryAbstract, UserEntity } from "@core";
 
 export abstract class UserRepository extends RepositoryAbstract<UserEntity> {
   abstract findByEmail(email: string): Promise<UserEntity | null>

@@ -11,19 +11,19 @@ export namespace User {
   }
 
   export type Props = {
-    id: string;
+    id?: string;
     name: string;
     email: string;
     password: string;
     phone: string;
     isActive: boolean;
-    role: Roles;
+    role?: Roles;
     createdAt: Date;
     updatedAt?: Date | null;
 
-    availablesTimes: AvailableTime.Props[];
-    services: Service.Props[];
-    categories: Category.Props[];
-    appointments: Appointment.Props[];
+    availablesTimes?: AvailableTime.Props[];
+    services?: Service.Props[];
+    categories?: Category.Props[];
+    appointments?: Appointment.Props[];
   };
 }

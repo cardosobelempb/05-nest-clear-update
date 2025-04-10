@@ -1,5 +1,4 @@
-import { ServiceEntity } from '@/anterprise/entity/service.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { ServiceEntity, UniqueEntityUUID } from '@core'
 import { Prisma, Service as ServiceMapper } from '@prisma/client'
 
 export class ServicePrismaMapper {

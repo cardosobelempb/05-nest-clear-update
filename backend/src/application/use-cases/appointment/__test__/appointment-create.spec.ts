@@ -13,13 +13,13 @@ describe('AppointmentCreateUseCase', () => {
   })
 
   it('should be ble create a available time', async () => {
-    const { appointment } = await sut.execute({
+    const result = await sut.execute({
       userId: '1',
       serviceId: '1',
       availableTimeId: '1',
     })
 
-    expect(appointment.id).toBeTruthy()
-    expect(appointmentInMemoryRepository.items[0].id).toEqual(appointment.id)
+    expect(result.value?.appointment.id).toBeTruthy()
+    expect(appointmentInMemoryRepository.items[0].id).toEqual(result.value?.appointment.id)
   })
 })

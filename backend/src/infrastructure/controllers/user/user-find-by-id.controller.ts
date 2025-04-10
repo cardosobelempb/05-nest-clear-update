@@ -1,10 +1,9 @@
 import { UserFindByIdUseCase } from '@/application/use-cases/user/user-find-by-id.usercase'
 import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
+import { UserPresenter } from '@core'
 import { BadRequestException, Controller, Get, HttpCode, HttpStatus, Param, UseGuards } from '@nestjs/common'
 import { z } from 'zod'
-
-import { UserPresenter } from '../../presenters/user.presenter'
 
 export namespace UserFindByIdProps {
   const params = z.string().optional().default('')

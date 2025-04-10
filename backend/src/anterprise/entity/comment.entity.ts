@@ -1,5 +1,4 @@
-import { Entity } from '@/shared/enterprise/entities/entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { Entity, UniqueEntityUUID } from '@core'
 
 export namespace CommentEntityProps {
   export interface Props {

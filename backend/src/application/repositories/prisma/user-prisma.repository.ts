@@ -1,6 +1,5 @@
-import { UserEntity } from '@/anterprise/entity/user.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { Pagination, UserEntity } from '@core'
 
 import { UserRepository } from '../user.repository'
 import { UserPrismaMapper } from './mappers/user-prisma.mapper'

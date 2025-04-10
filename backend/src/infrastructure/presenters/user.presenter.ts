@@ -1,4 +1,4 @@
-import { UserEntity } from '@/anterprise/entity/user.entity'
+import { UserEntity } from '@core'
 
 export class UserPresenter {
   static toHTTP(user: UserEntity) {

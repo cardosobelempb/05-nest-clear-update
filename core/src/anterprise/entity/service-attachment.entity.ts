@@ -1,5 +1,4 @@
-import { Entity } from "../../shared/enterprise"
-import { UniqueEntityUUID } from "../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid"
+import { Entity, UniqueEntityUUID } from "../../shared/enterprise"
 import { Service } from "../../shared/types"
 
 export class ServiceAttachmentEntity extends Entity<Service.Attachment> {

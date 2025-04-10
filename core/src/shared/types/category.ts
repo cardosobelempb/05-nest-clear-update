@@ -1,6 +1,6 @@
 export namespace Category {
   export interface Props  {
-    id: string;
+    id?: string;
     name: string;
     isActive: boolean;
     createdAt: Date;

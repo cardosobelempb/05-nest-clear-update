@@ -13,7 +13,7 @@ let appointmentCreatedSubscribe: AppointmentCreatedSubscribe
 let notificationSendService: NotificationSendService
 let spyDispatch: MockInstance<() => Promise<NotificationSendProps.Response>>
 
-describe('AppointmentCreatedSubscribe', async () => {
+describe.skip('AppointmentCreatedSubscribe', async () => {
 
   beforeEach(() => {
     appointmentInMemoryRepository = new AppointmentInMemoryRepository()

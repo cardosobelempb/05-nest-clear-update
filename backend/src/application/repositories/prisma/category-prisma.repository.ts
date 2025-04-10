@@ -1,11 +1,10 @@
-import { CategoryEntity } from '@/anterprise/entity/category.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
+import { CategoryEntity, Pagination } from '@core'
 
 import { CategoryRepository } from '../category.repository'
 import { CategoryPrismaMapper } from './mappers/category-prisma.mapper'
 
-export class PrismaCategoryRepository implements CategoryRepository {
+export class CategoryPrismaRepository implements CategoryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findById(id: string): Promise<CategoryEntity | null> {

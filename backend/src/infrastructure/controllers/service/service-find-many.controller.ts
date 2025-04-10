@@ -1,14 +1,7 @@
-import {
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Query,
-  UseGuards,
-} from '@nestjs/common'
-import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
-import { JwtGuard } from '@/shared/infrastructure/guards/jwt/jwt.guard'
+import { ServiceManyService } from '@/application/use-cases/service/service-many.service'
 import { ZodValidationPipe } from '@/shared/infrastructure/pipes/zod-validation.pipe'
+import { right } from '@core'
+import { Controller, Get, HttpCode, HttpStatus, Query } from '@nestjs/common'
 import { z } from 'zod'
 
 export namespace ServiceFindManyProps {
@@ -23,13 +16,12 @@ export namespace ServiceFindManyProps {
 
   export const request = new ZodValidationPipe(params)
 
-  export interface Response {}
+  export type Response = {}
 }
 
 @Controller('/services')
-@UseGuards(JwtGuard)
 export class ServiceFindManyController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly serviceManyService: ServiceManyService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get()
@@ -37,14 +29,11 @@ export class ServiceFindManyController {
     @Query('page', ServiceFindManyProps.request)
     page: ServiceFindManyProps.Request,
   ) {
-    const perPage = 20
-    const services = await this.prisma.service.findMany({
-      take: perPage,
-      skip: (page - 1) * perPage,
-      orderBy: {
-        createdAt: 'desc',
-      },
+    const linesPerPage = 20
+    const services = await this.serviceManyService.execute({
+      page,
+      linesPerPage,
     })
-    return { services }
+    return right({ services })
   }
 }

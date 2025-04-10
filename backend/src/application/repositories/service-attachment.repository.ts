@@ -1,5 +1,4 @@
-import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
-import { RepositoryAbstract } from '@/shared/enterprise/repository/repository.abstract'
+import { RepositoryAbstract, ServiceAttachmentEntity } from "@core";
 
 export abstract class ServiceAttachmentRepository extends RepositoryAbstract<ServiceAttachmentEntity> {
   abstract deleteManyServiceId(serviceId: string): Promise<void>

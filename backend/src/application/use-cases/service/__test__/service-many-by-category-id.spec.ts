@@ -1,7 +1,7 @@
 import { serviceFactory } from '@/application/repositories/in-memory/factories/service.factory'
 import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 
 import { ServiceManyByCategoryIdService } from '../service-many-by-category-id.service'
 

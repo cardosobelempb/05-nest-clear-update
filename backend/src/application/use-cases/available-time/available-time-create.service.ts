@@ -1,8 +1,7 @@
 import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
-import { AvailableTimeNameAlreadyExistsError } from '@core'
+import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+import { AvailableTimeNameAlreadyExistsError, UniqueEntityUUID } from '@core'
 
 import { AvailableTimeRepository } from '../../repositories/available-time.repository'
 
@@ -29,28 +28,13 @@ export class AvailableTimeCreateService {
     userId,
     time,
   }: AvailableTimeCreateProps.Request): Promise<AvailableTimeCreateProps.Response> {
-    const currentTimeName = await this.availableTimeRespository.findByName(time)
+    // const currentTimeName = await this.availableTimeRespository.findByName(time)
 
-    if (currentTimeName === null) {
-      console.log('IF 01')
-      return left(new AvailableTimeNameAlreadyExistsError(time))
-    }
-    console.log('Time Name =>', currentTimeName.time)
-    console.log('Param time => ', time)
-    console.log('Time userId =>', currentTimeName.userId.toString())
-    console.log('Param UserId =>', userId)
+    // if (!currentTimeName) {
+    //   return left(new AvailableTimeNameAlreadyExistsError(time))
+    // }
 
-    if (currentTimeName.userId.toString() === userId) {
-      console.log('IF 02')
-      return left(new AvailableTimeNameAlreadyExistsError(time))
-    } else if (currentTimeName.time !== time && currentTimeName.userId.toString() !== userId ) {
-      console.log('IF 03')
-      return left(new AvailableTimeNameAlreadyExistsError(time))
-    } else if (currentTimeName.userId.toString() === userId || currentTimeName.time !== time) {
-      console.log('IF 04')
-      return left(new AvailableTimeNameAlreadyExistsError(time))
-    } else {
-      const availableTime = AvailableTimeEntity.create({
+    const availableTime = AvailableTimeEntity.create({
         userId: new UniqueEntityUUID(userId),
         time,
       })
@@ -60,7 +44,6 @@ export class AvailableTimeCreateService {
       return right({
         availableTime,
       })
-    }
 
   }
 }

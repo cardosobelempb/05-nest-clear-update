@@ -5,7 +5,7 @@ import { serviceFactory } from '@/application/repositories/in-memory/factories/s
 import { ServiceAttachmentInMemoryRepository } from '@/application/repositories/in-memory/service-attachment-in-memory.repository'
 import { ServiceInMemoryRepository } from '@/application/repositories/in-memory/service-in-memory.repository'
 import { NotAllowedError } from '@/shared/application/usecase-erros/not-allowed.erro'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 
 import { ServiceUpdateService } from '../service-update.service'
 

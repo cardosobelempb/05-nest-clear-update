@@ -1,15 +1,13 @@
-import { Entity } from "../../shared/enterprise/entities/entity"
-import { UniqueEntityUUID } from "../../shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid"
-import { Optional } from "../../shared/enterprise/types/optional"
-import { AvailableTime } from '../../shared/types/available-time'
+import { Entity, Optional, UniqueEntityUUID } from "../../shared/enterprise"
+import { AvailableTime } from "../../shared/types"
 
 export class AvailableTimeEntity extends Entity<AvailableTime.Props> {
-  get name() {
-    return this.props.name
+  get time() {
+    return this.props.time
   }
 
-  set name(name: string) {
-    this.props.name = name
+  set time(time: string) {
+    this.props.time = time
     this.touch()
   }
 

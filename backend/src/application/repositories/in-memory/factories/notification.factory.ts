@@ -1,9 +1,7 @@
-import {
-  NotificationEntity,
-  NotificationProps,
-} from '@/anterprise/entity/notification.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { NotificationEntity, NotificationProps } from '@/anterprise/entity/notification.entity'
+import { UniqueEntityUUID } from '@core'
 import { faker } from '@faker-js/faker'
+
 export function notificationFactory(
   override: Partial<NotificationProps.Props> = {},
   id?: UniqueEntityUUID,

@@ -1,6 +1,4 @@
-import { UserEntity } from '@/anterprise/entity/user.entity'
-import { ResourceNotFoundError } from '@/shared/application/usecase-erros/resource-not-found.error'
-import { Either, left, right } from '@/shared/infrastructure/handle-erros/either'
+import { Either, left, ResourceNotFoundError, right, UserEntity } from '@core'
 
 import { UserRepository } from '../../repositories/user.repository'
 

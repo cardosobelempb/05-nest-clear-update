@@ -1,6 +1,5 @@
 import { ServiceEntity } from '@/anterprise/entity/service.entity'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
-import { Either, right } from '@/shared/infrastructure/handle-erros/either'
+import { Either, Pagination, right } from '@core'
 
 import { ServiceRepository } from '../../repositories/service.repository'
 

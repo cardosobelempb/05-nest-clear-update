@@ -1,8 +1,5 @@
-import {
-  ServiceCommentEntityProps,
-  ServiceCommnetEntity,
-} from '@/anterprise/entity/service-comment.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { ServiceCommentEntityProps, ServiceCommnetEntity } from '@/anterprise/entity/service-comment.entity'
+import { UniqueEntityUUID } from '@core'
 import { faker } from '@faker-js/faker'
 
 export function serviceCommentFactory(

@@ -1,6 +1,6 @@
 import { serviceCommentFactory } from '@/application/repositories/in-memory/factories/service-comment.factory'
 import { ServiceCommentInMemoryRepository } from '@/application/repositories/in-memory/service-comment-in-memory.repository'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 
 import { ServiceFindManyCommentIdService } from '../service-find-many-comment-id.service'
 

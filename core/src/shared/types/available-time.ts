@@ -2,8 +2,8 @@ import { Appointment } from './appointment';
 
 export namespace AvailableTime {
   export type Props = {
-    id: string;
-    name: string;
+    id?: string;
+    time: string;
     isActive: boolean;
     createdAt: Date;
     updatedAt?: Date | null;

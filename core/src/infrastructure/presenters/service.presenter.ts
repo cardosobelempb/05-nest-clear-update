@@ -1,4 +1,4 @@
-import { ServiceEntity } from '../../anterprise/entity/service.entity'
+import { ServiceEntity } from '@core'
 
 export class ServicePresenter {
   static toHTTP(service: ServiceEntity) {

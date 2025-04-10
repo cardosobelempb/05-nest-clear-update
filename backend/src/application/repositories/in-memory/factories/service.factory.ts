@@ -1,6 +1,5 @@
-import { ServiceAttachmentEntity } from '@/anterprise/entity/service-attachment.entity'
 import { ServiceEntity, ServiceProps } from '@/anterprise/entity/service.entity'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
+import { UniqueEntityUUID } from '@core'
 import { faker } from '@faker-js/faker'
 
 export function serviceFactory(
@@ -13,7 +12,7 @@ export function serviceFactory(
       price: Number(faker.commerce.price()),
       duration: '08:00',
       categoryId: new UniqueEntityUUID(),
-      userId: new UniqueEntityUUID(),
+      userId: new UniqueEntityUUID(''),
       ...override,
     },
     id,

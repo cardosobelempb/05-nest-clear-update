@@ -1,6 +1,4 @@
-import { ServiceCommnetEntity } from '@/anterprise/entity/service-comment.entity'
-import { RepositoryAbstract } from '@/shared/enterprise/repository/repository.abstract'
-import { Pagination } from '@/shared/enterprise/repository/types/pagination'
+import { Pagination, RepositoryAbstract, ServiceCommnetEntity } from "@core";
 
 export abstract class ServiceCommentRepository extends RepositoryAbstract<ServiceCommnetEntity> {
   abstract findManyServiceId(

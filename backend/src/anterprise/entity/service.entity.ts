@@ -1,6 +1,4 @@
-import { AggregateRoot } from '@/shared/enterprise/entities/aggregate-root'
-import { UniqueEntityUUID } from '@/shared/enterprise/entities/value-objects/unique-entity-uuid/unique-entity-uuid'
-import { Optional } from '@prisma/client/runtime/library'
+import { AggregateRoot, Optional, UniqueEntityUUID } from '@core'
 
 import { ServiceAttachmentListEntity } from './service-attachment-list.entity'
 

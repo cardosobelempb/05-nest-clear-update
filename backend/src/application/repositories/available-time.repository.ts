@@ -1,5 +1,4 @@
-import { AvailableTimeEntity } from '@/anterprise/entity/available-time.entity'
-import { RepositoryAbstract } from '@/shared/enterprise/repository/repository.abstract'
+import { AvailableTimeEntity, RepositoryAbstract } from '@core';
 
 export abstract class AvailableTimeRepository extends RepositoryAbstract<AvailableTimeEntity> {
   abstract findByName(name: string): Promise<AvailableTimeEntity | null>
